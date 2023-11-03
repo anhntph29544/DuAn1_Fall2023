@@ -15,28 +15,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 @Controller
 public class MauSacController {
     @Autowired
     private MauSacSV sv;
-    private List<MauSac> listN=new ArrayList<>();
+    private List<MauSac> listN = new ArrayList<>();
+
     @GetMapping("/mau-sac/hien-thi")
-    public String hienThi(Model model){
-        listN=sv.getAll();
-        model.addAttribute("listM",listN);
+    public String hienThi(Model model) {
+        listN = sv.getAll();
+        model.addAttribute("listM", listN);
         model.addAttribute("m1", new MauSac());
-        return "MauSac";
+        return "/mausac/MauSac";
     }
+
     @GetMapping("/mau-sac/detail/{id}")
     public String detail(@PathVariable("id") UUID id, Model model) {
         MauSac n = sv.detail(id);
         listN = sv.getAll();
         model.addAttribute("listM", listN);
         model.addAttribute("m1", n);
-        return "MauSac";
+        return "/mausac/MauSac";
     }
+
     @PostMapping("/mau-sac/add")
-    public String add( @ModelAttribute("m1") MauSac n) {
+    public String add(@ModelAttribute("m1") MauSac n) {
         sv.add(n);
         return "redirect:/mau-sac/hien-thi";
     }
@@ -45,11 +49,11 @@ public class MauSacController {
     public String viewUpdate(@PathVariable("id") UUID id, Model model) {
         MauSac d = sv.detail(id);
         model.addAttribute("m1", d);
-        return "mausac-update";
+        return "/mausac/mausac-update";
     }
 
     @PostMapping("/mau-sac/update/{id}")
-    public String update(@PathVariable("id") UUID id,  @ModelAttribute("m1") MauSac p, BindingResult result) {
+    public String update(@PathVariable("id") UUID id, @ModelAttribute("m1") MauSac p, BindingResult result) {
 
         sv.update(p, id);
         return "redirect:/mau-sac/hien-thi";

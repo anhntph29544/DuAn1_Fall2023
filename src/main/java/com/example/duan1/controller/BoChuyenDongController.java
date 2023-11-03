@@ -27,7 +27,7 @@ public class BoChuyenDongController {
         listN=sv.getAll();
         model.addAttribute("listM",listN);
         model.addAttribute("m1", new MauSac());
-        return "BoChuyenDong";
+        return "/bochuyendong/BoChuyenDong";
     }
     @GetMapping("/bo-chuyen-dong/detail/{id}")
     public String detail(@PathVariable("id") UUID id, Model model) {
@@ -35,7 +35,7 @@ public class BoChuyenDongController {
         listN = sv.getAll();
         model.addAttribute("listM", listN);
         model.addAttribute("m1", n);
-        return "BoChuyenDong";
+        return "/bochuyendong/BoChuyenDong";
     }
     @PostMapping("/bo-chuyen-dong/add")
     public String add( @ModelAttribute("m1") BoChuyenDong n) {
@@ -47,7 +47,7 @@ public class BoChuyenDongController {
     public String viewUpdate(@PathVariable("id") UUID id, Model model) {
         BoChuyenDong d = sv.detail(id);
         model.addAttribute("m1", d);
-        return "bo-chuyen-dong-update";
+        return "/bo-chuyen-dong/bo-chuyen-dong-update";
     }
 
     @PostMapping("/bo-chuyen-dong/update/{id}")
