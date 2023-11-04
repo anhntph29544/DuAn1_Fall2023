@@ -1,18 +1,20 @@
 package com.example.duan1.service;
 
-import com.example.duan1.entity.BanDap;
+import com.example.duan1.entity.KichThuoc;
 
 import java.util.List;
 import java.util.UUID;
 
-public interface BanDapService {
+public interface KichThuocService {
 
-    List<BanDap> getAll();
+    List<KichThuoc> getAll();
 
-    BanDap detail(UUID id);
-
-    void save(BanDap bd);
+    void add(KichThuoc kichThuoc);
 
     void delete(UUID id);
+
+    void update(KichThuoc kichThuoc, UUID id);
+
+    KichThuoc detail(UUID id);
 
 }
