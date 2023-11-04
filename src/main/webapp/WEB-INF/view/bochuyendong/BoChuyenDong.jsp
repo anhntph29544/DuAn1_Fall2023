@@ -29,8 +29,8 @@
     <thead>
     <tr>
         <th>STT</th>
-        <th>Tên</th>
         <th>Mã</th>
+        <th>Tên</th>
         <th>Trạng Thái</th>
         <th>Action</th>
     </tr>
