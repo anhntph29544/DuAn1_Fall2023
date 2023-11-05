@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.duan1.controller;
 
-import com.example.demo.model.HinhAnh;
-import com.example.demo.service.HinhAnhService;
+import com.example.duan1.entity.HinhAnh;
+import com.example.duan1.service.HinhAnhService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 
 @Controller

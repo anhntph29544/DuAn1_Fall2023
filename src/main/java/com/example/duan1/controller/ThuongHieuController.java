@@ -1,8 +1,7 @@
-package com.example.demo.controller;
+package com.example.duan1.controller;
 
-import com.example.demo.model.HinhAnh;
-import com.example.demo.model.ThuongHieu;
-import com.example.demo.service.ThuongHieuService;
+import com.example.duan1.service.ThuongHieuService;
+import com.example.duan1.entity.ThuongHieu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

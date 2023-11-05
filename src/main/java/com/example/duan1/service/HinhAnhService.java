@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.example.duan1.service;
 
-import com.example.demo.model.HinhAnh;
+import com.example.duan1.entity.HinhAnh;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Service
 public interface HinhAnhService {
+
     List<HinhAnh> getAll();
 
     Optional<HinhAnh> detail(UUID id);
