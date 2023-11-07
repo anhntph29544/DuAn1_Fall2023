@@ -48,6 +48,9 @@
                 <a href="/shop-xe/kieu-dang-xe/detail/${kdx1.id}">
                     <button>detail</button>
                 </a>
+                <a href="/shop-xe/kieu-dang-xe/delete/${kdx1.id}">
+                    <button>delete</button>
+                </a>
             </td>
         </tr>
     </c:forEach>

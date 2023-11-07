@@ -56,6 +56,13 @@ public class ThuongHieuController {
         return "/thuonghieu/thuonghieus";
     }
 
+    @GetMapping("/shop-xe/thuong-hieu/delete/{id}")
+    public String delete(@PathVariable("id")UUID id){
+        ThuongHieu th = thuongHieuService.detail(id);
+        thuongHieuService.delete(th);
+        return "redirect:/shop-xe/thuong-hieu/hien-thi";
+    }
+
     @PostMapping("/shop-xe/thuong-hieu/update")
     public String update(@Valid @ModelAttribute("th1")ThuongHieu th1){
         ThuongHieu th = ThuongHieu.builder()

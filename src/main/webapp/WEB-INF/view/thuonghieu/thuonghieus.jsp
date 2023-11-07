@@ -48,6 +48,9 @@
                 <a href="/shop-xe/thuong-hieu/detail/${th.id}">
                     <button>detail</button>
                 </a>
+                <a href="/shop-xe/thuong-hieu/delete/${th.id}">
+                    <button>delete</button>
+                </a>
             </td>
         </tr>
     </c:forEach>

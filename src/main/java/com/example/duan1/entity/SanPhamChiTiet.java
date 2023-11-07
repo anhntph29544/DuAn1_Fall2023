@@ -41,10 +41,6 @@ public class SanPhamChiTiet {
     private KichThuoc kt;
 
     @ManyToOne
-    @JoinColumn(name = "id_hinh_anh",referencedColumnName = "id_hinh_anh")
-    private HinhAnh ha;
-
-    @ManyToOne
     @JoinColumn(name = "id_mau_sac",referencedColumnName = "id_mau_sac")
     private MauSac ms;
 

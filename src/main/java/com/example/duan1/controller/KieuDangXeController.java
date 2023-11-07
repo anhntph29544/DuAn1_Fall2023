@@ -67,6 +67,12 @@ public class KieuDangXeController {
         return "/kieudangxe/hien-thi";
     }
 
+    @GetMapping("/shop-xe/kieu-dang-xe/delete/{id}")
+    public String delete(@PathVariable("id")UUID id){
+        service.remove(id);
+        return "redirect:/shop-xe/kieu-dang-xe/hien-thi";
+    }
+
     @PostMapping("/shop-xe/kieu-dang-xe/update")
     public String update(@Valid @ModelAttribute("kdx1")KieuDangXe kdx1,
                          BindingResult result){
