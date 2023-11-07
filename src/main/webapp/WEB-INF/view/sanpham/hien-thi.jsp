@@ -10,8 +10,16 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        i {
+            font-size: 30px;
+        }
+        body{
+            margin: auto;
+        }
+    </style>
 </head>
-<body style="margin: auto">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">TÀI KHOẢN</a>
@@ -72,25 +80,27 @@
                     <%--sản phẩm--%>
                 <div class="mb-3">
                     <label class="form-label">Sản phẩm</label>
-                    <form:select path="sp">
-                        <c:forEach items="${listSP}" var="sp">
-                            <form:option value="${sp}">${sp.ten}</form:option>
-                        </c:forEach>
-                    </form:select>
-                    <a href="/san-pham/hien-thi"><i class="bi bi-plus-circle-fill"></i></a>
+                    <div class="col-md-12 row">
+                        <div class="col-md-11">
+                            <form:select path="sp" class="form-select">
+                                <c:forEach items="${listSP}" var="sp">
+                                    <form:option value="${sp}">${sp.ten}</form:option>
+                                </c:forEach>
+                            </form:select>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="/san-pham/hien-thi"><i class="bi bi-plus-circle-dotted"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Hình ảnh</label>
-                    <input type="file"/>
-                </div>
-            </div>
-            <div class="col-md-3">
                     <%--đơn giá--%>
                 <div class="mb-3">
                     <label class="form-label">Đơn giá</label>
                     <form:input class="form-control" path="gia"/>
                     <div class="form-text"><form:errors path="gia"/></div>
                 </div>
+            </div>
+            <div class="col-md-3">
                     <%--số lượng--%>
                 <div class="mb-3">
                     <label class="form-label">Số lượng</label>
@@ -103,8 +113,6 @@
                     <form:input class="form-control" path="moTa"/>
                     <div class="form-text"><form:errors path="moTa"/></div>
                 </div>
-            </div>
-            <div class="col-md-3">
                 <div class="mb-3">
                     <label class="form-label">Màu sắc</label>
                     <form:select path="ms" class="form-select">
@@ -113,6 +121,9 @@
                         </c:forEach>
                     </form:select>
                 </div>
+            </div>
+            <div class="col-md-3">
+
                 <div class="mb-3">
                     <label class="form-label">Kiểu dáng xe</label>
                     <form:select path="kdx" class="form-select">
@@ -129,8 +140,6 @@
                         </c:forEach>
                     </form:select>
                 </div>
-            </div>
-            <div class="col-md-3">
                 <div class="mb-3">
                     <label class="form-label">Thương hiệu</label>
                     <form:select path="th" class="form-select">
@@ -138,6 +147,13 @@
                             <form:option value="${th}">${th.ten}</form:option>
                         </c:forEach>
                     </form:select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                    <%--hinh anh--%>
+                <div class="mb-3">
+                    <label class="form-label">Hình ảnh</label>
+                    <input type="file"/>
                 </div>
                     <%--trạng thái--%>
                 <div class="mb-3">
@@ -154,9 +170,11 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="return confirm('Bạn chắc chưa ?')">
-            <i class="bi bi-plus-square"></i> Thêm
-        </button>
+        <div style="text-align: right">
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Bạn chắc chưa ?')">
+                <i class="bi bi-plus-square"></i> Thêm
+            </button>
+        </div>
     </form:form>
     <table class="table">
         <thead>
