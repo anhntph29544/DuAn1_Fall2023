@@ -10,17 +10,19 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body>
-
-<form action="/kich-thuoc/add" method="post"  modelAttribute ="kt">
-    Ma: <input type="text" name="ma" value="${kt.ma}">
-    <br/>
-    Ten: <input type="text" name="ten" value="${kt.ten}">
-    <br>
-    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${kt.trangThai=="0"?'Checked':''}/>hoat dong
-    <input type="radio" name="trangThai" value="1" ${kt.trangThai=="1"?'Checked':''}/>khong hoat dong
-    <br>
-    <button type="submit">add</button>
+<body style="padding-top: 10px">
+<f:form action="/shop-xe/thuong-hieu/add" method="post" modelAttribute="th1">
+    ma: <f:input path="ma"/>
+    <f:errors path="ma"/><br>
+    ten: <f:input path="ten"/>
+    <f:errors path="ten"/><br>
+    trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>hoat dong
+    <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
+    <f:button type="submit">add</f:button>
+</f:form>
+<form>
+    <input type="text" name="ten">
+    <a href="/shop-xe/thuong-hieu/hien-thi"><button>tim kiem</button></a>
 </form>
 <table class="table">
     <thead>
@@ -33,20 +35,20 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${list}" var="kt" varStatus="stt">
+    <c:forEach items="${list.content}" var="th" varStatus="stt">
         <tr>
             <th scope="row">${stt.index+1}</th>
-            <td>${kt.ma}</td>
-            <td>${kt.ten}</td>
-            <td>${kt.trangThai}</td>
+            <td>${th.ma}</td>
+            <td>${th.ten}</td>
+            <td>${th.trangThai}</td>
             <td>
-                <a href="/kich-thuoc/view-update/${kt.id}">
+                <a href="/shop-xe/thuong-hieu/view-update/${th.id}">
                     <button>update</button>
                 </a>
-                <a href="/kich-thuoc/detail/${kt.id}">
+                <a href="/shop-xe/thuong-hieu/detail/${th.id}">
                     <button>detail</button>
                 </a>
-                <a href="/kich-thuoc/delete/${kt.id}">
+                <a href="/shop-xe/thuong-hieu/delete/${th.id}">
                     <button>delete</button>
                 </a>
             </td>
@@ -54,5 +56,14 @@
     </c:forEach>
     </tbody>
 </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <c:forEach begin="0" end="${list.totalPages-1<0?0:list.totalPages-1}" varStatus="loop">
+            <li class="page-item"><a class="page-link"
+                                     href="/shop-xe/thuong-hieu/hien-thi?page=${loop.index}">${loop.index+1}</a>
+            </li>
+        </c:forEach>
+    </ul>
+</nav>
 </body>
 </html>

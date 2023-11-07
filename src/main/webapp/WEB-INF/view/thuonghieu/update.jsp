@@ -1,4 +1,5 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,7 +11,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body style="padding-top: 10px">
-<f:form action="/shop-xe/kieu-dang-xe/update" method="post" modelAttribute="kdx1">
+<f:form action="/shop-xe/thuong-hieu/update" method="post" modelAttribute="th1">
     ma: <f:input path="ma"/>
     <f:errors path="ma"/><br>
     ten: <f:input path="ten"/>

@@ -10,7 +10,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="padding-top: 10px">
 <f:form action="/shop-xe/kieu-dang-xe/add" method="post" modelAttribute="kdx1">
     ma: <f:input path="ma"/>
     <f:errors path="ma"/><br>
@@ -20,6 +20,10 @@
     <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
     <f:button type="submit">add</f:button>
 </f:form>
+<form>
+    <input type="text" name="ten">
+    <a href="/shop-xe/thuong-hieu/hien-thi"><button>tim kiem</button></a>
+</form>
 <table class="table">
     <thead>
     <tr>
@@ -31,7 +35,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${listkdx}" var="kdx1" varStatus="stt">
+    <c:forEach items="${listkdx.content}" var="kdx1" varStatus="stt">
         <tr>
             <th scope="row">${stt.index+1}</th>
             <td>${kdx1.ma}</td>
@@ -41,10 +45,25 @@
                 <a href="/shop-xe/kieu-dang-xe/view-update/${kdx1.id}">
                     <button>update</button>
                 </a>
+                <a href="/shop-xe/kieu-dang-xe/detail/${kdx1.id}">
+                    <button>detail</button>
+                </a>
+                <a href="/shop-xe/kieu-dang-xe/delete/${kdx1.id}">
+                    <button>delete</button>
+                </a>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <c:forEach begin="0" end="${listkdx.totalPages-1<0?0:listkdx.totalPages-1}" varStatus="loop">
+            <li class="page-item"><a class="page-link"
+                                     href="/shop-xe/kieu-dang-xe/hien-thi?page=${loop.index}">${loop.index+1}</a>
+            </li>
+        </c:forEach>
+    </ul>
+</nav>
 </body>
 </html>

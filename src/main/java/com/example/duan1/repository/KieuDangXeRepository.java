@@ -4,6 +4,8 @@ import com.example.duan1.entity.KieuDangXe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 
+import java.util.UUID;
+
 @Controller
-public interface KieuDangXeRepository extends JpaRepository<KieuDangXe,String> {
+public interface KieuDangXeRepository extends JpaRepository<KieuDangXe, UUID> {
 }

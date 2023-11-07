@@ -13,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "kieu_dang_xe")
 @Getter
@@ -25,7 +27,7 @@ public class KieuDangXe {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_kieu_dang_xe")
-    private String id;
+    private UUID id;
 
     @Column(name = "ma")
     @NotBlank(message = "khong duoc trong")
