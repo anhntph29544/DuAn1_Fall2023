@@ -23,7 +23,7 @@ import java.util.UUID;
 @Entity
 public class KichThuoc {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_kich_thuoc")
     private UUID id;
 

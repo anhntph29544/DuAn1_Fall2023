@@ -36,18 +36,4 @@ public class HinhAnh {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "tao_luc")
-    private Date createdAt;
-
-    @Column(name = "sua_luc")
-    private Date updatedAt;
-
-    @Column(name = "tao_boi")
-    private UUID createdBy;
-
-    @Column(name = "sua_boi")
-    private Date updatedy;
-
-    @Column(name = "da_xoa")
-    private String deleted;
 }

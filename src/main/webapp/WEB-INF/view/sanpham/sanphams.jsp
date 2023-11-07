@@ -11,12 +11,41 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<form:form action="/lop-xe/update" modelAttribute="lx1" method="post">
+<h5>thêm sản phẩm</h5>
+<form:form action="/san-pham/add" modelAttribute="sp1" method="post">
     Mã: <form:input path="ma"/><br>
     Tên: <form:input path="ten"/><br>
+    Trạng thái:
     <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động<br>
-    <form:button type="submit">Update</form:button>
+    <form:button type="submit">Add</form:button>
 </form:form>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Mã</th>
+        <th>Tên</th>
+        <th>Trạng thái</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${listSP}" var="sp">
+        <tr>
+            <td>${sp.ma}</td>
+            <td>${sp.ten}</td>
+            <td>${sp.trangThai==0?"Hoạt động":"Không hoạt động"}</td>
+            <td>
+                <a href="/san-pham/detail/${sp.id}">
+                    <button>Detail</button>
+                </a>
+                <a href="/san-pham/view-update/${sp.id}">
+                    <button>Update</button>
+                </a>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 </body>
 </html>

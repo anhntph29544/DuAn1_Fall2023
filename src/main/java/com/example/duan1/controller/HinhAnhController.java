@@ -14,6 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/hinh-anh")
 public class HinhAnhController {
+
     @Autowired
     HinhAnhService hinhAnhService;
 

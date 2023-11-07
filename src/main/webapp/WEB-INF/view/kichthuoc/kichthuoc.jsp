@@ -13,11 +13,9 @@
 <body>
 
 <form action="/kich-thuoc/add" method="post"  modelAttribute ="kt">
-    ID: <input type="text" name="id" value="${kt.id}">
-    <br/>
     Ma: <input type="text" name="ma" value="${kt.ma}">
     <br/>
-    Ten: <input type="text" name="ten;" value="${kt.ten}">
+    Ten: <input type="text" name="ten" value="${kt.ten}">
     <br>
     Trang Thai:<input type="radio" name="trangThai" checked value="0" ${kt.trangThai=="0"?'Checked':''}/>hoat dong
     <input type="radio" name="trangThai" value="1" ${kt.trangThai=="1"?'Checked':''}/>khong hoat dong

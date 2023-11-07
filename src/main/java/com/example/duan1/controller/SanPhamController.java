@@ -26,13 +26,14 @@ public class SanPhamController {
         listSP= service.getAll();
         model.addAttribute("listSP", listSP);
         model.addAttribute("sp1", new SanPham());
-        return "";
+        return "sanpham/sanphams";
     }
 
     @PostMapping("/san-pham/add")
-    public void add(@Valid @ModelAttribute("sp1")SanPham sp1,
+    public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
                       BindingResult result, Model model){
         service.save(sp1);
+        return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
     }
 
 }

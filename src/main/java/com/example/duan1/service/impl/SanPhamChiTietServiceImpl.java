@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
@@ -20,4 +22,22 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         Pageable pageable = PageRequest.of(page,5);
         return spctr.findAll(pageable);
     }
+
+    @Override
+    public Boolean save(SanPhamChiTiet spct) {
+        spctr.save(spct);
+        return null;
+    }
+
+    @Override
+    public Boolean delete(UUID id) {
+        spctr.deleteById(id);
+        return null;
+    }
+
+    @Override
+    public SanPhamChiTiet detail(UUID id) {
+        return spctr.findById(id).get();
+    }
+
 }
