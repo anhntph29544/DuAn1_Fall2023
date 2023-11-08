@@ -5,6 +5,7 @@ import com.example.duan1.repository.ThuongHieuRepository;
 import com.example.duan1.service.ThuongHieuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -45,6 +46,21 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     public Boolean delete(ThuongHieu thuongHieu) {
         repository.deleteById(thuongHieu.getId());
         return null;
+    }
+
+    @Override
+    public List<ThuongHieu> search(String ten) {
+        return repository.search(ten);
+    }
+
+    @Override
+    public Page<ThuongHieu> searchPage(String ten, int page) {
+        List<ThuongHieu> list = this.search(ten);
+        Pageable pageable = PageRequest.of(page,5);
+        Integer start = (int) pageable.getOffset();
+        Integer end = (int) (pageable.getOffset()+ pageable.getPageSize()>list.size()? list.size():pageable.getOffset()+ pageable.getPageSize());
+        list= list.subList(start,end);
+        return new PageImpl<>(list, pageable, this.search(ten).size());
     }
 
 }

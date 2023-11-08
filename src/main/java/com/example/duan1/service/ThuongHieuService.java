@@ -4,7 +4,6 @@ import com.example.duan1.entity.ThuongHieu;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ThuongHieuService {
@@ -18,5 +17,9 @@ public interface ThuongHieuService {
     Boolean save(ThuongHieu thuongHieu);
 
     Boolean delete(ThuongHieu thuongHieu);
+
+    List<ThuongHieu> search(String ten);
+
+    Page<ThuongHieu> searchPage(String ten,int page);
 
 }

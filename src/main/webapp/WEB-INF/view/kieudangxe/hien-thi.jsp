@@ -11,6 +11,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body style="padding-top: 10px">
+<h3>Quản lý kiểu dáng xe</h3>
 <f:form action="/shop-xe/kieu-dang-xe/add" method="post" modelAttribute="kdx1">
     ma: <f:input path="ma"/>
     <f:errors path="ma"/><br>
@@ -20,10 +21,11 @@
     <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
     <f:button type="submit">add</f:button>
 </f:form>
-<form>
-    <input type="text" name="ten">
-    <a href="/shop-xe/thuong-hieu/hien-thi"><button>tim kiem</button></a>
+<form action="/shop-xe/kieu-dang-xe/hien-thi">
+    <input type="text" name="tenSearch" value="${tenSearch}">
+    <button type="submit">tim kiem</button>
 </form>
+<a href="/shop-xe/kieu-dang-xe/hien-thi"><button>hiển thị tất cả</button></a>
 <table class="table">
     <thead>
     <tr>
@@ -60,7 +62,7 @@
     <ul class="pagination">
         <c:forEach begin="0" end="${listkdx.totalPages-1<0?0:listkdx.totalPages-1}" varStatus="loop">
             <li class="page-item"><a class="page-link"
-                                     href="/shop-xe/kieu-dang-xe/hien-thi?page=${loop.index}">${loop.index+1}</a>
+                                     href="/shop-xe/kieu-dang-xe/hien-thi?tenSearch=${tenSearch}&page=${loop.index}">${loop.index+1}</a>
             </li>
         </c:forEach>
     </ul>

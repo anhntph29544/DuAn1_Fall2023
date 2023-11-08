@@ -25,10 +25,18 @@ public class KieuDangXeController {
     private KieuDangXeService service;
     private Page<KieuDangXe> listkdx;
     private UUID idCu;
+    private int page;
 
     @GetMapping("/shop-xe/kieu-dang-xe/hien-thi")
-    public String hienThi(@RequestParam(name = "page",defaultValue = "0")int page, Model model){
+    public String hienThi(@RequestParam(name = "page",defaultValue = "0")int page1,
+                          @RequestParam(name = "tenSearch",defaultValue = "") String ten,
+                          Model model){
+        page = page1;
         listkdx = service.getData(page);
+        if(ten.trim()!=""){
+            listkdx = service.searchPage(ten.trim(),page);
+            model.addAttribute("tenSearch",ten.trim());
+        }
         model.addAttribute("kdx1",new KieuDangXe());
         model.addAttribute("listkdx",listkdx);
         return "/kieudangxe/hien-thi";
@@ -61,6 +69,7 @@ public class KieuDangXeController {
 
     @GetMapping("/shop-xe/kieu-dang-xe/detail/{id}")
     public String detail(@PathVariable("id")UUID id, Model model){
+        listkdx = service.getData(page);
         KieuDangXe kdx = service.detail(id);
         model.addAttribute("kdx1",kdx);
         model.addAttribute("listkdx",listkdx);
