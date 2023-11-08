@@ -18,4 +18,8 @@ public interface KieuDangXeService {
 
     void remove(UUID id);
 
+    List<KieuDangXe> search(String ten);
+
+    Page<KieuDangXe> searchPage(String ten,int page);
+
 }

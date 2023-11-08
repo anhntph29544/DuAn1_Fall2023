@@ -25,9 +25,14 @@ public class ThuongHieuController {
 
     @GetMapping("/shop-xe/thuong-hieu/hien-thi")
     public String hienThi(@RequestParam(name = "page",defaultValue = "0")int page1,
+                          @RequestParam(name = "tenSearch",defaultValue = "") String ten,
                           Model model){
         page = page1;
         list = thuongHieuService.getData(page);
+        if(ten.trim()!=""){
+            list = thuongHieuService.searchPage(ten.trim(),page1);
+            model.addAttribute("tenSearch",ten.trim());
+        }
         model.addAttribute("list", list);
         model.addAttribute("th1", new ThuongHieu());
         return "/thuonghieu/thuonghieus";
