@@ -1,4 +1,4 @@
-<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -11,18 +11,16 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
-<form action="/kich-thuoc/update/${kt.id}" method="post"  modelAttribute ="kt">
-    ID: <input type="text" name="id" value="${kt.id}">
+<form:form action="/shop-xe/kich-thuoc/update" method="post"  modelAttribute ="kt1">
+    Mã: <form:input path="ma"/>
     <br/>
-    Ma: <input type="text" name="ma" value="${kt.ma}">
-    <br/>
-    Ten: <input type="text" name="ten" value="${kt.ten}">
+    Tên: <form:input path="ten"/>
     <br>
-    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${kt.trangThai=="0"?'Checked':''}/>hoat dong
-    <input type="radio" name="trangThai" value="1" ${kt.trangThai=="1"?'Checked':''}/>khong hoat dong
+    Trạng Thái:
+    <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
+    <form:radiobutton path="trangThai" value="1"/>Không hoạt động
     <br>
-    <button type="submit">update</button>
-</form>
+    <form:button type="submit">Update</form:button>
+</form:form>
 </body>
 </html>

@@ -62,7 +62,7 @@ public class SanPhamChiTietController {
         combobox(model);
         model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("spct1", new SanPhamChiTiet());
-        return "/sanpham/hien-thi";
+        return "/sanphamchitiet/hien-thi";
     }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/add")
@@ -72,7 +72,7 @@ public class SanPhamChiTietController {
         if(result.hasErrors()){
             combobox(model);
             model.addAttribute("listSPCT", listSPCT);
-            return "/sanpham/hien-thi";
+            return "/sanphamchitiet/hien-thi";
         }
         Boolean save = serviceSPCT.save(spct1);
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
@@ -84,7 +84,7 @@ public class SanPhamChiTietController {
         combobox(model);
         model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("spct1",spct);
-        return "/sanpham/hien-thi";
+        return "/sanphamchitiet/hien-thi";
     }
 
     @GetMapping("/shop-xe/san-pham-chi-tiet/view-update/{id}")
@@ -93,7 +93,7 @@ public class SanPhamChiTietController {
         SanPhamChiTiet spct = serviceSPCT.detail(id);
         combobox(model);
         model.addAttribute("spct1",spct);
-        return "/sanpham/update";
+        return "/sanphamchitiet/update";
     }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/update")
@@ -104,7 +104,7 @@ public class SanPhamChiTietController {
         if(result.hasErrors()){
             combobox(model);
             model.addAttribute("listSPCT", listSPCT);
-            return "/sanpham/hien-thi";
+            return "/sanphamchitiet/hien-thi";
         }
         Boolean save = serviceSPCT.save(spct1);
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";

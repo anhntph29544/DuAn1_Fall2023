@@ -23,7 +23,7 @@ public class HinhAnhServiceImpl implements HinhAnhService {
 
     @Override
     public Optional<HinhAnh> detail(UUID id) {
-        return Optional.empty();
+        return Optional.of(repository.findById(id).get());
     }
 
     @Override

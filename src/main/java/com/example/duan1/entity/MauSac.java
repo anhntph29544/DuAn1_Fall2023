@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class MauSac {
     @Column(name = "id_mau_sac")
     private UUID id;
     @Column(name = "ma")
+    @NotBlank(message = "Không được trống")
     private String ma;
     @Column(name = "ten")
     private String ten;

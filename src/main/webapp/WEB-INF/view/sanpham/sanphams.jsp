@@ -11,8 +11,11 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<h5>thêm sản phẩm</h5>
-<form:form action="/san-pham/add" modelAttribute="sp1" method="post">
+<form action="/shop-xe/san-pham/hien-thi">
+    <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
+    <button type="submit">Search</button>
+</form>
+<form:form action="/shop-xe/san-pham/add" modelAttribute="sp1" method="post">
     Mã: <form:input path="ma"/><br>
     Tên: <form:input path="ten"/><br>
     Trạng thái:
@@ -20,6 +23,9 @@
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động<br>
     <form:button type="submit">Add</form:button>
 </form:form>
+<a href="/shop-xe/san-pham/hien-thi">
+    <button>Hiển thị tất cả</button>
+</a>
 <table class="table">
     <thead>
     <tr>
@@ -30,22 +36,47 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${listSP}" var="sp">
+    <c:forEach items="${listSP.content}" var="sp">
         <tr>
             <td>${sp.ma}</td>
             <td>${sp.ten}</td>
             <td>${sp.trangThai==0?"Hoạt động":"Không hoạt động"}</td>
             <td>
-                <a href="/san-pham/detail/${sp.id}">
+                <a href="/shop-xe/san-pham/detail/${sp.id}">
                     <button>Detail</button>
                 </a>
-                <a href="/san-pham/view-update/${sp.id}">
+                <a href="/shop-xe/san-pham/view-update/${sp.id}">
                     <button>Update</button>
+                </a>
+                <a href="/shop-xe/san-pham/delete/${sp.id}">
+                    <button>Delete</button>
                 </a>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <c:forEach begin="0" end="${listSP.totalPages-1<0?0:listSP.totalPages-1}" varStatus="loop">
+            <c:if test="${listSP.totalPages-1>=0}">
+                <li class="page-item">
+                    <c:if test="${tenSearch!=''}">
+                        <a class="page-link"
+                           href="/shop-xe/san-pham/hien-thi?tenSearch=${tenSearch}&page=${loop.index}">
+                                ${loop.index+1}
+                        </a>
+                    </c:if>
+                    <c:if test="${tenSearch==''}">
+                        <a class="page-link"
+                           href="/shop-xe/san-pham/hien-thi?page=${loop.index}">
+                                ${loop.index+1}
+                        </a>
+                    </c:if>
+                </li>
+            </c:if>
+        </c:forEach>
+    </ul>
+</nav>
 </body>
 </html>
