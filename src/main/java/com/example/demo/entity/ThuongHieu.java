@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ public class ThuongHieu {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_thuong_hieu")
-    private UUID idThuongHieu;
+    private UUID id;
 
     @Column(name = "ma")
     private String ma;

@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.KichThuoc;
-import com.example.duan1.repository.KichThuocRepository;
-import com.example.duan1.service.KichThuocService;
+import com.example.demo.entity.KichThuoc;
+import com.example.demo.repository.KichThuocRepository;
+import com.example.demo.service.KichThuocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

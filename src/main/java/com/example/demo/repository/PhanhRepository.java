@@ -1,6 +1,6 @@
-package com.example.duan1.repository;
+package com.example.demo.repository;
 
-import com.example.duan1.entity.Phanh;
+import com.example.demo.entity.Phanh;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

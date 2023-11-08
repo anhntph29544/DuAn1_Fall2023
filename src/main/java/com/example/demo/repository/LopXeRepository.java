@@ -1,6 +1,6 @@
-package com.example.duan1.repository;
+package com.example.demo.repository;
 
-import com.example.duan1.entity.LopXe;
+import com.example.demo.entity.LopXe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

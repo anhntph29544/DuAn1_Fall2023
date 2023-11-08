@@ -1,4 +1,4 @@
-package com.example.duan1.controller;
+package com.example.demo.controller;
 
 
 import org.springframework.stereotype.Controller;

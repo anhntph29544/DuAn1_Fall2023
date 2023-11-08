@@ -1,7 +1,7 @@
-package com.example.duan1.controller;
+package com.example.demo.controller;
 
-import com.example.duan1.entity.KieuDangXe;
-import com.example.duan1.service.KieuDangXeService;
+import com.example.demo.entity.KieuDangXe;
+import com.example.demo.service.KieuDangXeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

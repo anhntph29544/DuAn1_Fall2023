@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.LopXe;
-import com.example.duan1.repository.LopXeRepository;
-import com.example.duan1.service.LopXeService;
+import com.example.demo.entity.LopXe;
+import com.example.demo.repository.LopXeRepository;
+import com.example.demo.service.LopXeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

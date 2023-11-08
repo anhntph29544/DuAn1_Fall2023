@@ -1,11 +1,10 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +16,7 @@ public class HinhAnh {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_hinh_anh")
-    private UUID idHinhAnh;
+    private UUID id;
 
     @Column(name = "ten")
     private String ten;
@@ -30,19 +29,4 @@ public class HinhAnh {
 
     @Column(name = "trang_thai")
     private Integer trangThai;
-
-    @Column(name = "tao_luc")
-    private Date createdAt;
-
-    @Column(name = "sua_luc")
-    private Date updatedAt;
-
-    @Column(name = "tao_boi")
-    private UUID createdBy;
-
-    @Column(name = "sua_boi")
-    private Date updatedy;
-
-    @Column(name = "da_xoa")
-    private String deleted;
 }

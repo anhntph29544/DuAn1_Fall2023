@@ -1,6 +1,6 @@
-package com.example.duan1.service;
+package com.example.demo.service;
 
-import com.example.duan1.entity.KhungXe;
+import com.example.demo.entity.KhungXe;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.BoChuyenDong;
-import com.example.duan1.repository.BoChuyenDongRepopsitory;
-import com.example.duan1.service.BoChuyenDongSV;
+import com.example.demo.entity.BoChuyenDong;
+import com.example.demo.repository.BoChuyenDongRepopsitory;
+import com.example.demo.service.BoChuyenDongSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

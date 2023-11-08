@@ -1,7 +1,7 @@
-package com.example.duan1.controller;
+package com.example.demo.controller;
 
-import com.example.duan1.entity.NSX;
-import com.example.duan1.service.NSXSV;
+import com.example.demo.entity.NSX;
+import com.example.demo.service.NSXSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

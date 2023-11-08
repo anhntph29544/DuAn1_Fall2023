@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.BanDap;
-import com.example.duan1.repository.BanDapRepository;
-import com.example.duan1.service.BanDapService;
+import com.example.demo.entity.BanDap;
+import com.example.demo.repository.BanDapRepository;
+import com.example.demo.service.BanDapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.Phanh;
-import com.example.duan1.repository.PhanhRepository;
-import com.example.duan1.service.PhanhService;
+import com.example.demo.entity.Phanh;
+import com.example.demo.repository.PhanhRepository;
+import com.example.demo.service.PhanhService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

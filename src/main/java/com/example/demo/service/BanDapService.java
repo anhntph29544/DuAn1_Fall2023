@@ -1,6 +1,6 @@
-package com.example.duan1.service;
+package com.example.demo.service;
 
-import com.example.duan1.entity.BanDap;
+import com.example.demo.entity.BanDap;
 
 import java.util.List;
 import java.util.UUID;

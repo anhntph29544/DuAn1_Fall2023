@@ -1,7 +1,7 @@
-package com.example.duan1.controller;
+package com.example.demo.controller;
 
-import com.example.duan1.entity.LopXe;
-import com.example.duan1.service.LopXeService;
+import com.example.demo.entity.LopXe;
+import com.example.demo.service.LopXeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

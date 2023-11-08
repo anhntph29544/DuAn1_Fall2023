@@ -1,7 +1,7 @@
-package com.example.duan1.service;
+package com.example.demo.service;
 
 
-import com.example.duan1.entity.NSX;
+import com.example.demo.entity.NSX;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.KhungXe;
-import com.example.duan1.repository.KhungXeRepository;
-import com.example.duan1.service.KhungXeService;
+import com.example.demo.entity.KhungXe;
+import com.example.demo.repository.KhungXeRepository;
+import com.example.demo.service.KhungXeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

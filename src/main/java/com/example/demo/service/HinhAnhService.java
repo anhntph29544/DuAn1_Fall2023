@@ -1,13 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.model.HinhAnh;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.entity.HinhAnh;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
 public interface HinhAnhService {
     List<HinhAnh> getAll();
 
@@ -17,5 +14,5 @@ public interface HinhAnhService {
 
     Boolean delete(HinhAnh hinhAnh);
 
-    Boolean update(HinhAnh hinhAnh);
+    Boolean update(HinhAnh hinhAnh, UUID id);
 }

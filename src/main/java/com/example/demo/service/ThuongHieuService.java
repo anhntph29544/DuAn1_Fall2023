@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ThuongHieu;
+import com.example.demo.entity.ThuongHieu;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface ThuongHieuService {
 
     Boolean delete(ThuongHieu thuongHieu);
 
-    Boolean update(ThuongHieu thuongHieu);
+    Boolean update(ThuongHieu thuongHieu, UUID id);
 }

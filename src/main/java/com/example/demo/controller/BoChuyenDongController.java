@@ -1,9 +1,8 @@
-package com.example.duan1.controller;
+package com.example.demo.controller;
 
-import com.example.duan1.entity.BoChuyenDong;
-import com.example.duan1.entity.MauSac;
-import com.example.duan1.service.BoChuyenDongSV;
-import com.example.duan1.service.MauSacSV;
+import com.example.demo.entity.BoChuyenDong;
+import com.example.demo.entity.MauSac;
+import com.example.demo.service.BoChuyenDongSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

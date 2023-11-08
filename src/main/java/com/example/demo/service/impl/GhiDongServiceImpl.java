@@ -1,8 +1,8 @@
-package com.example.duan1.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.duan1.entity.GhiDong;
-import com.example.duan1.repository.GhiDongRepository;
-import com.example.duan1.service.GhiDongService;
+import com.example.demo.entity.GhiDong;
+import com.example.demo.repository.GhiDongRepository;
+import com.example.demo.service.GhiDongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
