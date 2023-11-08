@@ -1,13 +1,11 @@
 package com.example.duan1.controller;
 
-import com.example.duan1.entity.HinhAnh;
 import com.example.duan1.entity.KichThuoc;
 import com.example.duan1.entity.KieuDangXe;
 import com.example.duan1.entity.MauSac;
 import com.example.duan1.entity.SanPham;
 import com.example.duan1.entity.SanPhamChiTiet;
 import com.example.duan1.entity.ThuongHieu;
-import com.example.duan1.service.HinhAnhService;
 import com.example.duan1.service.KichThuocService;
 import com.example.duan1.service.KieuDangXeService;
 import com.example.duan1.service.MauSacSV;
@@ -37,8 +35,6 @@ public class SanPhamChiTietController {
     private SanPhamChiTietService serviceSPCT;
     private Page<SanPhamChiTiet> listSPCT;
     @Autowired
-    private HinhAnhService serviceHA;
-    @Autowired
     private KichThuocService serviceKT;
     @Autowired
     private KieuDangXeService serviceKDX;
@@ -48,7 +44,6 @@ public class SanPhamChiTietController {
     private SanPhamService serviceSP;
     @Autowired
     private ThuongHieuService serviceTH;
-    private List<HinhAnh> listHA= new ArrayList<>();
     private List<KichThuoc> listKT= new ArrayList<>();
     private List<KieuDangXe> listKDX= new ArrayList<>();
     private List<MauSac> listMS= new ArrayList<>();
@@ -111,13 +106,11 @@ public class SanPhamChiTietController {
     }
 
     public void combobox(Model model){
-        listHA= serviceHA.getAll();
         listKT= serviceKT.getAll();
         listKDX= serviceKDX.getAll();
         listMS= serviceMS.getAll();
         listSP= serviceSP.getAll();
         listTH= serviceTH.getAll();
-        model.addAttribute("listHA",listHA);
         model.addAttribute("listKT",listKT);
         model.addAttribute("listKDX",listKDX);
         model.addAttribute("listMS",listMS);
