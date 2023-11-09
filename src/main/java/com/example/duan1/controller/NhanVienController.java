@@ -77,19 +77,19 @@ public class NhanVienController {
         model.addAttribute("sizePage", sizePage);
         model.addAttribute("nhanVien", new NhanVien());
         model.addAttribute("chucVu", chucVuService.getAll());
-        return "hienThiNV";
+        return "/nhanvien/  hienThi";
     }
 
-    @GetMapping("/detail")
-    public String showFormForUpdate(@RequestParam("IdNhanVien") UUID id, Model model) {
+    @GetMapping("/detail/{id}")
+    public String showFormForUpdate(@PathVariable("id") UUID id, Model model) {
         NhanVien nhanVien = nhanVienService.detail(id).get();
         model.addAttribute("nhanVien", nhanVien);
         model.addAttribute("chucVu", chucVuService.getAll());
         return "formUpdateNV";
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam("IdNhanVien") NhanVien nhanVien) {
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") NhanVien nhanVien) {
         nhanVienService.delete(nhanVien);
         return "redirect:/nhan-vien/hien-thi";
     }
@@ -209,7 +209,9 @@ public class NhanVienController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("nhanVien") @Valid NhanVien nhanVien, BindingResult bindingResult, Model model, @RequestParam("imageFile") MultipartFile file) {
+    public String save(@ModelAttribute("nhanVien") @Valid NhanVien nhanVien,
+                       BindingResult bindingResult, Model model,
+                       @RequestParam("imageFile") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("chucVu", chucVuService.getAll());
             return "formAddNV";
