@@ -117,3 +117,8 @@ create table hoa_don_chi_tiet(
 	trang_thai int
 )
 
+alter table san_pham add ngay_them datetime
+alter table kieu_dang_xe add ngay_them datetime
+alter table kich_thuoc add ngay_them datetime
+alter table thuong_hieu add ngay_them datetime
+alter table mau_sac add ngay_them datetime

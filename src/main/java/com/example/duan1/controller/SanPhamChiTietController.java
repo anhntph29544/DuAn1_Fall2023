@@ -49,7 +49,7 @@ public class SanPhamChiTietController {
     private List<MauSac> listMS= new ArrayList<>();
     private List<SanPham> listSP= new ArrayList<>();
     private List<ThuongHieu> listTH= new ArrayList<>();
-    private UUID idCu;
+    private SanPhamChiTiet spct = new SanPhamChiTiet();
 
     @GetMapping("/shop-xe/san-pham-chi-tiet/hien-thi")
     public String hienThi(@RequestParam(value = "page", defaultValue = "0") int page, Model model){
@@ -57,7 +57,62 @@ public class SanPhamChiTietController {
         combobox(model);
         model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("spct1", new SanPhamChiTiet());
+        model.addAttribute("sp1", new SanPham());
         return "/sanpham/hien-thi";
+    }
+
+    @GetMapping("/shop-xe/san-pham-chi-tiet/view-add")
+    public String viewAdd(Model model){
+        combobox(model);
+        model.addAttribute("spct1", spct);
+        return "/sanpham/spct-add";
+    }
+
+    @GetMapping("/shop-xe/san-pham-chi-tiet/view-update/{id}")
+    public String viewUpdate(@PathVariable("id")UUID id, Model model){
+        spct = serviceSPCT.detail(id);
+        combobox(model);
+        model.addAttribute("spct1",spct);
+        return "/sanpham/spct-update";
+    }
+
+    @PostMapping("/shop-xe/san-pham-chi-tiet/sp/add")
+    public String addSP(@Valid @ModelAttribute("sp1") SanPham sp1,
+                      @ModelAttribute("spct1") SanPhamChiTiet spct1,
+                      BindingResult result, Model model){
+        spct= spct1;
+        serviceSP.save(sp1);
+        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
+    }
+
+    @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
+    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,
+                        BindingResult result, Model model){
+        serviceMS.save(ms1);
+        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
+    }
+
+    @PostMapping("/shop-xe/san-pham-chi-tiet/kdx/add")
+    public String addKDX(@Valid @ModelAttribute("kdx1") KieuDangXe kdx1,
+                        BindingResult result, Model model){
+        serviceKDX.save(kdx1);
+        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
+    }
+
+    @PostMapping("/shop-xe/san-pham-chi-tiet/kt/add")
+    public String addKT(@Valid @ModelAttribute("kt1") KichThuoc kt1,
+                         BindingResult result, Model model){
+        kt1.setNgayThem(new java.util.Date());
+        serviceKT.save(kt1);
+        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
+    }
+
+    @PostMapping("/shop-xe/san-pham-chi-tiet/th/add")
+    public String addTH(@Valid @ModelAttribute("th1") ThuongHieu th1,
+                        BindingResult result, Model model){
+        th1.setNgayThem(new java.util.Date());
+        serviceTH.save(th1);
+        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
     }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/add")
@@ -69,6 +124,7 @@ public class SanPhamChiTietController {
             model.addAttribute("listSPCT", listSPCT);
             return "/sanpham/hien-thi";
         }
+        spct1.setMa(serviceSPCT.tuTaoMa());
         Boolean save = serviceSPCT.save(spct1);
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
     }
@@ -82,24 +138,16 @@ public class SanPhamChiTietController {
         return "/sanpham/hien-thi";
     }
 
-    @GetMapping("/shop-xe/san-pham-chi-tiet/view-update/{id}")
-    public String viewUpdate(@PathVariable("id")UUID id, Model model){
-        idCu =id;
-        SanPhamChiTiet spct = serviceSPCT.detail(id);
-        combobox(model);
-        model.addAttribute("spct1",spct);
-        return "/sanpham/spct-update";
-    }
-
     @PostMapping("/shop-xe/san-pham-chi-tiet/update")
     public String update(@Valid @ModelAttribute("spct1")SanPhamChiTiet spct1,
                       BindingResult result,
                       Model model){
-        spct1.setId(idCu);
         if(result.hasErrors()){
             combobox(model);
             return "/sanpham/spct-update";
         }
+        spct1.setId(spct.getId());
+        spct1.setMa(spct.getMa());
         Boolean save = serviceSPCT.save(spct1);
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
     }

@@ -11,10 +11,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        i {
-            font-size: 30px;
-        }
-        body{
+        body {
             margin: auto;
         }
     </style>
@@ -65,146 +62,61 @@
     </div>
 </nav>
 <div class="ql" style="padding: 20px">
-    <h2 style="text-align: center">QUẢN LÝ SẢN PHẨM</h2>
-    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/add" modelAttribute="spct1">
-        <%--thông tin sản phẩm--%>
-        <h4>SẢN PHẨM</h4>
-        <div class="col-md-12 row">
+    <h2 style="text-align: center">SẢN PHẨM</h2>
+    <div>
+        <span style="font-weight: bold"><i class="bi bi-funnel-fill"></i> Bộ lọc</span>
+    </div>
+    <div style="border: 1px solid black;padding: 10px;">
+        <form action="/shop-xe/san-pham" class="row">
             <div class="col-md-3">
-                    <%--mã sản phẩm chi tiết--%>
-                <div class="mb-3">
-                    <label class="form-label">Mã</label>
-                    <form:input class="form-control" path="ma"/>
-                    <div class="form-text"><form:errors path="ma"/></div>
-                </div>
-                    <%--sản phẩm--%>
-                <div class="mb-3">
-                    <label class="form-label">Sản phẩm</label>
-                    <div class="col-md-12 row">
-                        <div class="col-md-11">
-                            <form:select path="sp" class="form-select">
-                                <c:forEach items="${listSP}" var="sp">
-                                    <form:option value="${sp}">${sp.ten}</form:option>
-                                </c:forEach>
-                            </form:select>
-                        </div>
-                        <div class="col-md-1">
-                            <a href="/san-pham/hien-thi"><i class="bi bi-plus-circle-dotted"></i></a>
-                        </div>
-                    </div>
-                </div>
-                    <%--đơn giá--%>
-                <div class="mb-3">
-                    <label class="form-label">Đơn giá</label>
-                    <form:input class="form-control" path="gia"/>
-                    <div class="form-text"><form:errors path="gia"/></div>
-                </div>
+                <label>Tên sản phẩm</label>
+                <input type="text" name="tenSearch" class="form-control me-2" placeholder="Nhập tên sản phẩm"
+                       value="${tenSearch}">
             </div>
             <div class="col-md-3">
-                    <%--số lượng--%>
-                <div class="mb-3">
-                    <label class="form-label">Số lượng</label>
-                    <form:input class="form-control" path="soLuong" type="number"/>
-                    <div class="form-text"><form:errors path="soLuong"/></div>
-                </div>
-                    <%--mô tả--%>
-                <div class="mb-3">
-                    <label class="form-label">Mô tả</label>
-                    <form:input class="form-control" path="moTa"/>
-                    <div class="form-text"><form:errors path="moTa"/></div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Màu sắc</label>
-                    <form:select path="ms" class="form-select">
-                        <c:forEach items="${listMS}" var="ms">
-                            <form:option value="${ms}">${ms.ten}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
+                <label>Trạng thái sản phẩm</label>
+                <select name="trangThai" class="form-select">
+                    <option value="3" ${trangThai==3?"selected":""} selected></option>
+                    <option value="0" ${trangThai==0?"selected":""}>Hoạt động</option>
+                    <option value="1" ${trangThai==1?"selected":""}>Không hoạt động</option>
+                </select>
             </div>
-            <div class="col-md-3">
-
-                <div class="mb-3">
-                    <label class="form-label">Kiểu dáng xe</label>
-                    <form:select path="kdx" class="form-select">
-                        <c:forEach items="${listKDX}" var="kdx">
-                            <form:option value="${kdx}">${kdx.ten}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Kích thước</label>
-                    <form:select path="kt" class="form-select">
-                        <c:forEach items="${listKT}" var="kt">
-                            <form:option value="${kt}">${kt.ten}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Thương hiệu</label>
-                    <form:select path="th" class="form-select">
-                        <c:forEach items="${listTH}" var="th">
-                            <form:option value="${th}">${th.ten}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
+            <div class="col-md-12" style="padding-top: 10px">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Tìm kiếm</button>
             </div>
-            <div class="col-md-3">
-                    <%--hinh anh--%>
-                <div class="mb-3">
-                    <label class="form-label">Hình ảnh</label>
-                    <input type="file"/>
-                </div>
-                    <%--trạng thái--%>
-                <div class="mb-3">
-                    <label class="form-label">Trạng thái</label>
-                    <div class="mb-3 form-check">
-                        <form:radiobutton path="trangThai" class="form-check-input" value="0" id="exampleCheck1"
-                                          checked="true"/>
-                        <label class="form-check-label" for="exampleCheck1">Hoạt động</label>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <form:radiobutton path="trangThai" class="form-check-input" value="1" id="exampleCheck2"/>
-                        <label class="form-check-label" for="exampleCheck2">Không hoạt động</label>
-                    </div>
-                </div>
-            </div>
+        </form>
+        <a href="/shop-xe/san-pham">
+            <button class="btn btn-danger"><i class="bi bi-x-lg"></i> Xoá lọc</button>
+        </a>
+    </div>
+    <div style="font-weight: bold; margin-top: 10px;" class="row">
+        <div class="col-md-10">
+            <span><i class="bi bi-card-list"></i> Danh sách sản phẩm</span>
         </div>
-        <div style="text-align: right">
-            <button type="submit" class="btn btn-primary" onclick="return confirm('Bạn chắc chưa ?')">
-                <i class="bi bi-plus-square"></i> Thêm
-            </button>
+        <div class="col-md-2">
+            <a href="/shop-xe/san-pham-chi-tiet/hien-thi"><button class="btn btn-primary">DS sản phẩm chi tiết</button></a>
         </div>
-    </form:form>
-    <table class="table">
-        <thead>
+    </div>
+    <table class="table table-bordered" style="margin-top: 5px">
+        <thead class="table-secondary">
         <tr>
             <th>STT</th>
             <th>Mã</th>
             <th>Tên sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Đơn giá</th>
-            <th>Mô tả</th>
             <th>Trạng thái</th>
-            <th>action</th>
+            <th>hành động</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${listSPCT.content}" var="spct" varStatus="stt">
+        <c:forEach items="${listSP.content}" var="spct" varStatus="stt">
             <tr>
                 <td>${stt.index+1}</td>
                 <td>${spct.ma}</td>
-                <td>${spct.sp.ten}</td>
-                <td>${spct.soLuong}</td>
-                <td>${spct.gia}</td>
-                <td>${spct.moTa}</td>
+                <td>${spct.ten}</td>
                 <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
                 <td>
-                    <a href="/shop-xe/san-pham-chi-tiet/detail/${spct.id}">
-                        <button class="btn btn-primary"><i class="bi bi-collection"></i> Chi tiết</button>
-                    </a>
-                    <a href="/shop-xe/san-pham-chi-tiet/view-update/${spct.id}">
-                        <button class="btn btn-success"><i class="bi bi-pencil-square"></i> Cập nhật</button>
+                    <a href="/shop-xe/san-pham-chi-tiet/hien-thi/${spct.id}">
+                        <button class="btn btn-warning"><i class="bi bi-eye"></i> Chi tiết</button>
                     </a>
                 </td>
             </tr>
@@ -212,15 +124,26 @@
         </tbody>
     </table>
     <nav aria-label="Page navigation example">
-        <c:forEach begin="0" end="${listSPCT.totalPages-1<0?0:listSPCT.totalPages-1}" varStatus="loop">
-            <c:if test="${listSPCT.totalPages-1>=0}">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link"
-                                             href="/shop-xe/san-pham-chi-tiet/hien-thi?page=${loop.index}">${loop.index+1}</a>
+        <ul class="pagination">
+            <c:forEach begin="0" end="${listSP.totalPages-1<0?0:listSP.totalPages-1}" varStatus="loop">
+                <c:if test="${listSP.totalPages-1>=0}">
+                    <li class="page-item">
+                        <c:if test="${tenSearch!=''}">
+                            <a class="page-link"
+                               href="/shop-xe/san-pham?tenSearch=${tenSearch}&page=${loop.index}">
+                                    ${loop.index+1}
+                            </a>
+                        </c:if>
+                        <c:if test="${tenSearch==''}">
+                            <a class="page-link"
+                               href="/shop-xe/san-pham?page=${loop.index}">
+                                    ${loop.index+1}
+                            </a>
+                        </c:if>
                     </li>
-                </ul>
-            </c:if>
-        </c:forEach>
+                </c:if>
+            </c:forEach>
+        </ul>
     </nav>
 </div>
 </body>

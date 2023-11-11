@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class ThuongHieuServiceImpl implements ThuongHieuService {
 
     @Autowired
     private ThuongHieuRepository repository;
+    private String prefix="TH";
 
     @Override
     public Page<ThuongHieu> getData(int page) {
@@ -27,8 +29,15 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     }
 
     @Override
+    public String tuTaoMa() {
+        Stream<String> ma= repository.maTH().stream();
+        Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
+        return prefix+(String.format("%d", max+1));
+    }
+
+    @Override
     public List<ThuongHieu> getAll() {
-        return repository.findAll();
+        return repository.sort();
     }
 
     @Override
@@ -38,6 +47,12 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
 
     @Override
     public Boolean save(ThuongHieu thuongHieu) {
+        if (thuongHieu.getMa()==null || thuongHieu.getMa().trim()==""){
+            thuongHieu.setMa(this.tuTaoMa());
+        }
+        if (thuongHieu.getNgayThem()==null){
+            thuongHieu.setNgayThem(new java.util.Date());
+        }
         repository.save(thuongHieu);
         return null;
     }

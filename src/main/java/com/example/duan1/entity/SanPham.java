@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -30,7 +31,6 @@ public class SanPham {
     private UUID id;
 
     @Column(name = "ma")
-    @NotBlank(message = "Không được trống")
     private String ma;
 
     @Column(name = "ten")
@@ -39,5 +39,8 @@ public class SanPham {
 
     @Column(name = "trang_thai")
     private Integer trangThai;
+
+    @Column(name = "ngay_them")
+    private Date ngayThem;
 
 }

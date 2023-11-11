@@ -10,6 +10,8 @@ public interface SanPhamChiTietService {
 
     Page<SanPhamChiTiet> getAll(int page);
 
+    String tuTaoMa();
+
     Boolean save(SanPhamChiTiet spct);
 
     Boolean delete(UUID id);

@@ -53,7 +53,6 @@ public class SanPhamChiTiet {
     private SanPham sp;
 
     @Column(name = "ma")
-    @NotBlank(message = "khong duoc rong")
     private String ma;
 
     @Column(name = "mo_ta")

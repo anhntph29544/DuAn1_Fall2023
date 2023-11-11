@@ -10,6 +10,8 @@ public interface ThuongHieuService {
 
     Page<ThuongHieu> getData(int page);
 
+    String tuTaoMa();
+
     List<ThuongHieu> getAll();
 
     ThuongHieu detail(UUID id);

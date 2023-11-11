@@ -12,14 +12,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
+
 @Service
 public class MauSacSVImpl implements MauSacSV {
     @Autowired
     private MauSacRepository repository;
+    private String prefix= "MS";
 
     @Override
     public List<MauSac> getAll() {
-        return repository.findAll();
+        return repository.sort();
+    }
+
+    @Override
+    public String tuTaoMa() {
+        Stream<String> ma= repository.maMS().stream();
+        Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
+        return prefix+(String.format("%d", max+1));
     }
 
     @Override
@@ -45,6 +55,12 @@ public class MauSacSVImpl implements MauSacSV {
 
     @Override
     public void save(MauSac p) {
+        if(p.getMa()==null || p.getMa()==""){
+            p.setMa(this.tuTaoMa());
+        }
+        if (p.getNgayThem()==null){
+            p.setNgayThem(new java.util.Date());
+        }
         repository.save(p);
     }
 

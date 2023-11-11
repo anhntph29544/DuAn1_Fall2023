@@ -10,17 +10,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
     @Autowired
     private SanPhamChiTietRepository spctr;
+    private String prefix= "SPCT";
 
     @Override
     public Page<SanPhamChiTiet> getAll(int page) {
         Pageable pageable = PageRequest.of(page,5);
         return spctr.findAll(pageable);
+    }
+
+    @Override
+    public String tuTaoMa() {
+        Stream<String> ma= spctr.maSPCT().stream();
+        Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
+        return prefix+(String.format("%d", max+1));
     }
 
     @Override

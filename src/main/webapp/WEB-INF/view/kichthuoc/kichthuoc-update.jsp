@@ -12,7 +12,7 @@
 </head>
 <body>
 <form:form action="/shop-xe/kich-thuoc/update" method="post"  modelAttribute ="kt1">
-    Mã: <form:input path="ma"/>
+    Mã: <form:input path="ma" disabled="true"/>
     <br/>
     Tên: <form:input path="ten"/>
     <br>
