@@ -21,22 +21,28 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public List<SanPham> getAll() {
-        return repository.findAll();
+        return repository.sort();
     }
 
     @Override
-    public List<SanPham> search(String ten) {
-        return repository.search(ten);
+    public List<SanPham> search(String ten,Integer trangThai) {
+        if(ten.trim().isEmpty()){
+            return repository.search2(trangThai);
+        }
+        if(trangThai==3 && !ten.trim().isEmpty()){
+            return repository.search(ten);
+        }
+        return repository.search3(ten,trangThai);
     }
 
     @Override
-    public Page<SanPham> searchPage(String ten, int page) {
-        List list= this.search(ten);
+    public Page<SanPham> searchPage(String ten,Integer trangThai, int page) {
+        List list= this.search(ten,trangThai);
         Pageable pageable= PageRequest.of(page,5);
         Integer start = (int) pageable.getOffset();
         Integer end = (int) (pageable.getOffset()+ pageable.getPageSize()>list.size()? list.size():pageable.getOffset()+ pageable.getPageSize());
         list= list.subList(start,end);
-        return new PageImpl<SanPham>(list, pageable, this.search(ten).size());
+        return new PageImpl<SanPham>(list, pageable, this.search(ten,trangThai).size());
     }
 
     @Override
@@ -59,4 +65,5 @@ public class SanPhamServiceImpl implements SanPhamService {
     public void delete(UUID id) {
         repository.deleteById(id);
     }
+
 }

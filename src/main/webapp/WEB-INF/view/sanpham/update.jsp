@@ -12,8 +12,10 @@
 </head>
 <body>
 <form:form action="/shop-xe/san-pham/update" modelAttribute="sp1" method="post">
-    Mã: <form:input path="ma"/><br>
-    Tên: <form:input path="ten"/><br>
+    Mã: <form:input path="ma"/>
+    <form:errors path="ma"/><br>
+    Tên: <form:input path="ten"/>
+    <form:errors path="ten"/><br>
     Trạng thái:
     <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động<br>

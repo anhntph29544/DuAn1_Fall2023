@@ -11,18 +11,21 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<form action="/shop-xe/san-pham/hien-thi">
-    <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
-    <button type="submit">Search</button>
-</form>
+<h3>Quản lý sản phẩm</h3>
 <form:form action="/shop-xe/san-pham/add" modelAttribute="sp1" method="post">
-    Mã: <form:input path="ma"/><br>
-    Tên: <form:input path="ten"/><br>
+    Mã: <form:input path="ma"/>
+    <form:errors path="ma"/><br>
+    Tên: <form:input path="ten"/>
+    <form:errors path="ten"/><br>
     Trạng thái:
     <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động<br>
     <form:button type="submit">Add</form:button>
 </form:form>
+<form action="/shop-xe/san-pham/hien-thi"
+    <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
+    <button type="submit">Search</button>
+</form>
 <a href="/shop-xe/san-pham/hien-thi">
     <button>Hiển thị tất cả</button>
 </a>
@@ -32,6 +35,7 @@
         <th>Mã</th>
         <th>Tên</th>
         <th>Trạng thái</th>
+        <th>ngày thêm</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -41,6 +45,7 @@
             <td>${sp.ma}</td>
             <td>${sp.ten}</td>
             <td>${sp.trangThai==0?"Hoạt động":"Không hoạt động"}</td>
+            <td>${sp.ngayThem}</td>
             <td>
                 <a href="/shop-xe/san-pham/detail/${sp.id}">
                     <button>Detail</button>

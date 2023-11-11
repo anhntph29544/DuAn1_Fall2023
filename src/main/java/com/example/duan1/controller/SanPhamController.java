@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/shop-xe")
 public class SanPhamController {
 
     @Autowired
@@ -26,12 +24,31 @@ public class SanPhamController {
     private Page<SanPham> listSP;
     private UUID idSPCu;
 
-    @GetMapping("/san-pham/hien-thi")
+    @GetMapping("/shop-xe/san-pham")
+    public String viewSP(@RequestParam(value = "page", defaultValue = "0") int page,
+                         @RequestParam(value = "tenSearch",defaultValue = "") String ten,
+                         @RequestParam(value = "trangThai",defaultValue = "3")Integer trangThai,
+                         Model model){
+        listSP= service.getData(page);
+        if(!ten.trim().isEmpty()){
+            System.out.println("dmmm");
+            System.out.println("--------------");
+            listSP= service.searchPage(ten.trim(),trangThai, page);
+            model.addAttribute("tenSearch", ten.trim());
+        }else if(trangThai!=3){
+            listSP= service.searchPage(ten.trim(),trangThai, page);
+        }
+        model.addAttribute("trangThai", trangThai);
+        model.addAttribute("listSP", listSP);
+        return "sanpham/hien-thi";
+    }
+
+    @GetMapping("/shop-xe/san-pham/hien-thi")
     public String hienThi(@RequestParam(value = "page", defaultValue = "0") int page,
                           @RequestParam(value = "tenSearch",defaultValue = "") String ten, Model model){
         listSP= service.getData(page);
-        if(ten.trim() != ""){
-            listSP= service.searchPage(ten.trim(), page);
+        if(ten.trim() != "" || ten.trim().isEmpty() || ten.trim()!=null){
+            listSP= service.searchPage(ten.trim(),3, page);
             model.addAttribute("tenSearch", ten.trim());
         }
         model.addAttribute("listSP", listSP);
@@ -39,7 +56,7 @@ public class SanPhamController {
         return "sanpham/sanphams";
     }
 
-    @GetMapping("/san-pham/detail/{id}")
+    @GetMapping("/shop-xe/san-pham/detail/{id}")
     public String detail(@RequestParam(value = "page", defaultValue = "0") int page,
                          @PathVariable("id")UUID id, Model model){
         listSP= service.getData(page);
@@ -49,13 +66,13 @@ public class SanPhamController {
         return "sanpham/sanphams";
     }
 
-    @GetMapping("/san-pham/delete/{id}")
+    @GetMapping("/shop-xe/san-pham/delete/{id}")
     public String delete(@PathVariable("id")UUID id){
         service.delete(id);
         return "redirect:/shop-xe/san-pham/hien-thi";
     }
 
-    @GetMapping("/san-pham/view-update/{id}")
+    @GetMapping("/shop-xe/san-pham/view-update/{id}")
     public String viewUpdate(@PathVariable("id")UUID id, Model model){
         idSPCu=id;
         SanPham sp= service.detail(id);
@@ -63,17 +80,27 @@ public class SanPhamController {
         return "sanpham/update";
     }
 
-    @PostMapping("/san-pham/add")
+    @PostMapping("/shop-xe/san-pham/add")
     public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
                       BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("listSP", listSP);
+            return "sanpham/sanphams";
+        }
+        sp1.setNgayThem(new java.util.Date());
         service.save(sp1);
         return "redirect:/shop-xe/san-pham/hien-thi";
     }
 
-    @PostMapping("/san-pham/update")
+    @PostMapping("/shop-xe/san-pham/update")
     public String update(@Valid @ModelAttribute("sp1")SanPham sp1,
                       BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("listSP", listSP);
+            return "sanpham/update";
+        }
         sp1.setId(idSPCu);
+        sp1.setNgayThem(new java.util.Date());
         service.save(sp1);
         return "redirect:/shop-xe/san-pham/hien-thi";
     }
