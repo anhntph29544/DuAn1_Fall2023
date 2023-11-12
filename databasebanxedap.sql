@@ -64,14 +64,15 @@ create table nhan_vien(
 	foreign key(id_chuc_vu) references chuc_vu(id_chuc_vu),
 	ma varchar(20),
 	email varchar(50),
-	ten nvarchar(20),
-	ten_dem nvarchar(20),
-	ho nvarchar(20),
+	ho_ten nvarchar(50),
 	image varchar(255),
 	cccd varchar(40),
 	gioi_tinh nvarchar(20),
 	ngay_sinh date,
-	dia_chi nvarchar(100),
+	thanh_pho nvarchar(50),
+	huyen nvarchar(50),
+	xa nvarchar(50),
+	so_nha nvarchar(50),
 	sdt varchar(20),
 	mat_khau varchar(20),
 	trang_thai int
@@ -80,10 +81,20 @@ create table khach_hang(
 	id_kh uniqueidentifier primary key,
 	ma varchar(20),
 	ten nvarchar(50),
+	image varchar(50),
 	ngay_sinh date,
 	email varchar(50),
+	sdt varchar(20),
+	mat_khau varchar(20),
+	gioi_tinh int,
+	thanh_pho nvarchar(50),
+	huyen nvarchar(50),
+	xa nvarchar(50),
+	so_nha nvarchar(50),
 	trang_thai int
 )
+select*from khach_hang
+select*from nhan_vien
 create table voucher(
 	id_voucher uniqueidentifier primary key,
 	so_luong int,
@@ -116,4 +127,4 @@ create table hoa_don_chi_tiet(
 	so_luong int,
 	trang_thai int
 )
-
+select*from nhan_vien
