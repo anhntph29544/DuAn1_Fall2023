@@ -77,7 +77,7 @@ public class NhanVienController {
         model.addAttribute("sizePage", sizePage);
         model.addAttribute("nhanVien", new NhanVien());
         model.addAttribute("chucVu", chucVuService.getAll());
-        return "/nhanvien/  hienThi";
+        return "/nhanvien/hienThi";
     }
 
     @GetMapping("/detail/{id}")

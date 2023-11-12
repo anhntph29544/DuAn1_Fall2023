@@ -16,7 +16,6 @@ public interface KichThuocService {
 
     Page<KichThuoc> searchPage(String ten,int page);
 
-
     KichThuoc detail(UUID id);
 
     void save(KichThuoc kichThuoc);
