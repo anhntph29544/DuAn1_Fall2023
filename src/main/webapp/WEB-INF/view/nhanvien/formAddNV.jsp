@@ -214,11 +214,11 @@
                         <div class="form-group col-md-4">
                             <label class="control-label">Giới tính</label>
                             <div class="form-check">
-                                <f:radiobutton path="gioiTinh" value="1" label="nam" cssClass="form-check-input" />
+                                <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
                                 <label class="form-check-label">Nam</label>
                             </div>
                             <div class="form-check">
-                                <f:radiobutton path="gioiTinh" value="0" label="nữ" cssClass="form-check-input" />
+                                <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
                                 <label class="form-check-label">Nữ</label>
                             </div>
                         </div>
@@ -292,6 +292,7 @@
                             <f:button type="submit" cssClass="btn btn-info" onclick="if (!(confirm('Bạn có muốn thêm nhân viên mới không?'))) return false">Lưu lại</f:button>
                             <a class="btn btn-cancel" href="/nhan-vien/hien-thi" onclick="if (!(confirm('Bạn có muốn thoát không?'))) return false">Hủy bỏ</a>
                         </div>
+                        <input type="hidden" name="trangThai" value="${nhanVien.trangThai}" />
                     </f:form>
                 </div>
             </div>

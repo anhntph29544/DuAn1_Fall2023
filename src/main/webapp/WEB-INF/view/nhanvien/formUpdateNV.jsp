@@ -22,11 +22,11 @@
     <div class="form-group col-md-4">
         <label class="control-label">Giới tính</label>
         <div class="form-check">
-            <f:radiobutton path="gioiTinh" value="1" label="nam" cssClass="form-check-input" />
+            <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
             <label class="form-check-label">Nam</label>
         </div>
         <div class="form-check">
-            <f:radiobutton path="gioiTinh" value="0" label="nữ" cssClass="form-check-input" />
+            <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
             <label class="form-check-label">Nữ</label>
         </div>
     </div>
@@ -85,11 +85,11 @@
     <div class="form-group col-md-4">
         <label class="control-label">Trạng thái</label>
         <div class="form-check">
-            <f:radiobutton path="trangThai" value="1" cssClass="form-check-input" />
+            <f:radiobutton path="trangThai" value="0" cssClass="form-check-input" />
             <label class="form-check-label">hoạt động</label>
         </div>
         <div class="form-check">
-            <f:radiobutton path="trangThai" value="0" cssClass="form-check-input" />
+            <f:radiobutton path="trangThai" value="1" cssClass="form-check-input" />
             <label class="form-check-label">dừng hoạt động</label>
         </div>
     </div>

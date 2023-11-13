@@ -89,6 +89,7 @@ public class KhachHangController {
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
         KhachHang khachHang = new KhachHang();
+        khachHang.setTrangThai(0);
         model.addAttribute("khachHang", khachHang);
 
         List<String> cities = getGhnCities();
@@ -220,7 +221,7 @@ public class KhachHangController {
         khachHang.setMatKhau(randomPassword);
         khachHangService.add(khachHang);
         sendAccountInfoEmail(khachHang.getEmail(), randomPassword);
-        return "redirect:/nhan-vien/hien-thi";
+        return "redirect:/khach-hang/hien-thi";
     }
 
     // Phương thức này để gửi email với thông tin tài khoản mới
