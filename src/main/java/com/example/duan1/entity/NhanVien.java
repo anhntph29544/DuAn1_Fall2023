@@ -55,11 +55,9 @@ public class NhanVien {
     @Column(name = "email")
     private String email;
 
-
     @Pattern(regexp = "^[0-9]{12}$", message = "CCCD phải có 12 chữ số")
     @Column(name = "cccd")
     private String cccd;
-
 
     @Column(name = "gioi_tinh")
     private Integer gioiTinh;

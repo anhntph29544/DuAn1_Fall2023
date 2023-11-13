@@ -29,6 +29,15 @@ public class HoaDon {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="id_hoa_don")
     private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_nhan_vien", referencedColumnName = "id_nhan_vien")
+    private NhanVien nhanVien;
+
+    @ManyToOne
+    @JoinColumn(name = "id_kh", referencedColumnName = "id_kh")
+    private KhachHang khachHang;
+
     @Column(name = "ma")
     private String ma;
     @Column(name = "loai_hoa_don")
