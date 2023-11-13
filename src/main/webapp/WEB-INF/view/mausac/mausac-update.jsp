@@ -17,7 +17,7 @@
 </head>
 <body>
 <table>
-    <form:form method="post" action="/mau-sac/update/${m1.id}" modelAttribute="m1">
+    <form:form method="post" action="/shop-xe/mau-sac/update" modelAttribute="m1">
         Mã:<form:input path="ma"/><br>
         Tên:<form:input path="ten"/><br>
         Trạng Thái:<form:radiobutton path="trangThai" value="1" checked="1"/>Hoạt Động
