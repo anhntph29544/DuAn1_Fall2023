@@ -64,7 +64,9 @@
 <div class="ql" style="padding: 20px">
     <h2 style="text-align: center">SẢN PHẨM</h2>
     <div>
-        <span style="font-weight: bold"><i class="bi bi-funnel-fill"></i> Bộ lọc</span>
+        <span style="font-weight: bold">
+            <i class="bi bi-funnel-fill"></i> Bộ lọc
+        </span>
     </div>
     <div style="border: 1px solid black;padding: 10px;">
         <form action="/shop-xe/san-pham" class="row">
@@ -90,13 +92,54 @@
         </a>
     </div>
     <div style="font-weight: bold; margin-top: 10px;" class="row">
-        <div class="col-md-10">
+        <div class="col-md-8">
             <span><i class="bi bi-card-list"></i> Danh sách sản phẩm</span>
         </div>
         <div class="col-md-2">
-            <a href="/shop-xe/san-pham-chi-tiet/hien-thi"><button class="btn btn-primary">DS sản phẩm chi tiết</button></a>
+            <a href="/shop-xe/san-pham-chi-tiet/hien-thi">
+                <button class="btn btn-primary">DS sản phẩm chi tiết</button>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a data-bs-toggle="modal" data-bs-target="#sanPham">
+                <button class="btn btn-success">Thêm sản phẩm</button>
+            </a>
         </div>
     </div>
+    <%-- Thêm sản phẩm --%>
+    <div class="modal fade" id="sanPham" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/shop-xe/san-pham/add" modelAttribute="sp1" method="post">
+                        <div class="mb-3">
+                            <label class="col-form-label">Tên</label>
+                            <input name="ten" type="text" class="form-control"/><br>
+                        </div>
+                        <label class="form-label">Trạng thái</label>
+                        <div class="mb-3 form-check">
+                            <input type="radio" name="trangThai" class="form-check-input" value="0"
+                                   id="trangThaiSP1"
+                                   checked="true"/>
+                            <label class="form-check-label" for="trangThaiSP1">Hoạt động</label>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="radio" name="trangThai" class="form-check-input" value="1"
+                                   id="trangThaiSP2"/>
+                            <label class="form-check-label" for="trangThaiSP2">Không hoạt động</label>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-- End thêm sản phẩm   --%>
     <table class="table table-bordered" style="margin-top: 5px">
         <thead class="table-secondary">
         <tr>
@@ -108,15 +151,19 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${listSP.content}" var="spct" varStatus="stt">
-            <tr>
+        <c:forEach items="${listSP.content}" var="sp" varStatus="stt">
+            <tr>Thêm sản phẩm
+
                 <td>${stt.index+1}</td>
-                <td>${spct.ma}</td>
-                <td>${spct.ten}</td>
-                <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
+                <td>${sp.ma}</td>
+                <td>${sp.ten}</td>
+                <td>${sp.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
                 <td>
-                    <a href="/shop-xe/san-pham-chi-tiet/hien-thi/${spct.id}">
+                    <a href="/shop-xe/san-pham-chi-tiet/hien-thi?tenSearch=${sp.ten}">
                         <button class="btn btn-warning"><i class="bi bi-eye"></i> Chi tiết</button>
+                    </a>
+                    <a href="/shop-xe/san-pham/view-update/${sp.id}">
+                        <button class="btn btn-success">Sửa sản phẩm</button>
                     </a>
                 </td>
             </tr>

@@ -9,7 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script language="javascript" type="text/javascript"><%@include file="spct-add.js" %></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
         i {
             font-size: 30px;
@@ -65,17 +71,15 @@
     </div>
 </nav>
 <div class="ql" style="padding: 20px">
-    <h2 style="text-align: center">Thêm sản phẩm</h2>
-    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/add" modelAttribute="spct1">
+    <h3 style="text-align: center">THÊM SẢN PHẨM CHI TIẾT</h3>
+    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/add" modelAttribute="spct1" enctype="multipart/form-data">
         <%--thông tin sản phẩm--%>
-        <h4>SẢN PHẨM</h4>
         <div class="col-md-12 row">
             <div class="col-md-3">
                     <%--mã sản phẩm chi tiết--%>
                 <div class="mb-3">
                     <label class="form-label">Mã sản phẩm chi tiết</label>
                     <form:input class="form-control" path="ma" disabled="true"/>
-                    <div class="form-text"><form:errors path="ma"/></div>
                 </div>
                     <%--sản phẩm--%>
                 <div class="mb-3">
@@ -98,7 +102,7 @@
                     <%--đơn giá--%>
                 <div class="mb-3">
                     <label class="form-label">Đơn giá</label>
-                    <form:input class="form-control" path="gia" type="number"/>
+                    <form:input class="form-control" id="productID" path="gia" type="number"/>
                     <div class="form-text"><form:errors path="gia"/></div>
                 </div>
             </div>
@@ -190,7 +194,7 @@
                     <%--hinh anh--%>
                 <div class="mb-3">
                     <label class="form-label">Hình ảnh</label>
-                    <input type="file" accept="image/gif, image/png, image/jpeg"/>
+                    <input type="file" name="photo" accept="image/gif, image/png, image/jpeg"/>
                 </div>
                     <%--trạng thái--%>
                 <div class="mb-3">
@@ -222,7 +226,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/sp/add" modelAttribute="sp1" method="post">
+                    <form id ='sp1'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
                             <input name="ten" type="text" class="form-control"/><br>
@@ -348,7 +352,7 @@
         </div>
     </div>
     <%--  End kích thước  --%>
-    <%-- Kích thước --%>
+    <%-- Thương hiệu --%>
     <div class="modal fade" id="thuongHieu" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -380,7 +384,7 @@
             </div>
         </div>
     </div>
-    <%--  End kích thước  --%>
+    <%--  End thương hiệu  --%>
 </div>
 </body>
 </html>

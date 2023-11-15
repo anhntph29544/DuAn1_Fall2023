@@ -31,8 +31,6 @@ public class SanPhamController {
                          Model model){
         listSP= service.getData(page);
         if(!ten.trim().isEmpty()){
-            System.out.println("dmmm");
-            System.out.println("--------------");
             listSP= service.searchPage(ten.trim(),trangThai, page);
             model.addAttribute("tenSearch", ten.trim());
         }else if(trangThai!=3){
@@ -83,16 +81,16 @@ public class SanPhamController {
     public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
                       BindingResult result, Model model){
         service.save(sp1);
-        return "redirect:/shop-xe/san-pham/hien-thi";
+        return "redirect:/shop-xe/san-pham";
     }
 
     @PostMapping("/shop-xe/san-pham/update")
     public String update(@Valid @ModelAttribute("sp1")SanPham sp1,
                       BindingResult result, Model model){
-        sp.setTen(sp1.getTen());
+        sp.setTen(sp1.getTen().trim());
         sp.setTrangThai(sp1.getTrangThai());
         service.save(sp);
-        return "redirect:/shop-xe/san-pham/hien-thi";
+        return "redirect:/shop-xe/san-pham";
     }
 
 }

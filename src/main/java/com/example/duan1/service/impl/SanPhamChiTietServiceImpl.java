@@ -5,10 +5,12 @@ import com.example.duan1.repository.SanPhamChiTietRepository;
 import com.example.duan1.service.SanPhamChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -20,9 +22,35 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
     private String prefix= "SPCT";
 
     @Override
-    public Page<SanPhamChiTiet> getAll(int page) {
+    public List<SanPhamChiTiet> getAll() {
+        return spctr.findAll();
+    }
+
+    @Override
+    public Page<SanPhamChiTiet> getData(int page) {
         Pageable pageable = PageRequest.of(page,5);
         return spctr.findAll(pageable);
+    }
+
+    @Override
+    public List<SanPhamChiTiet> search(String ten, Integer trangThai) {
+        if(ten.trim().isEmpty()){
+            return spctr.search2(trangThai);
+        }
+        if(trangThai==3 && !ten.trim().isEmpty()){
+            return spctr.search(ten);
+        }
+        return spctr.search3(ten,trangThai);
+    }
+
+    @Override
+    public Page<SanPhamChiTiet> searchPage(String ten, Integer trangThai, int page) {
+        List list= this.search(ten,trangThai);
+        Pageable pageable= PageRequest.of(page,5);
+        Integer start = (int) pageable.getOffset();
+        Integer end = (int) (pageable.getOffset()+ pageable.getPageSize()>list.size()? list.size():pageable.getOffset()+ pageable.getPageSize());
+        list= list.subList(start,end);
+        return new PageImpl<SanPhamChiTiet>(list, pageable, this.search(ten,trangThai).size());
     }
 
     @Override
@@ -34,8 +62,13 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
     @Override
     public Boolean save(SanPhamChiTiet spct) {
-        spctr.save(spct);
-        return null;
+        try{
+            spctr.save(spct);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
