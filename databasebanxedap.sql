@@ -153,18 +153,7 @@ alter table mau_sac add ngay_them datetime
 USE [sport_bicycle1]
 GO
 
-INSERT INTO [dbo].[kich_thuoc]
-           ([id_kich_thuoc]
-           ,[ma]
-           ,[ten]
-           ,[trang_thai]
-           ,[ngay_them])
-     VALUES
-           (NEWID(),'KT1', N'S', 0, getdate()),
-           (NEWID(),'KT2', N'L', 0, getdate()),
-           (NEWID(),'KT3', N'M', 0, getdate())
-GO
-select*from kich_thuoc
+
 INSERT INTO [dbo].[san_pham]
            ([id_san_pham]
            ,[ma]
