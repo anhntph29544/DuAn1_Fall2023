@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Quản Lý Nhân Viên</a></li>
                         <li><a class="dropdown-item" href="#">Quản Lý Khách Hàng</a></li>
-                        <li><a class="dropdown-item" href="/shop-xe/san-pham-chi-tiet/hien-thi">Quản Lý Sản Phẩm</a>
+                        <li><a class="dropdown-item" href="/shop-xe/san-pham">Quản Lý Sản Phẩm</a>
                         </li>
                         <li><a class="dropdown-item" href="#">Thống Kê</a></li>
                         <li><a class="dropdown-item" href="">Quản Lý Voucher</a></li>
@@ -46,9 +46,7 @@
                         Linh kiện
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/mau-sac/hien-thi">Màu Sắc</a></li>
-                        <li><a class="dropdown-item" href="/nsx/hien-thi">Nhà Sản Xuất</a></li>
-                        <li><a class="dropdown-item" href="/shop-xe/kieu-dang-xe">Kiểu Dáng</a></li>
+                        
                     </ul>
                 </li>
             </ul>
@@ -70,6 +68,9 @@
             <label class="form-label">Tên sản phẩm</label>
             <form:input class="form-control" path="ten"/>
             <div class="form-text"><form:errors path="ten"/></div>
+            <div class="form-text">
+                    ${tenError}
+            </div>
         </div>
         <%--trạng thái--%>
         <div class="mb-3">

@@ -113,14 +113,16 @@
             </div>
             </a>
         </div>
-        <a href="/shop-xe/san-pham-chi-tiet/hien-thi">
-            <button class="btn btn-danger"><i class="bi bi-x-lg"></i> Xoá lọc</button>
-        </a>
         <c:if test="${messege!=0}">
             <div class="alert alert-${messege==1?"success":"danger"}" role="alert">
                     ${messege==1?"Lưu thành công":"Lưu thất bại"}
             </div>
         </c:if>
+        <div style="margin-top: 10px;" class="col-md-2">
+            <a href="/shop-xe/san-pham-chi-tiet/hien-thi">
+                <button class="btn btn-danger"><i class="bi bi-x-lg"></i> Xoá lọc</button>
+            </a>
+        </div>
         <div style="font-weight: bold; margin-top: 10px;" class="row">
             <div class="col-md-10">
                 <span><i class="bi bi-card-list"></i> DS sản phẩm chi tiết</span>
