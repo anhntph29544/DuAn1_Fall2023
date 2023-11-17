@@ -18,4 +18,7 @@ public interface NhanVienService {
 
     Boolean delete(NhanVien nhanVien);
 
+    Boolean isEmailExists(String email);
+
+
 }

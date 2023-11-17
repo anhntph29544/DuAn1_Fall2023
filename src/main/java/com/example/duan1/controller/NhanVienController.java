@@ -210,6 +210,12 @@ public class NhanVienController {
             model.addAttribute("chucVu", chucVuService.getAll());
             return "/nhanvien/formAddNV";
         }
+        if (nhanVienService.isEmailExists(nhanVien.getEmail())) {
+            // Thêm thông báo lỗi cho trường email
+            bindingResult.rejectValue("email", "duplicate.email", "Email đã tồn tại");
+            model.addAttribute("chucVu", chucVuService.getAll());
+            return "/nhanvien/formAddNV";
+        }
         if (!file.isEmpty()) {
             try {
                 byte[] imageBytes = file.getBytes();

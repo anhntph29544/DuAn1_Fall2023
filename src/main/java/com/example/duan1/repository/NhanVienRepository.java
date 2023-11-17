@@ -9,4 +9,5 @@ import java.util.UUID;
 @Repository
 public interface NhanVienRepository extends JpaRepository<NhanVien, UUID> {
     NhanVien findByEmail(String email);
+    Boolean existsByEmail(String email);
 }

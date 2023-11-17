@@ -24,18 +24,11 @@ public class TrangChuController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        Model model) {
-
-        // Tìm nhân viên theo email trong cơ sở dữ liệu
+                        @RequestParam("password") String password) {
         NhanVien nhanVien = nhanVienRepository.findByEmail(username);
-
-        // Kiểm tra nếu nhân viên tồn tại và mật khẩu khớp
         if (nhanVien != null && nhanVien.getMatKhau().equals(password)) {
             return "redirect:/nhan-vien/hien-thi";
         }
-
-        // Nếu không khớp, quay lại trang đăng nhập
         return "index";
     }
 }
