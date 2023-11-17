@@ -12,18 +12,18 @@
 </head>
 <body>
 
-<form action="/voucher/update/${vc.id}" method="post"  modelAttribute ="vc">
+<form action="/voucher/update" method="post"  modelAttribute ="vc">
     Số lượng: <input type="text" name="soLuong" value="${vc.soLuong}">
     <br/>
     Giá trị: <input type="text" name="giaTri" value="${vc.giaTri}">
     <br>
-    Ngày Bắt Đầu: <input type="text" name="ngayBD" value="${vc.ngayBD}">
+    Ngày Bắt Đầu: <input type="date" name="ngayBD" value="${vc.ngayBD}">
     <br>
-    Ngày Kết Thúc: <input type="text" name="ngayKT" value="${vc.ngayKT}">
+    Ngày Kết Thúc: <input type="date" name="ngayKT" value="${vc.ngayKT}">
     <br>
-    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${vc.trangThai=="0"?'Checked':''}/>hoat dong
-    <input type="radio" name="trangThai" value="1" ${vc.trangThai=="1"?'Checked':''}/>khong hoat dong
-    <br>
+<%--    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${vc.trangThai=="0"?'Checked':''}/>hoat dong--%>
+<%--    <input type="radio" name="trangThai" value="1" ${vc.trangThai=="1"?'Checked':''}/>khong hoat dong--%>
+<%--    <br>--%>
     <button type="submit">update</button>
 </form>
 </body>

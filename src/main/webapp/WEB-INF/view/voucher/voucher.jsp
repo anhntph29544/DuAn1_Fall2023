@@ -11,22 +11,27 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
+<h1>Quản Lý Voucher</h1>
+<form action="/voucher/search" method="get">
+    Ngày Bắt Đầu: <input type="date" name="ngayBD">
+    Ngày Kết Thúc: <input type="date" name="ngayKT">
+    <button type="submit">tim kiếm</button>
+</form>
 <form action="/voucher/add" method="post"  modelAttribute ="vc">
     Số lượng: <input type="text" name="soLuong" value="${vc.soLuong}">
     <br/>
     Giá trị: <input type="text" name="giaTri" value="${vc.giaTri}">
     <br>
-    Ngày Bắt Đầu: <input type="text" name="ngayBD" value="${vc.ngayBD}">
+    Ngày Bắt Đầu: <input type="date" name="ngayBD" value="${vc.ngayBD}">
     <br>
-    Ngày Kết Thúc: <input type="text" name="ngayKT" value="${vc.ngayKT}">
-    <br>
-    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${vc.trangThai=="0"?'Checked':''}/>hoat dong
-    <input type="radio" name="trangThai" value="1" ${vc.trangThai=="1"?'Checked':''}/>khong hoat dong
+    Ngày Kết Thúc: <input type="date" name="ngayKT" value="${vc.ngayKT}">
+<%--    <br>--%>
+<%--    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${vc.trangThai=="0"?'Checked':''}/>hoat dong--%>
+<%--    <input type="radio" name="trangThai" value="1" ${vc.trangThai=="1"?'Checked':''}/>khong hoat dong--%>
     <br>
     <button type="submit">add</button>
 </form>
-<table class="table">
+<table class="table" border="1">
     <thead>
     <tr>
         <th scope="col">#</th>
@@ -39,14 +44,14 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${list}" var="vc" varStatus="stt">
+    <c:forEach items="${list.content}" var="vc" varStatus="stt">
         <tr>
             <th scope="row">${stt.index+1}</th>
             <td>${vc.soLuong}</td>
             <td>${vc.giaTri}</td>
             <td>${vc.ngayBD}</td>
             <td>${vc.ngayKT}</td>
-            <td>${vc.trangThai}</td>
+            <td>${vc.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>
             <td>
                 <a href="/voucher/view-update/${vc.id}">
                     <button>update</button>
@@ -62,5 +67,14 @@
     </c:forEach>
     </tbody>
 </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <c:forEach begin="0" end="${list.totalPages-1<0?0:list.totalPages-1}" varStatus="loop">
+            <c:if test="${list.totalPages-1>=0}">
+            <li class="page-item"><a class="page-link" href="/voucher/hien-thi?page=${loop.index}">${loop.index+1}</a></li>
+            </c:if>
+        </c:forEach>
+    </ul>
+</nav>
 </body>
 </html>
