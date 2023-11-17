@@ -38,14 +38,23 @@ public class HoaDon {
     @JoinColumn(name = "id_kh", referencedColumnName = "id_kh")
     private KhachHang khachHang;
 
+    @ManyToOne
+    @JoinColumn(name = "id_voucher", referencedColumnName = "id_voucher")
+    private Voucher voucher;
+
     @Column(name = "ma")
     private String ma;
+
     @Column(name = "loai_hoa_don")
     private Integer loai;
+
     @Column(name = "ngay_thanh_toan")
     private Date ngayThanhToan;
+
     @Column(name = "tinh_trang")
     private Integer tinhTrang;
+
     @Column(name = "thanh_tien")
     private Double thanhTien;
+
 }

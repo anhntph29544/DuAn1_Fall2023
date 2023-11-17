@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class HoaDonSVImpl implements HoaDonSV {
     @Autowired
     private HoaDonRepository repository;
@@ -30,6 +32,11 @@ public class HoaDonSVImpl implements HoaDonSV {
     @Override
     public HoaDon detail(UUID id) {
         return repository.findById(id).get();
+    }
+
+    @Override
+    public List<HoaDon> getCHT() {
+        return repository.getChuaThanhToan();
     }
 
     @Override

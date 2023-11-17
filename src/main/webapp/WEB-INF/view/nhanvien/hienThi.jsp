@@ -91,7 +91,7 @@
             <td>${nv.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
             <td>${nv.chucVu.tenChucVu}</td>
             <td>${nv.sdt}</td>
-            <td>${nv.trangThai == 0 ? 'Làm viêc' : 'Nghỉ việc'}</td>
+            <td>${nv.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
             <td class="table-td-center">
                 <a href="/nhan-vien/delete/${nv.idNhanVien}" class="btn btn-primary btn-sm trash"
                    type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa nhân viên này không?'))) return false">

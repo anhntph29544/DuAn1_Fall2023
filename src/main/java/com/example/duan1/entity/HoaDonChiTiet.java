@@ -37,7 +37,6 @@ public class HoaDonChiTiet {
     @JoinColumn(name = "id_spct", referencedColumnName = "id_spct")
     private SanPhamChiTiet sanPhamCT;
 
-
     @Column(name = "gia")
     private Double gia;
 

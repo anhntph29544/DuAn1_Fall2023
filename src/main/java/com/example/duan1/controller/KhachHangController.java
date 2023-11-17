@@ -61,7 +61,7 @@ public class KhachHangController {
     KhachHangService khachHangService;
 
     @GetMapping("/hien-thi")
-    public String hienThi(Model model, @RequestParam(name = "num", defaultValue = "0") Integer num){
+    public String hienThi(Model model, @RequestParam(name = "num", defaultValue = "0") Integer num) {
         Integer sizePage = 5;
         Pageable pageable = PageRequest.of(num, sizePage);
         Page<KhachHang> list = khachHangService.getAll(pageable);
@@ -89,6 +89,9 @@ public class KhachHangController {
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
         KhachHang khachHang = new KhachHang();
+
+        khachHang.setTrangThai(0);
+
         model.addAttribute("khachHang", khachHang);
 
         List<String> cities = getGhnCities();
@@ -220,7 +223,11 @@ public class KhachHangController {
         khachHang.setMatKhau(randomPassword);
         khachHangService.add(khachHang);
         sendAccountInfoEmail(khachHang.getEmail(), randomPassword);
-        return "redirect:/nhan-vien/hien-thi";
+
+
+
+        return "redirect:/khach-hang/hien-thi";
+
     }
 
     // Phương thức này để gửi email với thông tin tài khoản mới
@@ -251,7 +258,7 @@ public class KhachHangController {
             Transport.send(message);
 
             System.out.println("Email đã được gửi thành công!");
-            System.out.println("email:" +toEmail);
+            System.out.println("email:" + toEmail);
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
@@ -327,7 +334,7 @@ public class KhachHangController {
             ResponseEntity<Map> response = restTemplate.postForEntity(IMGUR_API_URL, requestEntity, Map.class);
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 Map data = response.getBody();
-                return data.get("data").toString().substring(data.get("data").toString().indexOf("link")).replace("}","").replace("link=","");
+                return data.get("data").toString().substring(data.get("data").toString().indexOf("link")).replace("}", "").replace("link=", "");
             } else {
                 throw new RuntimeException("Image upload to Imgur failed");
             }

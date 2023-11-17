@@ -13,5 +13,7 @@ public interface HoaDonSV {
 
     HoaDon detail(UUID id);
 
+    List<HoaDon> getCHT();
+
     void save(HoaDon hoaDon);
 }
