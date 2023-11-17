@@ -161,15 +161,16 @@ public class SanPhamChiTietController {
     }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/sp/add")
-    public ResponseEntity addSP(@Valid @ModelAttribute("sp1") SanPham sp1, Model model){
+//    public ResponseEntity addSP(@Valid @ModelAttribute("sp1") SanPham sp1, Model model){
+    public String addSP(@Valid @ModelAttribute("sp1") SanPham sp1, Model model){
         serviceSP.save(sp1);
-        combobox(model);
-        return new ResponseEntity<>(HttpStatus.OK);
+//        combobox(model);
+//        return new ResponseEntity<>(HttpStatus.OK);
+        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
     }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
-    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,
-                        BindingResult result,  Model model){
+    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,  Model model){
         serviceMS.save(ms1);
         return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
     }

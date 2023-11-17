@@ -16,13 +16,15 @@
     <title>Document</title>
 </head>
 <body>
+<%@include file="../include/header.jsp"%>
+<h3 STYLE="text-align: center">CHỈNH SỬA MÀU SẮC</h3>
 <table>
     <form:form method="post" action="/shop-xe/mau-sac/update" modelAttribute="m1">
         Mã:<form:input path="ma"/><br>
         Tên:<form:input path="ten"/><br>
         Trạng Thái:<form:radiobutton path="trangThai" value="1" checked="1"/>Hoạt Động
         <form:radiobutton path="trangThai" value="0"/>Không Hoạt Động</br>
-        <form:button type="submit">Update</form:button>
+        <form:button type="submit" onclick="return confirm('Bạn chắc chưa?')" class="btn btn-primary">Update</form:button>
     </form:form>
 </table>
 </body>

@@ -11,10 +11,13 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<%@include file="../include/header.jsp"%>
+<h3 STYLE="text-align: center">QUẢN LÝ KÍCH THƯỚC</h3>
 <form action="/shop-xe/kich-thuoc/hien-thi">
     <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
-    <button type="submit">Search</button>
+    <button type="submit" class="btn btn-primary">Search</button>
 </form>
+<br>
 <form:form action="/shop-xe/kich-thuoc/add" method="post" modelAttribute="kt1">
     Mã: <form:input path="ma" disabled="true"/>
     <br/>
@@ -24,10 +27,10 @@
     <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động
     <br>
-    <form:button type="submit">Add</form:button>
-</form:form>
+    <form:button type="submit" class="btn btn-primary">Add</form:button>
+</form:form><br>
 <a href="/shop-xe/kich-thuoc/hien-thi">
-    <button>Hiển thị tất cả</button>
+    <button class="btn btn-primary">Hiển thị tất cả</button>
 </a>
 <table class="table">
     <thead>
@@ -35,8 +38,8 @@
         <th scope="col">#</th>
         <th scope="col">Mã</th>
         <th scope="col">Tên</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col">Action</th>
+        <th scope="col">Trạng Thái</th>
+        <th scope="col">Hành Động</th>
     </tr>
     </thead>
     <tbody>
@@ -48,13 +51,13 @@
             <td>${kt.trangThai}</td>
             <td>
                 <a href="/shop-xe/kich-thuoc/view-update/${kt.id}">
-                    <button>update</button>
+                    <button class="btn btn-warning">update</button>
                 </a>
                 <a href="/shop-xe/kich-thuoc/detail/${kt.id}">
-                    <button>detail</button>
+                    <button class="btn btn-success">detail</button>
                 </a>
                 <a href="/shop-xe/kich-thuoc/delete/${kt.id}">
-                    <button>delete</button>
+                    <button class="btn btn-danger">delete</button>
                 </a>
             </td>
         </tr>

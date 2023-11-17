@@ -17,48 +17,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">TÀI KHOẢN</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Trang Chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Tạo Hóa Đơn</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Quản Lý Chung
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Quản Lý Nhân Viên</a></li>
-                        <li><a class="dropdown-item" href="#">Quản Lý Khách Hàng</a></li>
-                        <li><a class="dropdown-item" href="/shop-xe/san-pham">Quản Lý Sản Phẩm</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Thống Kê</a></li>
-                        <li><a class="dropdown-item" href="">Quản Lý Voucher</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Linh kiện
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@include file="../include/header.jsp"%>
 <div class="ql" style="padding: 20px">
     <h2 style="text-align: center">SẢN PHẨM</h2>
     <div class="row">
@@ -84,9 +43,9 @@
                 <div class="col-md-4">
                     <label>Trạng thái sản phẩm</label>
                     <select name="trangThaiSearch" class="form-select">
-                        <option value="3" ${trangThai==3?"selected":""} selected></option>
-                        <option value="0" ${trangThai==0?"selected":""}>Hoạt động</option>
-                        <option value="1" ${trangThai==1?"selected":""}>Không hoạt động</option>
+                        <option value="3" ${trangThaiSearch==3?"selected":""} selected></option>
+                        <option value="0" ${trangThaiSearch==0?"selected":""}>Hoạt động</option>
+                        <option value="1" ${trangThaiSearch==1?"selected":""}>Không hoạt động</option>
                     </select>
                 </div>
                 <div class="col-md-12" style="padding-top: 10px">
@@ -119,7 +78,8 @@
                                       id="trangThaiSP2"/>
                     <label class="form-check-label" for="trangThaiSP2">Không hoạt động</label>
                 </div>
-                <form:button type="submit" class="btn btn-primary">Thêm</form:button>
+                <form:button type="submit" class="btn btn-primary"
+                             onclick="return confirm('Bạn có chắc không?')">Thêm</form:button>
             </form:form>
         </div>
     </div>
@@ -169,7 +129,7 @@
                     <li class="page-item">
                         <c:if test="${tenSearch!=''}">
                             <a class="page-link"
-                               href="/shop-xe/san-pham?tenSearch=${tenSearch}&page=${loop.index}">
+                               href="/shop-xe/san-pham?tenSearch=${tenSearch}&trangThaiSearch=${trangThaiSearch}&page=${loop.index}">
                                     ${loop.index+1}
                             </a>
                         </c:if>

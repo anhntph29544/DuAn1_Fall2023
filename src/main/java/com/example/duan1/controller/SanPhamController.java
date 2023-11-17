@@ -36,7 +36,7 @@ public class SanPhamController {
         }else if(trangThai!=3){
             listSP= service.searchPage(ten.trim(),trangThai, page);
         }
-        model.addAttribute("trangThai", trangThai);
+        model.addAttribute("trangThaiSearch", trangThai);
         model.addAttribute("listSP", listSP);
         model.addAttribute("sp1", new SanPham());
         return "sanpham/hien-thi";
