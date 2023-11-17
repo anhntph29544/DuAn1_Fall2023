@@ -1,9 +1,8 @@
 package com.example.duan1.controller;
 
-
+import com.example.duan1.entity.KhachHang;
 import com.example.duan1.entity.NhanVien;
-import com.example.duan1.service.ChucVuService;
-import com.example.duan1.service.NhanVienService;
+import com.example.duan1.service.KhachHangService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
@@ -52,54 +51,46 @@ import java.util.Properties;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/nhan-vien")
-public class NhanVienController {
+@RequestMapping("/khach-hang")
+public class KhachHangController {
 
-    //API UP Ảnh lên Imngur
     private final String IMGUR_API_URL = "https://api.imgur.com/3/image";
     private final String CLIENT_ID = "d0a17fce113a6ae";
-    private final String BEAR_TOKEN = "51fef63c53144a38215324961f0b5eb06b54b71b";
 
     @Autowired
-    NhanVienService nhanVienService;
-
-    @Autowired
-    ChucVuService chucVuService;
+    KhachHangService khachHangService;
 
     @GetMapping("/hien-thi")
-    public String hienThi(Model model, @RequestParam(name = "num", defaultValue = "0") Integer num) {
+    public String hienThi(Model model, @RequestParam(name = "num", defaultValue = "0") Integer num){
         Integer sizePage = 5;
         Pageable pageable = PageRequest.of(num, sizePage);
-        Page<NhanVien> list = nhanVienService.getAll(pageable);
+        Page<KhachHang> list = khachHangService.getAll(pageable);
         model.addAttribute("list", list.getContent());
         model.addAttribute("total", list.getTotalPages());
         model.addAttribute("num", num);
         model.addAttribute("sizePage", sizePage);
-        model.addAttribute("nhanVien", new NhanVien());
-        model.addAttribute("chucVu", chucVuService.getAll());
-        return "/nhanvien/hienThi";
+        model.addAttribute("khachHang", new KhachHang());
+        return "/khachhang/hienThi";
     }
 
     @GetMapping("/detail/{id}")
     public String showFormForUpdate(@PathVariable("id") UUID id, Model model) {
-        NhanVien nhanVien = nhanVienService.detail(id).get();
-        model.addAttribute("nhanVien", nhanVien);
-        model.addAttribute("chucVu", chucVuService.getAll());
-        return "/nhanvien/formUpdateNV";
+        KhachHang khachHang = khachHangService.detail(id).get();
+        model.addAttribute("khachHang", khachHang);
+        return "/khachhang/formUpdateKH";
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") NhanVien nhanVien) {
-        nhanVienService.delete(nhanVien);
-        return "redirect:/nhan-vien/hien-thi";
+    public String delete(@PathVariable("id") KhachHang khachHang) {
+        khachHangService.delete(khachHang);
+        return "redirect:/khach-hang/hien-thi";
     }
 
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
-        NhanVien nhanVien = new NhanVien();
-        nhanVien.setTrangThai(0);
-        model.addAttribute("nhanVien", nhanVien);
-        model.addAttribute("chucVu", chucVuService.getAll());
+        KhachHang khachHang = new KhachHang();
+        khachHang.setTrangThai(0);
+        model.addAttribute("khachHang", khachHang);
 
         List<String> cities = getGhnCities();
         List<String> districts = getGhnDistricts("202");
@@ -109,7 +100,8 @@ public class NhanVienController {
         model.addAttribute("districts", districts);
         model.addAttribute("wards", wards);
 
-        return "/nhanvien/formAddNV";
+
+        return "/khachhang/formAddKH";
     }
 
     private List<String> getGhnCities() {
@@ -203,12 +195,11 @@ public class NhanVienController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("nhanVien") @Valid NhanVien nhanVien,
-                       BindingResult bindingResult, Model model,
+    public String save(@ModelAttribute("khachHang") @Valid KhachHang khachHang,
+                       BindingResult bindingResult,
                        @RequestParam("imageFile") MultipartFile file) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("chucVu", chucVuService.getAll());
-            return "/nhanvien/formAddNV";
+            return "/khachhang/formAddKH";
         }
         if (!file.isEmpty()) {
             try {
@@ -216,7 +207,7 @@ public class NhanVienController {
                 String imgurUrl = uploadImage(imageBytes);
 
                 if (imgurUrl != null) {
-                    nhanVien.setImage(imgurUrl);
+                    khachHang.setImage(imgurUrl);
                 } else {
                     System.out.println("Lỗi khi tải ảnh lên Imgur");
                 }
@@ -227,10 +218,10 @@ public class NhanVienController {
 
         String randomPassword = generateRandomPassword();
 
-        nhanVien.setMatKhau(randomPassword);
-        nhanVienService.save(nhanVien);
-        sendAccountInfoEmail(nhanVien.getEmail(), randomPassword);
-        return "redirect:/nhan-vien/hien-thi";
+        khachHang.setMatKhau(randomPassword);
+        khachHangService.add(khachHang);
+        sendAccountInfoEmail(khachHang.getEmail(), randomPassword);
+        return "redirect:/khach-hang/hien-thi";
     }
 
     // Phương thức này để gửi email với thông tin tài khoản mới
@@ -279,28 +270,27 @@ public class NhanVienController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@ModelAttribute("nhanVien") @Valid NhanVien nhanVien,
-                         BindingResult bindingResult, Model model,
+    public String update(@ModelAttribute("khachHang") @Valid KhachHang khachHang,
+                         BindingResult bindingResult,
                          @RequestParam("imageFile") MultipartFile file,
-                         @PathVariable("id") UUID idNhanVien) {
+                         @PathVariable("id") UUID idKhachHang) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("chucVu", chucVuService.getAll());
-            return "/nhanvien/formUpdateNV";
+            return "/khachhang/formUpdateKH";
         }
-        if (nhanVien.getIdNhanVien() == null) {
+        if (khachHang.getIdKhachHang() == null) {
             return "error-page";
         }
 
-        NhanVien currentNhanVien = nhanVienService.detail(nhanVien.getIdNhanVien()).orElse(null);
+        KhachHang currentKhachHang = khachHangService.detail(khachHang.getIdKhachHang()).orElse(null);
 
-        if (currentNhanVien != null) {
+        if (currentKhachHang != null) {
             if (!file.isEmpty()) {
                 try {
                     byte[] imageBytes = file.getBytes();
                     String imgurUrl = uploadImage(imageBytes);
 
                     if (imgurUrl != null) {
-                        nhanVien.setImage(imgurUrl);
+                        khachHang.setImage(imgurUrl);
                     } else {
                         System.out.println("Lỗi khi tải ảnh lên Imgur");
                     }
@@ -308,32 +298,17 @@ public class NhanVienController {
                     e.printStackTrace();
                 }
             } else {
-                nhanVien.setImage(currentNhanVien.getImage());
+                khachHang.setImage(currentKhachHang.getImage());
             }
 
-            boolean updated = nhanVienService.update(nhanVien, idNhanVien);
+            boolean updated = khachHangService.update(khachHang, idKhachHang);
             if (updated) {
-                return "redirect:/nhan-vien/hien-thi";
+                return "redirect:/khach-hang/hien-thi";
             } else {
                 return "error-page";
             }
         } else {
             return "error-page";
-        }
-    }
-
-    @GetMapping("/image/{id}")
-    public void showImage(@PathVariable("id") UUID id, HttpServletResponse response) {
-        NhanVien nhanVien = nhanVienService.detail(id).get();
-        if (nhanVien != null && nhanVien.getImage() != null) {
-            try {
-                HttpResponse<InputStream> imgurResponse = Unirest.get(nhanVien.getImage()).header("accept", "image/*").asBinary();
-                InputStream inputStream = imgurResponse.getBody();
-                IOUtils.copy(inputStream, response.getOutputStream());
-                response.flushBuffer();
-            } catch (IOException | UnirestException e) {
-                e.printStackTrace();
-            }
         }
     }
 

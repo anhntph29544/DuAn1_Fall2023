@@ -128,8 +128,85 @@ create table hoa_don_chi_tiet(
 	trang_thai int
 )
 select*from nhan_vien
-alter table san_pham add ngay_them datetime
+
+-- Dữ liệu cho bảng chuc_vu
+INSERT INTO chuc_vu (id_chuc_vu, ma, ten, trang_thai)
+VALUES 
+  ('3f3d5487-60c0-4eb8-9004-2023e69cff26', 'CV001', 'Quản lý', 1),
+  ('a0b5ab61-0634-436a-b471-f53b29cbdffe', 'CV002', 'Nhân viên', 1)
+
+-- Dữ liệu cho bảng nhan_vien
+INSERT INTO nhan_vien (id_nhan_vien, id_chuc_vu, ma, email, ho_ten, image, cccd, gioi_tinh, ngay_sinh, thanh_pho, huyen, xa, so_nha, sdt, mat_khau, trang_thai)
+VALUES 
+  ('bfd3985e-aadc-4694-b89b-18151abc17d9', '3f3d5487-60c0-4eb8-9004-2023e69cff26', 'NV001', 'nhanvien1@example.com', N'Nguyễn Văn A', 'null', '123456789', N'Nam', '1990-01-01', N'Hà Nội', N'Ba Đình', N'Cống Vị', N'123 Đường ABC', '0987654321', 'password1', 1),
+  ('bed21cd4-6442-4f54-908c-c77695812b74', 'a0b5ab61-0634-436a-b471-f53b29cbdffe', 'NV002', 'nhanvien2@example.com', N'Trần Thị B', 'null', '987654321', N'Nữ', '1995-05-05', N'Hồ Chí Minh', N'Quận 1', N'Bến Nghé', N'456 Đường XYZ', '0123456789', 'password2', 1)
+
+-- Dữ liệu cho bảng khach_hang
+INSERT INTO khach_hang (id_kh, ma, ten, image, ngay_sinh, email, sdt, mat_khau, gioi_tinh, thanh_pho, huyen, xa, so_nha, trang_thai)
+VALUES 
+  ('8579ae3f-8b87-4f2e-b3fa-8c0f4a9733f0', 'KH001', N'Nguyễn Thị D', 'null', '1988-08-08', 'khachhang1@example.com', '0987123456', 'password4', 0, N'Hà Nội', N'Cầu Giấy', N'Dịch Vọng', N'101 Đường GHI', 1),
+  ('754df0f5-30e5-4c3a-bbbf-67decc15687d', 'KH002', N'Phạm Văn E', 'null', '1992-02-02', 'khachhang2@example.com', '0909123456', 'password5', 1, N'Hồ Chí Minh', N'Quận 5', N'An Bình', N'202 Đường KLM', 1)
+  alter table san_pham add ngay_them datetime
 alter table kieu_dang_xe add ngay_them datetime
 alter table kich_thuoc add ngay_them datetime
 alter table thuong_hieu add ngay_them datetime
 alter table mau_sac add ngay_them datetime
+USE [sport_bicycle1]
+GO
+
+
+INSERT INTO [dbo].[san_pham]
+           ([id_san_pham]
+           ,[ma]
+           ,[ten]
+           ,[trang_thai]
+           ,[ngay_them])
+     VALUES
+           ('DE93CE15-2FA2-4121-A5BF-176B3A526C5D','SP1', N'Galaxy X100', 0, getdate()),
+           ('BBA7DD58-1FCA-4D5E-A7DC-2EF28FFE846D','SP2', N'Phoenix 123', 0, getdate()),
+           ('2B3F7265-16F7-4463-8700-3D6782EC97BE','SP3', N'TRINX Free 2.0 Disc', 0, getdate())
+GO
+INSERT INTO [dbo].[san_pham_chi_tiet]
+           ([id_spct]
+           ,[id_san_pham]
+           ,[ma]
+           ,[mo_ta]
+           ,[so_luong_ton]
+           ,[gia]
+           ,[trang_thai]
+           ,[hinh_anh])
+     VALUES
+           ('9F42AAE7-2D7F-427D-B479-45DC655C4E6B','DE93CE15-2FA2-4121-A5BF-176B3A526C5D','SPCT1','Bền',200,2200000,0,Null),
+           ('8A838B08-7156-4C04-B455-47A13574F712','BBA7DD58-1FCA-4D5E-A7DC-2EF28FFE846D','SPCT2','Rẻ',100,1200000,0,Null),
+           ('835A445C-76F3-4FD2-9FB0-4A6A061F4F13','2B3F7265-16F7-4463-8700-3D6782EC97BE','SPCT3','Đẹp',50,5200000,0,Null)
+GO
+
+INSERT INTO [dbo].[san_pham]
+           ([id_san_pham]
+           ,[ma]
+           ,[ten]
+           ,[trang_thai]
+           ,[ngay_them])
+     VALUES
+           ('DE93CE15-2FA2-4121-A5BF-176B3A526C5D','SP1', N'Galaxy X100', 0, getdate()),
+           ('BBA7DD58-1FCA-4D5E-A7DC-2EF28FFE846D','SP2', N'Phoenix 123', 0, getdate()),
+           ('2B3F7265-16F7-4463-8700-3D6782EC97BE','SP3', N'TRINX Free 2.0 Disc', 0, getdate())
+GO
+USE [sport_bicycle1]
+GO
+
+INSERT INTO [dbo].[san_pham_chi_tiet]
+           ([id_spct]
+           ,[id_san_pham]
+           ,[ma]
+           ,[mo_ta]
+           ,[so_luong_ton]
+           ,[gia]
+           ,[trang_thai]
+           ,[hinh_anh])
+     VALUES
+           ('9F42AAE7-2D7F-427D-B479-45DC655C4E6B','DE93CE15-2FA2-4121-A5BF-176B3A526C5D','SPCT1','Bền',200,2200000,0,Null),
+           ('8A838B08-7156-4C04-B455-47A13574F712','BBA7DD58-1FCA-4D5E-A7DC-2EF28FFE846D','SPCT2','Rẻ',100,1200000,0,Null),
+           ('835A445C-76F3-4FD2-9FB0-4A6A061F4F13','2B3F7265-16F7-4463-8700-3D6782EC97BE','SPCT3','Đẹp',50,5200000,0,Null)
+GO
+

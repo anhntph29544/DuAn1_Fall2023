@@ -59,46 +59,44 @@
     </style>
 </head>
 <body style="padding-top: 10px">
-<h3>Quản lý thương hiệu</h3>
-<a href="/nhan-vien/showFormForAdd"><button>Thêm mới nhân viên</button></a>
+<h3>Quản lý khách hàng</h3>
+<a href="/khach-hang/showFormForAdd"><button>Thêm mới khách hàng</button></a>
 <table class="table">
     <thead>
     <tr>
         <th width="20">STT</th>
-        <th width="20">Ảnh thẻ</th>
-        <th >Mã NV</th>
+        <th width="50">Ảnh thẻ</th>
+        <th >Mã KH</th>
         <th >email</th>
         <th >Họ và tên</th>
         <th >Ngày sinh</th>
         <th >Giới Tính</th>
-        <th>Chức vụ</th>
         <th >SĐT</th>
         <th >Trạng Thái</th>
         <th >Thao Tác</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${list}" var="nv" varStatus="status">
+    <c:forEach items="${list}" var="kh" varStatus="status">
         <tr>
             <td>${num*sizePage + status.index + 1}</td>
             <td>
-                <img src="${nv.image}" />
+                <img src="${kh.image}" />
             </td>
-            <td>${nv.ma}</td>
-            <td>${nv.email}</td>
-            <td>${nv.hoTen}</td>
-            <td>${nv.ngaySinh}</td>
-            <td>${nv.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
-            <td>${nv.chucVu.tenChucVu}</td>
-            <td>${nv.sdt}</td>
-            <td>${nv.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
+            <td>${kh.ma}</td>
+            <td>${kh.email}</td>
+            <td>${kh.hoTen}</td>
+            <td>${kh.ngaySinh}</td>
+            <td>${kh.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
+            <td>${kh.sdt}</td>
+            <td>${kh.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
             <td class="table-td-center">
-                <a href="/nhan-vien/delete/${nv.idNhanVien}" class="btn btn-primary btn-sm trash"
-                   type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa nhân viên này không?'))) return false">
+                <a href="/khach-hang/delete/${kh.idKhachHang}" class="btn btn-primary btn-sm trash"
+                   type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa khách hàng này không?'))) return false">
                     <i class="fas fa-trash-alt"></i>
                 </a>
-                <a href="/nhan-vien/detail/${nv.idNhanVien}" class="btn btn-primary btn-sm edit"
-                   type="button" title="Sửa" onclick="if (!(confirm('Bạn có muốn sửa nhân viên này không?'))) return false">
+                <a href="/khach-hang/detail/${kh.idKhachHang}" class="btn btn-primary btn-sm edit"
+                   type="button" title="Sửa" onclick="if (!(confirm('Bạn có muốn sửa khách hàng này không?'))) return false">
                     <i class="fas fa-edit"></i>
                 </a>
             </td>
