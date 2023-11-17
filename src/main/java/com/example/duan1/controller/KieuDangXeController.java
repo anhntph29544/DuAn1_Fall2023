@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -24,7 +22,7 @@ public class KieuDangXeController {
     @Autowired
     private KieuDangXeService service;
     private Page<KieuDangXe> listkdx;
-    private UUID idCu;
+    private KieuDangXe kdx;
     private int page;
 
     @GetMapping("/shop-xe/kieu-dang-xe/hien-thi")
@@ -51,7 +49,6 @@ public class KieuDangXeController {
             return "/kieudangxe/hien-thi";
         }
         KieuDangXe kdx = KieuDangXe.builder()
-                .ma(kdx1.getMa().trim())
                 .ten(kdx1.getTen().trim())
                 .trangThai(kdx1.getTrangThai())
                 .build();
@@ -61,8 +58,7 @@ public class KieuDangXeController {
 
     @GetMapping("/shop-xe/kieu-dang-xe/view-update/{id}")
     public String viewUpdate(@PathVariable("id")UUID id, Model model){
-        KieuDangXe kdx = service.detail(id);
-        idCu = id;
+        kdx = service.detail(id);
         model.addAttribute("kdx1",kdx);
         return "/kieudangxe/update";
     }
@@ -88,12 +84,8 @@ public class KieuDangXeController {
         if(result.hasErrors()){
             return "/kieudangxe/update";
         }
-        KieuDangXe kdx = KieuDangXe.builder()
-                .id(idCu)
-                .ma(kdx1.getMa().trim())
-                .ten(kdx1.getTen().trim())
-                .trangThai(kdx1.getTrangThai())
-                .build();
+        kdx.setTen(kdx1.getTen());
+        kdx.setTrangThai(kdx1.getTrangThai());
         service.save(kdx);
         return "redirect:/shop-xe/kieu-dang-xe/hien-thi";
     }

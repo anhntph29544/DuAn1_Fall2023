@@ -1,4 +1,4 @@
-create database sport_bicycle1
+﻿create database sport_bicycle1
 go
 use sport_bicycle1
 go
@@ -128,6 +128,7 @@ create table hoa_don_chi_tiet(
 	trang_thai int
 )
 select*from nhan_vien
+
 -- Dữ liệu cho bảng chuc_vu
 INSERT INTO chuc_vu (id_chuc_vu, ma, ten, trang_thai)
 VALUES 
@@ -208,3 +209,4 @@ INSERT INTO [dbo].[san_pham_chi_tiet]
            ('8A838B08-7156-4C04-B455-47A13574F712','BBA7DD58-1FCA-4D5E-A7DC-2EF28FFE846D','SPCT2','Rẻ',100,1200000,0,Null),
            ('835A445C-76F3-4FD2-9FB0-4A6A061F4F13','2B3F7265-16F7-4463-8700-3D6782EC97BE','SPCT3','Đẹp',50,5200000,0,Null)
 GO
+
