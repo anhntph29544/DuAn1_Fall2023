@@ -85,7 +85,7 @@ public class NhanVienController {
         NhanVien nhanVien = nhanVienService.detail(id).get();
         model.addAttribute("nhanVien", nhanVien);
         model.addAttribute("chucVu", chucVuService.getAll());
-        return "formUpdateNV";
+        return "/nhanvien/formUpdateNV";
     }
 
     @GetMapping("/delete/{id}")
@@ -97,24 +97,19 @@ public class NhanVienController {
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
         NhanVien nhanVien = new NhanVien();
+        nhanVien.setTrangThai(0);
         model.addAttribute("nhanVien", nhanVien);
         model.addAttribute("chucVu", chucVuService.getAll());
 
         List<String> cities = getGhnCities();
         List<String> districts = getGhnDistricts("202");
-        List<String> wards = getGhnWards("1442"); // Không có thông tin quận/huyện ban đầu, bạn có thể cung cấp districtId tùy ý
+        List<String> wards = getGhnWards("1442");
 
         model.addAttribute("cities", cities);
         model.addAttribute("districts", districts);
         model.addAttribute("wards", wards);
 
-        System.out.println("Danh sách thành phố từ API GHN: " + cities);
-
-        System.out.println("Danh sách huyện từ API GHN: " + districts);
-
-        System.out.println("Danh sách xã từ API GHN: " + wards);
-
-        return "formAddNV";
+        return "/nhanvien/formAddNV";
     }
 
     private List<String> getGhnCities() {
@@ -137,7 +132,6 @@ public class NhanVienController {
                             cities.add(cityNode.get("ProvinceName").asText());
                         }
                     }
-
                     return cities;
                 }
             }
@@ -214,7 +208,7 @@ public class NhanVienController {
                        @RequestParam("imageFile") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("chucVu", chucVuService.getAll());
-            return "formAddNV";
+            return "/nhanvien/formAddNV";
         }
         if (!file.isEmpty()) {
             try {
@@ -284,13 +278,14 @@ public class NhanVienController {
         return password.toString();
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update/{id}")
     public String update(@ModelAttribute("nhanVien") @Valid NhanVien nhanVien,
                          BindingResult bindingResult, Model model,
-                         @RequestParam("imageFile") MultipartFile file) {
+                         @RequestParam("imageFile") MultipartFile file,
+                         @PathVariable("id") UUID idNhanVien) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("chucVu", chucVuService.getAll());
-            return "formUpdateNV";
+            return "/nhanvien/formUpdateNV";
         }
         if (nhanVien.getIdNhanVien() == null) {
             return "error-page";
@@ -316,7 +311,7 @@ public class NhanVienController {
                 nhanVien.setImage(currentNhanVien.getImage());
             }
 
-            boolean updated = nhanVienService.update(nhanVien, nhanVien.getIdNhanVien());
+            boolean updated = nhanVienService.update(nhanVien, idNhanVien);
             if (updated) {
                 return "redirect:/nhan-vien/hien-thi";
             } else {

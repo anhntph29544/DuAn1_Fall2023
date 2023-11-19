@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
-
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <title>Đăng nhập | Trang Đăng Nhập Mới</title>
     <meta charset="UTF-8">
@@ -63,16 +65,16 @@
 <div class="container">
     <div class="login-container">
         <h2 class="login-title">Đăng nhập</h2>
-        <form class="login-form">
+        <f:form class="login-form" action="/shop-xe/login" method="post">
             <div class="form-group">
-                <input type="text" class="form-control login-input" placeholder="Tài khoản quản trị">
+                <input type="text" class="form-control login-input" placeholder="Email đăng nhập" name="username">
             </div>
-            <div class="form-group position-relative"> <!-- Thêm class position-relative -->
-                <input type="password" class="form-control login-input" placeholder="Mật khẩu" id="password">
+            <div class="form-group position-relative">
+                <input type="password" class="form-control login-input" placeholder="Mật khẩu" id="password" name="password">
                 <i class="fa fa-eye-slash show-password-button" id="togglePassword"></i>
             </div>
             <button type="submit" class="btn btn-primary login-btn">Đăng nhập</button>
-        </form>
+        </f:form>
         <div class="text-center mt-3">
             <a href="/forgot.html">Bạn quên mật khẩu?</a>
         </div>

@@ -36,18 +36,4 @@ public class ChucVu {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
-    @Column(name = "created_by")
-    private UUID createdBy;
-
-    @Column(name = "updated_by")
-    private String updatedBy;
-
-    @Column(name = "deleted")
-    private Integer deleted;
 }

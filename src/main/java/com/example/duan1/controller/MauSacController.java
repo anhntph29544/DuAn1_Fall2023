@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/shop-xe")
 public class MauSacController {
     @Autowired
     private MauSacSV sv;
     private Page<MauSac> listN;
-    private UUID idMSCu;
+    private MauSac ms;
 
-    @GetMapping("/mau-sac/hien-thi")
+    @GetMapping("/shop-xe/mau-sac/hien-thi")
     public String hienThi(@RequestParam(value = "page", defaultValue = "0") int page,
                           @RequestParam(value = "tenSearch",defaultValue = "") String ten, Model model) {
         listN = sv.getData(page);
@@ -39,7 +38,7 @@ public class MauSacController {
         return "/mausac/MauSac";
     }
 
-    @GetMapping("/mau-sac/detail/{id}")
+    @GetMapping("/shop-xe/mau-sac/detail/{id}")
     public String detail(@RequestParam(value = "page", defaultValue = "0") int page,
                          @PathVariable("id") UUID id, Model model) {
         listN = sv.getData(page);
@@ -49,30 +48,31 @@ public class MauSacController {
         return "/mausac/MauSac";
     }
 
-    @GetMapping("/mau-sac/view-update/{id}")
+    @GetMapping("/shop-xe/mau-sac/view-update/{id}")
     public String viewUpdate(@PathVariable("id") UUID id, Model model) {
-        MauSac d = sv.detail(id);
-        idMSCu=id;
-        model.addAttribute("m1", d);
+        ms = sv.detail(id);
+        model.addAttribute("m1", ms);
         return "/mausac/mausac-update";
     }
 
-    @GetMapping("/mau-sac/delete/{id}")
+    @GetMapping("/shop-xe/mau-sac/delete/{id}")
     public String delete(@PathVariable("id") UUID id, Model model) {
         sv.delete(id);
         return "redirect:/shop-xe/mau-sac/hien-thi";
     }
 
 
-    @PostMapping("/mau-sac/add")
+    @PostMapping("/shop-xe/mau-sac/add")
     public String add(@Valid @ModelAttribute("m1") MauSac n) {
         sv.save(n);
         return "redirect:/shop-xe/mau-sac/hien-thi";
     }
 
-    @PostMapping("/mau-sac/update")
+    @PostMapping("/shop-xe/mau-sac/update")
     public String update(@Valid @ModelAttribute("m1") MauSac p, BindingResult result) {
-        p.setId(idMSCu);
+        p.setId(ms.getId());
+        p.setMa(ms.getMa());
+        p.setNgayThem(ms.getNgayThem());
         sv.save(p);
         return "redirect:/shop-xe/mau-sac/hien-thi";
     }
