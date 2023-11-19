@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class KieuDangXeServiceImpl implements KieuDangXeService {
 
     @Autowired
     private KieuDangXeRepository kdxr;
+    private String prefix="KDX";
 
     @Override
     public Page<KieuDangXe> getData(int page) {
@@ -27,12 +29,25 @@ public class KieuDangXeServiceImpl implements KieuDangXeService {
     }
 
     @Override
+    public String tuTaoMa() {
+        Stream<String> ma= kdxr.maKDX().stream();
+        Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
+        return prefix+(String.format("%d", max+1));
+    }
+
+    @Override
     public List<KieuDangXe> getAll() {
-        return kdxr.findAll();
+        return kdxr.sort();
     }
 
     @Override
     public void save(KieuDangXe kdx) {
+        if(kdx.getMa()==null || kdx.getMa().trim()==""){
+            kdx.setMa(this.tuTaoMa());
+        }
+        if (kdx.getNgayThem()==null){
+            kdx.setNgayThem(new java.util.Date());
+        }
         kdxr.save(kdx);
     }
 

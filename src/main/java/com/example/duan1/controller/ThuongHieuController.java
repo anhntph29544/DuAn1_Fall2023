@@ -21,7 +21,7 @@ public class ThuongHieuController {
     private ThuongHieuService thuongHieuService;
     private int page;
     private Page<ThuongHieu> list;
-    private UUID idCu;
+    private ThuongHieu th;
 
     @GetMapping("/shop-xe/thuong-hieu/hien-thi")
     public String hienThi(@RequestParam(name = "page",defaultValue = "0")int page1,
@@ -46,8 +46,7 @@ public class ThuongHieuController {
 
     @GetMapping("/shop-xe/thuong-hieu/view-update/{id}")
     public String viewUpdate(@PathVariable("id") UUID id, Model model){
-        ThuongHieu th = thuongHieuService.detail(id);
-        idCu = id;
+        th = thuongHieuService.detail(id);
         model.addAttribute("th1",th);
         return "/thuonghieu/update";
     }
@@ -70,12 +69,8 @@ public class ThuongHieuController {
 
     @PostMapping("/shop-xe/thuong-hieu/update")
     public String update(@Valid @ModelAttribute("th1")ThuongHieu th1){
-        ThuongHieu th = ThuongHieu.builder()
-                .id(idCu)
-                .ma(th1.getMa().trim())
-                .ten(th1.getTen().trim())
-                .trangThai(th1.getTrangThai())
-                .build();
+        th.setTen(th1.getTen().trim());
+        th.setTrangThai(th.getTrangThai());
         thuongHieuService.save(th);
         return "redirect:/shop-xe/thuong-hieu/hien-thi";
     }

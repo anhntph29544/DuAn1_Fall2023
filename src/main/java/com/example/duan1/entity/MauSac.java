@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Table(name="mau_sac")
@@ -26,10 +27,12 @@ public class MauSac {
     @Column(name = "id_mau_sac")
     private UUID id;
     @Column(name = "ma")
-    @NotBlank(message = "Không được trống")
     private String ma;
     @Column(name = "ten")
+    @NotBlank(message = "Không được trống")
     private String ten;
     @Column(name = "trang_thai")
     private Integer trangThai;
+    @Column(name = "ngay_them")
+    private Date ngayThem;
 }
