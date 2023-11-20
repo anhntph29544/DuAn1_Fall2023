@@ -22,7 +22,7 @@
 </form>
 <table>
     <form:form method="post" action="/shop-xe/mau-sac/add" modelAttribute="m1">
-        Mã:<form:input path="ma"/><br>
+        Mã:<form:input path="ma" disabled="true"/><br>
         Tên:<form:input path="ten"/><br>
         Trạng Thái:<form:radiobutton path="trangThai" value="1" checked="1"/>Hoạt Động
         <form:radiobutton path="trangThai" value="0"/>Không Hoạt Động</br>

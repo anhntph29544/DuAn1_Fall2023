@@ -13,8 +13,7 @@
 <body style="padding-top: 10px">
 <h3>Quản lý thương hiệu</h3>
 <f:form action="/shop-xe/thuong-hieu/add" method="post" modelAttribute="th1">
-    ma: <f:input path="ma"/>
-    <f:errors path="ma"/><br>
+    ma: <f:input path="ma" disabled="true"/>
     ten: <f:input path="ten"/>
     <f:errors path="ten"/><br>
     trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>hoat dong

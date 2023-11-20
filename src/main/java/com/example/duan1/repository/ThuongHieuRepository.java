@@ -14,4 +14,10 @@ public interface ThuongHieuRepository extends JpaRepository<ThuongHieu, UUID> {
     @Query("SELECT e FROM ThuongHieu e where e.ten like %?1%")
     List<ThuongHieu> search(String ten);
 
+    @Query("select th from ThuongHieu th order by th.ngayThem desc")
+    List<ThuongHieu> sort();
+
+    @Query("select th.ma from ThuongHieu th")
+    List<String> maTH();
+
 }
