@@ -10,6 +10,8 @@ public interface KieuDangXeService {
 
     Page<KieuDangXe> getData(int page);
 
+    String tuTaoMa();
+
     List<KieuDangXe> getAll();
 
     void save(KieuDangXe kdx);

@@ -31,7 +31,6 @@ public class SanPham {
     private UUID id;
 
     @Column(name = "ma")
-    @NotBlank(message = "Không được trống")
     private String ma;
 
     @Column(name = "ten")

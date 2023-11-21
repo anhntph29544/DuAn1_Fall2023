@@ -52,8 +52,10 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "id_san_pham",referencedColumnName = "id_san_pham")
     private SanPham sp;
 
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
+
     @Column(name = "ma")
-    @NotBlank(message = "khong duoc rong")
     private String ma;
 
     @Column(name = "mo_ta")

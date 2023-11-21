@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -35,4 +36,8 @@ public class KichThuoc {
 
     @Column(name = "trang_thai")
     private int trangThai;
+
+    @Column(name = "ngay_them")
+    private Date ngayThem;
+
 }

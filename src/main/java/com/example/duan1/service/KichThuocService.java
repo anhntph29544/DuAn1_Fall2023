@@ -10,6 +10,8 @@ public interface KichThuocService {
 
     List<KichThuoc> getAll();
 
+    String tuTaoMa();
+
     Page<KichThuoc> getData(int page);
 
     List<KichThuoc> search(String ten);

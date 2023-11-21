@@ -22,7 +22,7 @@ public class KichThuocController {
     @Autowired
     private KichThuocService service;
     private Page<KichThuoc> listKT;
-    private UUID idKTCu;
+    private KichThuoc kt;
 
     @GetMapping("/shop-xe/kich-thuoc/hien-thi")
     public String hienthi(@RequestParam(value = "page", defaultValue = "0")int page,
@@ -49,8 +49,7 @@ public class KichThuocController {
 
     @GetMapping("/shop-xe/kich-thuoc/view-update/{id}")
     public String viewUpdate(@PathVariable("id") UUID id, Model model) {
-        idKTCu= id;
-        KichThuoc kt=service.detail(id);
+        kt=service.detail(id);
         model.addAttribute("kt1",kt);
         return "/kichthuoc/kichthuoc-update";
     }
@@ -71,8 +70,9 @@ public class KichThuocController {
     @PostMapping("/shop-xe/kich-thuoc/update")
     public String update(@Valid @ModelAttribute("kt1") KichThuoc kt1,
                          BindingResult result, Model model) {
-        kt1.setId(idKTCu);
-        service.save(kt1);
+        kt.setTen(kt1.getTen());
+        kt.setTrangThai(kt1.getTrangThai());
+        service.save(kt);
         return "redirect:/shop-xe/kich-thuoc/hien-thi";
     }
 

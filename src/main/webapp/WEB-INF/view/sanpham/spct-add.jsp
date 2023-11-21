@@ -14,6 +14,7 @@
         i {
             font-size: 30px;
         }
+
         body {
             margin: auto;
         }
@@ -23,7 +24,8 @@
 <jsp:include page="../include/header.jsp"/>
 <div class="ql" style="padding: 20px">
     <h2 style="text-align: center">CHI TIẾT SẢN PHẨM</h2>
-    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/update" modelAttribute="spct1">
+    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/add" modelAttribute="spct1"
+               enctype="multipart/form-data">
         <%--thông tin sản phẩm--%>
         <div class="col-md-12 row">
             <div class="col-md-3">
@@ -146,7 +148,7 @@
                     <%--hinh anh--%>
                 <div class="mb-3">
                     <label class="form-label">Hình ảnh</label>
-                    <input type="file" accept="image/gif, image/png, image/jpeg"/>
+                    <input type="file" name="photo" accept="image/gif, image/png, image/jpeg"/>
                 </div>
                     <%--trạng thái--%>
                 <div class="mb-3">
@@ -165,7 +167,7 @@
         </div>
         <div style="text-align: right">
             <button type="submit" class="btn btn-primary" onclick="return confirm('Bạn chắc chưa ?')">
-                <i class="bi bi-floppy" style="font-size: 20px"></i> Update
+                <i class="bi bi-floppy" style="font-size: 20px"></i> Thêm
             </button>
         </div>
     </form:form>

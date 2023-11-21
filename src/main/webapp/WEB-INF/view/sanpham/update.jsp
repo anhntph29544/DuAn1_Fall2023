@@ -12,8 +12,7 @@
 </head>
 <body>
 <form:form action="/shop-xe/san-pham/update" modelAttribute="sp1" method="post">
-    Mã: <form:input path="ma"/>
-    <form:errors path="ma"/><br>
+    Mã: <form:input path="ma" disabled="true"/><br>
     Tên: <form:input path="ten"/>
     <form:errors path="ten"/><br>
     Trạng thái:

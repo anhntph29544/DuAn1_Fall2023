@@ -12,16 +12,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class KichThuocServiceImpl implements KichThuocService {
 
     @Autowired
     private KichThuocRepository repo;
+    private String prefix="KT";
 
     @Override
     public List<KichThuoc> getAll() {
-        return repo.findAll();
+        return repo.sort();
+    }
+
+    @Override
+    public String tuTaoMa() {
+        Stream<String> ma= repo.maKT().stream();
+        Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
+        return prefix+(String.format("%d", max+1));
     }
 
     @Override
@@ -47,6 +56,12 @@ public class KichThuocServiceImpl implements KichThuocService {
 
     @Override
     public void save(KichThuoc kichThuoc) {
+        if (kichThuoc.getMa()== null || kichThuoc.getMa().trim()==""){
+            kichThuoc.setMa(this.tuTaoMa());
+        }
+        if (kichThuoc.getNgayThem()==null){
+            kichThuoc.setNgayThem(new java.util.Date());
+        }
         repo.save(kichThuoc);
     }
 

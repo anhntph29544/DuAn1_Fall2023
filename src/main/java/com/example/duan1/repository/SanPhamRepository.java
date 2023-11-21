@@ -23,4 +23,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, UUID> {
     @Query("select sp from SanPham sp order by sp.ngayThem desc")
     List<SanPham> sort();
 
+    @Query("select sp.ma from SanPham sp")
+    List<String> maSP();
+
 }

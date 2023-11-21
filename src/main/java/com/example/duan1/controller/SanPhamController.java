@@ -2,6 +2,7 @@ package com.example.duan1.controller;
 
 import com.example.duan1.entity.SanPham;
 import com.example.duan1.service.SanPhamService;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ public class SanPhamController {
     @Autowired
     private SanPhamService service;
     private Page<SanPham> listSP;
-    private UUID idSPCu;
+    private SanPham sp;
 
     @GetMapping("/shop-xe/san-pham")
     public String viewSP(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -31,8 +32,6 @@ public class SanPhamController {
                          Model model){
         listSP= service.getData(page);
         if(!ten.trim().isEmpty()){
-            System.out.println("dmmm");
-            System.out.println("--------------");
             listSP= service.searchPage(ten.trim(),trangThai, page);
             model.addAttribute("tenSearch", ten.trim());
         }else if(trangThai!=3){
@@ -47,7 +46,7 @@ public class SanPhamController {
     public String hienThi(@RequestParam(value = "page", defaultValue = "0") int page,
                           @RequestParam(value = "tenSearch",defaultValue = "") String ten, Model model){
         listSP= service.getData(page);
-        if(ten.trim() != "" || ten.trim().isEmpty() || ten.trim()!=null){
+        if(!ten.trim().isEmpty()){
             listSP= service.searchPage(ten.trim(),3, page);
             model.addAttribute("tenSearch", ten.trim());
         }
@@ -60,7 +59,7 @@ public class SanPhamController {
     public String detail(@RequestParam(value = "page", defaultValue = "0") int page,
                          @PathVariable("id")UUID id, Model model){
         listSP= service.getData(page);
-        SanPham sp= service.detail(id);
+        sp= service.detail(id);
         model.addAttribute("listSP", listSP);
         model.addAttribute("sp1", sp);
         return "sanpham/sanphams";
@@ -74,8 +73,7 @@ public class SanPhamController {
 
     @GetMapping("/shop-xe/san-pham/view-update/{id}")
     public String viewUpdate(@PathVariable("id")UUID id, Model model){
-        idSPCu=id;
-        SanPham sp= service.detail(id);
+        sp= service.detail(id);
         model.addAttribute("sp1", sp);
         return "sanpham/update";
     }
@@ -99,11 +97,10 @@ public class SanPhamController {
             model.addAttribute("listSP", listSP);
             return "sanpham/update";
         }
-        sp1.setId(idSPCu);
-        sp1.setNgayThem(new java.util.Date());
-        service.save(sp1);
+        sp.setTen(sp1.getTen());
+        sp.setTrangThai(sp1.getTrangThai());
+        service.save(sp);
         return "redirect:/shop-xe/san-pham/hien-thi";
     }
-
 
 }
