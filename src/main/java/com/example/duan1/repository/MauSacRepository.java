@@ -13,7 +13,7 @@ public interface MauSacRepository extends JpaRepository<MauSac, UUID> {
     @Query("select ms from MauSac ms where ms.ten like %?1%")
     List<MauSac> search(String ten);
 
-    @Query("select ms from MauSac ms order by ms.ngayThem desc ")
+    @Query("select ms from MauSac ms where ms.trangThai=0 order by ms.ngayThem desc ")
     List<MauSac > sort();
 
     @Query("select ms.ma from MauSac ms")

@@ -31,12 +31,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Linh kiện
+                        Thông tin sản phẩm
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/mau-sac/hien-thi">Màu Sắc</a></li>
-                        <li><a class="dropdown-item" href="/nsx/hien-thi">Nhà Sản Xuất</a></li>
-                        <li><a class="dropdown-item" href="/shop-xe/kieu-dang-xe">Kiểu Dáng</a></li>
+                        <li><a class="dropdown-item" href="/shop-xe/mau-sac/hien-thi">Quản Lý Màu Sắc</a></li>
+                        <li><a class="dropdown-item" href="/shop-xe/kich-thuoc/hien-thi">Quản Lý Kích Thước</a></li>
+                        <li><a class="dropdown-item" href="/shop-xe/kieu-dang-xe/hien-thi">Quản Lý Kiểu Dáng</a></li>
+                        <li><a class="dropdown-item" href="/shop-xe/thuong-hieu/hien-thi">Quản Lý Thương hiệu</a></li>
                     </ul>
                 </li>
             </ul>

@@ -11,6 +11,8 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<%@include file="../include/header.jsp"%>
+<h3 STYLE="text-align: center">CHỈNH SỬA KÍCH THƯỚC</h3>
 <form:form action="/shop-xe/kich-thuoc/update" method="post"  modelAttribute ="kt1">
     Mã: <form:input path="ma" disabled="true"/>
     <br/>
@@ -20,7 +22,7 @@
     <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động
     <br>
-    <form:button type="submit">Update</form:button>
+    <form:button type="submit" class="btn btn-primary">Update</form:button>
 </form:form>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.example.duan1.controller;
 
 import com.example.duan1.entity.SanPham;
 import com.example.duan1.service.SanPhamService;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +27,7 @@ public class SanPhamController {
     @GetMapping("/shop-xe/san-pham")
     public String viewSP(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "tenSearch",defaultValue = "") String ten,
-                         @RequestParam(value = "trangThai",defaultValue = "3")Integer trangThai,
+                         @RequestParam(value = "trangThaiSearch",defaultValue = "3")Integer trangThai,
                          Model model){
         listSP= service.getData(page);
         if(!ten.trim().isEmpty()){
@@ -37,8 +36,9 @@ public class SanPhamController {
         }else if(trangThai!=3){
             listSP= service.searchPage(ten.trim(),trangThai, page);
         }
-        model.addAttribute("trangThai", trangThai);
+        model.addAttribute("trangThaiSearch", trangThai);
         model.addAttribute("listSP", listSP);
+        model.addAttribute("sp1", new SanPham());
         return "sanpham/hien-thi";
     }
 
@@ -62,7 +62,7 @@ public class SanPhamController {
         sp= service.detail(id);
         model.addAttribute("listSP", listSP);
         model.addAttribute("sp1", sp);
-        return "sanpham/sanphams";
+        return "sanpham/hien-thi";
     }
 
     @GetMapping("/shop-xe/san-pham/delete/{id}")
@@ -80,27 +80,56 @@ public class SanPhamController {
 
     @PostMapping("/shop-xe/san-pham/add")
     public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
-                      BindingResult result, Model model){
+                      BindingResult result,
+                      @RequestParam(value = "page", defaultValue = "0") int page,
+                      Model model){
+        listSP= service.getData(page);
         if(result.hasErrors()){
             model.addAttribute("listSP", listSP);
-            return "sanpham/sanphams";
+            return "sanpham/hien-thi";
         }
-        sp1.setNgayThem(new java.util.Date());
+        if(!kiemTra(sp1,model)){
+            model.addAttribute("listSP", listSP);
+            return "sanpham/hien-thi";
+        }
+        sp1.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
         service.save(sp1);
-        return "redirect:/shop-xe/san-pham/hien-thi";
+        return "redirect:/shop-xe/san-pham";
+    }
+
+    private boolean kiemTra(SanPham sp1, Model model){
+        if (sp1.getTen().replaceAll("\\s\\s+", " ").trim().length()>50){
+            model.addAttribute("tenError", "Tên không được quá 50 kí tự");
+            return false;
+        }
+        for (SanPham sp: listSP) {
+            if(sp1.getTen().replaceAll("\\s\\s+", " ").trim().equalsIgnoreCase(sp.getTen())){
+                model.addAttribute("tenError", "Tên đã tồn tại");
+                return false;
+            }
+        }
+        return true;
     }
 
     @PostMapping("/shop-xe/san-pham/update")
     public String update(@Valid @ModelAttribute("sp1")SanPham sp1,
-                      BindingResult result, Model model){
+                         BindingResult result, Model model){
         if(result.hasErrors()){
-            model.addAttribute("listSP", listSP);
             return "sanpham/update";
         }
-        sp.setTen(sp1.getTen());
+        if(sp1.getTen().replaceAll("\\s\\s+", " ").trim().equalsIgnoreCase(sp.getTen())){
+            sp.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
+            sp.setTrangThai(sp1.getTrangThai());
+            service.save(sp);
+            return "redirect:/shop-xe/san-pham";
+        }
+        if(!kiemTra(sp1,model)){
+            return "sanpham/update";
+        }
+        sp.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
         sp.setTrangThai(sp1.getTrangThai());
         service.save(sp);
-        return "redirect:/shop-xe/san-pham/hien-thi";
+        return "redirect:/shop-xe/san-pham";
     }
 
 }

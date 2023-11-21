@@ -29,6 +29,7 @@ public class MauSac {
     @Column(name = "ma")
     private String ma;
     @Column(name = "ten")
+    @NotBlank(message = "Không được trống")
     private String ten;
     @Column(name = "trang_thai")
     private Integer trangThai;

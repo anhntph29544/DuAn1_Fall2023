@@ -9,23 +9,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script language="javascript" type="text/javascript"><%@include file="spct-add.js" %></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
         i {
             font-size: 30px;
         }
-
         body {
             margin: auto;
         }
     </style>
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
 </head>
 <body>
-<jsp:include page="../include/header.jsp"/>
+<%@include file="../include/header.jsp"%>
 <div class="ql" style="padding: 20px">
-    <h2 style="text-align: center">CHI TIẾT SẢN PHẨM</h2>
-    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/add" modelAttribute="spct1"
-               enctype="multipart/form-data">
+    <h3 style="text-align: center">THÊM SẢN PHẨM CHI TIẾT</h3>
+    <form:form method="post" action="/shop-xe/san-pham-chi-tiet/add" modelAttribute="spct1" enctype="multipart/form-data">
         <%--thông tin sản phẩm--%>
         <div class="col-md-12 row">
             <div class="col-md-3">
@@ -33,14 +42,13 @@
                 <div class="mb-3">
                     <label class="form-label">Mã sản phẩm chi tiết</label>
                     <form:input class="form-control" path="ma" disabled="true"/>
-                    <div class="form-text"><form:errors path="ma"/></div>
                 </div>
                     <%--sản phẩm--%>
                 <div class="mb-3">
                     <label class="form-label">Tên sản phẩm</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="sp" class="form-select">
+                            <form:select path="sp" class="form-select" id="form_sp">
                                 <c:forEach items="${listSP}" var="sp">
                                     <form:option value="${sp}">${sp.ten}</form:option>
                                 </c:forEach>
@@ -56,7 +64,7 @@
                     <%--đơn giá--%>
                 <div class="mb-3">
                     <label class="form-label">Đơn giá</label>
-                    <form:input class="form-control" path="gia" type="number"/>
+                    <form:input class="form-control" id="productID" path="gia" type="number"/>
                     <div class="form-text"><form:errors path="gia"/></div>
                 </div>
             </div>
@@ -166,8 +174,8 @@
             </div>
         </div>
         <div style="text-align: right">
-            <button type="submit" class="btn btn-primary" onclick="return confirm('Bạn chắc chưa ?')">
-                <i class="bi bi-floppy" style="font-size: 20px"></i> Thêm
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Bạn có chắc không?')">
+                <i class="bi bi-plus-square" style="font-size: 20px"></i> Thêm
             </button>
         </div>
     </form:form>
@@ -180,10 +188,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/sp/add" modelAttribute="sp1" method="post">
+                    <form id='quick_create_sp'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="ten" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">
@@ -306,7 +314,7 @@
         </div>
     </div>
     <%--  End kích thước  --%>
-    <%-- Kích thước --%>
+    <%-- Thương hiệu --%>
     <div class="modal fade" id="thuongHieu" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -338,7 +346,8 @@
             </div>
         </div>
     </div>
-    <%--  End kích thước  --%>
+    <%--  End thương hiệu  --%>
+    <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
 </div>
 </body>
 </html>

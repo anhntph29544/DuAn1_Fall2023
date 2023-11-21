@@ -65,7 +65,7 @@ public class SanPhamChiTietController {
                           @RequestParam(value = "tenSearch",defaultValue = "") String ten,
                           @RequestParam(value = "trangThai",defaultValue = "3")Integer trangThai,
                           Model model){
-        listSPCT= serviceSPCT.getAll(page);
+        listSPCT= serviceSPCT.getData(page);
         combobox(model);
         if(!ten.trim().isEmpty()){
             listSPCT= serviceSPCT.searchPage(ten.trim(),trangThai, page);
@@ -82,14 +82,15 @@ public class SanPhamChiTietController {
 
     @GetMapping("/shop-xe/san-pham-chi-tiet/view-add")
     public String viewAdd(Model model){
-        combobox(model);
         model.addAttribute("spct1", new SanPhamChiTiet());
+        combobox(model);
         return "/sanpham/spct-add";
     }
+
     @PostMapping("/shop-xe/san-pham-chi-tiet/add")
     public String add(@Valid @ModelAttribute("spct1")SanPhamChiTiet spct1,
-                      @RequestParam("photo")MultipartFile photo,
                       BindingResult result,
+                      @RequestParam("photo") MultipartFile photo,
                       Model model){
         if(result.hasErrors()){
             combobox(model);
@@ -125,11 +126,25 @@ public class SanPhamChiTietController {
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/update")
     public String update(@Valid @ModelAttribute("spct1")SanPhamChiTiet spct1,
+                         @RequestParam("photo") MultipartFile photo,
                          BindingResult result,
                          Model model){
         if(result.hasErrors()){
             combobox(model);
             return "/sanpham/spct-update";
+        }
+        Path path = Paths.get("upload/");
+        if(photo.getOriginalFilename().isEmpty()){
+            spct1.setHinhAnh(spct.getHinhAnh());
+        }else{
+            try {
+                InputStream inputStream = photo.getInputStream();
+                Files.copy(inputStream,path.resolve(photo.getOriginalFilename()),
+                        StandardCopyOption.REPLACE_EXISTING);
+                spct1.setHinhAnh(photo.getOriginalFilename().toLowerCase());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         spct1.setId(spct.getId());
         spct1.setMa(spct.getMa());
@@ -141,20 +156,12 @@ public class SanPhamChiTietController {
         }
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
     }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/sp/add")
-    public String addSP(@Valid @ModelAttribute("sp1") SanPham sp1,
-                        BindingResult result, Model model){
-        serviceSP.save(sp1);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
-    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,
-                        BindingResult result, Model model){
-        serviceMS.save(ms1);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
+//
+//    @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
+//    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,  Model model){
+//        serviceMS.save(ms1);
+//        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
+//    }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/kdx/add")
     public String addKDX(@Valid @ModelAttribute("kdx1") KieuDangXe kdx1,
@@ -176,16 +183,16 @@ public class SanPhamChiTietController {
         serviceTH.save(th1);
         return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
     }
-//
-//    @GetMapping("/shop-xe/san-pham-chi-tiet/detail/{id}")
-//    public String detail(@PathVariable("id")UUID id, Model model){
-//        SanPhamChiTiet spct = serviceSPCT.detail(id);
-//        combobox(model);
-//        model.addAttribute("listSPCT", listSPCT);
-//        model.addAttribute("spct1",spct);
-//        return "/sanpham/hien-thi";
-//    }
-//
+
+    @GetMapping("/shop-xe/san-pham-chi-tiet/detail/{id}")
+    public String detail(@PathVariable("id")UUID id, Model model){
+        SanPhamChiTiet spct = serviceSPCT.detail(id);
+        combobox(model);
+        model.addAttribute("listSPCT", listSPCT);
+        model.addAttribute("spct1",spct);
+        return "/sanpham/hien-thi";
+    }
+
     public void combobox(Model model){
         listKT= serviceKT.getAll();
         listKDX= serviceKDX.getAll();

@@ -8,8 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -59,15 +61,17 @@ public class SanPhamChiTiet {
     private String ma;
 
     @Column(name = "mo_ta")
-    @NotBlank(message = "khong duoc rong")
     private String moTa;
 
     @Column(name = "so_luong_ton")
-    @NotBlank(message = "khong duoc rong")
+    @NotNull(message = "Không được trống")
+    @Min(value = 0, message = "Số lượng phải >=0")
+    @Pattern(regexp = "[0-9]+", message = "Số lượng phải là số nguyên dương")
     private String soLuong;
 
     @Column(name = "gia")
-    @NotNull(message = "khong duoc rong")
+    @NotNull(message = "Không được trống")
+    @Min(value = 0, message = "Đơn giá phải >=0")
     private Double gia;
 
     @Column(name = "trang_thai")
