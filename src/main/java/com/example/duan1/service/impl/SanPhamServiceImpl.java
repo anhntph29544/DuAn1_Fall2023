@@ -56,8 +56,14 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public Page<SanPham> getData(int page) {
-        Pageable pageable= PageRequest.of(page, 5);
-        return repository.findAll(pageable);
+//        Pageable pageable= PageRequest.of(page, 5);
+//        return repository.findAll(pageable);
+        List list= repository.sortList();
+        Pageable pageable= PageRequest.of(page,5);
+        Integer start = (int) pageable.getOffset();
+        Integer end = (int) (pageable.getOffset()+ pageable.getPageSize()>list.size()? list.size():pageable.getOffset()+ pageable.getPageSize());
+        list= list.subList(start,end);
+        return new PageImpl<SanPham>(list, pageable, repository.sortList().size());
     }
 
     @Override

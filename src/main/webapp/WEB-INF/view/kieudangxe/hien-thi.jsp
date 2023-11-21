@@ -24,7 +24,7 @@
 </f:form>
 <form action="/shop-xe/kieu-dang-xe/hien-thi">
     <input type="text" name="tenSearch" value="${tenSearch}">
-    <button type="submit" class="btn btn-primary">tim kiem</button>
+    <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
 </form>
 <a href="/shop-xe/kieu-dang-xe/hien-thi"><button class="btn btn-primary">hiển thị tất cả</button></a>
 <table class="table">
@@ -43,17 +43,17 @@
             <th scope="row">${stt.index+1}</th>
             <td>${kdx1.ma}</td>
             <td>${kdx1.ten}</td>
-            <td>${kdx1.trangThai}</td>
+            <td>${kdx1.trangThai==0?"hoạt động":"không hoạt động"}}</td>
             <td>
                 <a href="/shop-xe/kieu-dang-xe/view-update/${kdx1.id}">
-                    <button class="btn btn-warning">update</button>
+                    <button class="btn btn-warning">sửa</button>
                 </a>
                 <a href="/shop-xe/kieu-dang-xe/detail/${kdx1.id}">
-                    <button class="btn btn-success">detail</button>
+                    <button class="btn btn-success">chi tiết</button>
                 </a>
-                <a href="/shop-xe/kieu-dang-xe/delete/${kdx1.id}">
-                    <button class="btn btn-danger">delete</button>
-                </a>
+<%--                <a href="/shop-xe/kieu-dang-xe/delete/${kdx1.id}">--%>
+<%--                    <button class="btn btn-danger">delete</button>--%>
+<%--                </a>--%>
             </td>
         </tr>
     </c:forEach>

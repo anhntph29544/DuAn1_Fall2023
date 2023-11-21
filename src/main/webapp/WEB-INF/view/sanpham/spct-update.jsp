@@ -18,6 +18,11 @@
             margin: auto;
         }
     </style>
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
@@ -337,6 +342,7 @@
         </div>
     </div>
     <%--  End thương hiệu  --%>
+    <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
 </div>
 </body>
 </html>

@@ -42,7 +42,7 @@
             <th scope="row">${stt.index+1}</th>
             <td>${th.ma}</td>
             <td>${th.ten}</td>
-            <td>${th.trangThai}</td>
+            <td>${th.trangThai==0?"hoạt động":"không hoạt động"}</td>
             <td>
                 <a href="/shop-xe/thuong-hieu/view-update/${th.id}">
                     <button class="btn btn-success">sửa</button>
@@ -50,9 +50,9 @@
                 <a href="/shop-xe/thuong-hieu/detail/${th.id}">
                     <button class="btn btn-warning">chi tiết</button>
                 </a>
-                <a href="/shop-xe/thuong-hieu/delete/${th.id}">
-                    <button class="btn btn-danger">xóa</button>
-                </a>
+<%--                <a href="/shop-xe/thuong-hieu/delete/${th.id}">--%>
+<%--                    <button class="btn btn-danger">xóa</button>--%>
+<%--                </a>--%>
             </td>
         </tr>
     </c:forEach>

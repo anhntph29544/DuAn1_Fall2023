@@ -52,7 +52,7 @@
             <td>${d.index+1}</td>
             <td>${m.ma}</td>
             <td>${m.ten}</td>
-            <td>${m.trangThai==1?"Hoạt Động":"Không Hoạt Động"}</td>
+            <td>${m.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>
             <td>
                 <a href="/shop-xe/mau-sac/detail/${m.id}">
                     <button class="btn btn-success">Detail</button>
@@ -60,9 +60,9 @@
                 <a href="/shop-xe/mau-sac/view-update/${m.id}">
                     <button class="btn btn-warning">Update</button>
                 </a>
-                <a href="/shop-xe/mau-sac/delete/${m.id}">
-                    <button class="btn btn-danger">Delete</button>
-                </a>
+<%--                <a href="/shop-xe/mau-sac/delete/${m.id}">--%>
+<%--                    <button class="btn btn-danger">Delete</button>--%>
+<%--                </a>--%>
             </td>
         </tr>
     </c:forEach>

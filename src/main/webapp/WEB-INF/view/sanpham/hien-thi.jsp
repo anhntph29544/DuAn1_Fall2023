@@ -111,7 +111,7 @@
                 <td>${sp.ten}</td>
                 <td>${sp.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
                 <td>
-                    <a href="/shop-xe/san-pham-chi-tiet/hien-thi?tenSearch=${sp.ten}">
+                    <a href="/shop-xe/san-pham-chi-tiet/hien-thi?tenSearch=${sp.ma}">
                         <button class="btn btn-warning"><i class="bi bi-eye"></i> Chi tiết</button>
                     </a>
                     <a href="/shop-xe/san-pham/view-update/${sp.id}">

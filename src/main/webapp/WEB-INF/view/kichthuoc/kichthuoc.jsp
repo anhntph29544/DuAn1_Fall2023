@@ -27,7 +27,7 @@
     <form:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
     <form:radiobutton path="trangThai" value="1"/>Không hoạt động
     <br>
-    <form:button type="submit" class="btn btn-primary">Add</form:button>
+    <form:button type="submit" class="btn btn-primary">Thêm</form:button>
 </form:form><br>
 <a href="/shop-xe/kich-thuoc/hien-thi">
     <button class="btn btn-primary">Hiển thị tất cả</button>
@@ -48,17 +48,17 @@
             <th scope="row">${stt.index+1}</th>
             <td>${kt.ma}</td>
             <td>${kt.ten}</td>
-            <td>${kt.trangThai}</td>
+            <td>${kt.trangThai==0?"hoạt động":"không hoạt động"}</td>
             <td>
                 <a href="/shop-xe/kich-thuoc/view-update/${kt.id}">
-                    <button class="btn btn-warning">update</button>
+                    <button class="btn btn-warning">sửa</button>
                 </a>
                 <a href="/shop-xe/kich-thuoc/detail/${kt.id}">
-                    <button class="btn btn-success">detail</button>
+                    <button class="btn btn-success">chi tiết</button>
                 </a>
-                <a href="/shop-xe/kich-thuoc/delete/${kt.id}">
-                    <button class="btn btn-danger">delete</button>
-                </a>
+<%--                <a href="/shop-xe/kich-thuoc/delete/${kt.id}">--%>
+<%--                    <button class="btn btn-danger">delete</button>--%>
+<%--                </a>--%>
             </td>
         </tr>
     </c:forEach>

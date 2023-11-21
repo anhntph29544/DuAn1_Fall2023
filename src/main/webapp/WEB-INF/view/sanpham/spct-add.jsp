@@ -24,6 +24,11 @@
             margin: auto;
         }
     </style>
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
@@ -183,10 +188,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/sp/add" modelAttribute="sp1" method="post">
+                    <form <%--id='quick_create_sp'--%> action="/shop-xe/san-pham-chi-tiet/sp/add" modelAttribute="sp1" method="post">
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="ten" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">
@@ -342,6 +347,7 @@
         </div>
     </div>
     <%--  End thương hiệu  --%>
+    <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
 </div>
 </body>
 </html>

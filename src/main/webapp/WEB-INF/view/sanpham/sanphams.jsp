@@ -10,6 +10,11 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
     <style>
         body {
             margin: auto;
@@ -31,8 +36,8 @@
         <div class="col-md-6" style="border: 1px solid black;padding: 10px;">
             <form action="/shop-xe/san-pham-chi-tiet/hien-thi" class="row">
                 <div class="col-md-6">
-                    <label>Tên sản phẩm</label>
-                    <input type="text" name="tenSearch" class="form-control me-2" placeholder="Nhập tên sản phẩm"
+                    <label>Mã sản phẩm</label>
+                    <input type="text" name="tenSearch" class="form-control me-2" placeholder="Nhập mã sản phẩm"
                            value="${tenSearch}">
                 </div>
                 <div class="col-md-6">
@@ -150,5 +155,6 @@
             </ul>
         </nav>
     </div>
+    <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
 </body>
 </html>
