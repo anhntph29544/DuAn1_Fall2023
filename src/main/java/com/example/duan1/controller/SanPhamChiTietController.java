@@ -16,8 +16,6 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,9 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -160,42 +156,23 @@ public class SanPhamChiTietController {
         }
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
     }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/sp/add")
-//    public ResponseEntity addSP(@Valid @ModelAttribute("sp1") SanPham sp1, Model model){
-    public String addSP(@Valid @ModelAttribute("sp1") SanPham sp1, Model model){
-        serviceSP.save(sp1);
-//        combobox(model);
-//        return new ResponseEntity<>(HttpStatus.OK);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
-
-//    @PostMapping("/shop-xe/api/san-pham-chi-tiet/sp")
-//    @ResponseBody
-//    public ResponseEntity<SanPham> addSP(@RequestBody SanPham sp1, Model model){
-////    public String addSP(@Valid @ModelAttribute("sp1") SanPham sp1, Model model){
-//        serviceSP.save(sp1);
-//        combobox(model);
-//        return ResponseEntity.ok(sp1);
-////        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
+//
+//    @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
+//    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,  Model model){
+//        serviceMS.save(ms1);
+//        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
 //    }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
-    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,  Model model){
-        serviceMS.save(ms1);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/kdx/add")
     public String addKDX(@Valid @ModelAttribute("kdx1") KieuDangXe kdx1,
-                        BindingResult result, Model model){
+                         BindingResult result, Model model){
         serviceKDX.save(kdx1);
         return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
     }
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/kt/add")
     public String addKT(@Valid @ModelAttribute("kt1") KichThuoc kt1,
-                         BindingResult result, Model model){
+                        BindingResult result, Model model){
         serviceKT.save(kt1);
         return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
     }

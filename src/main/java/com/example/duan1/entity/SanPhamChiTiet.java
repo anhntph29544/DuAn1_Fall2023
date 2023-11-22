@@ -54,6 +54,9 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "id_san_pham",referencedColumnName = "id_san_pham")
     private SanPham sp;
 
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
+
     @Column(name = "ma")
     private String ma;
 
@@ -73,8 +76,5 @@ public class SanPhamChiTiet {
 
     @Column(name = "trang_thai")
     private Integer trangThai;
-
-    @Column(name = "hinh_anh")
-    private String hinhAnh;
 
 }

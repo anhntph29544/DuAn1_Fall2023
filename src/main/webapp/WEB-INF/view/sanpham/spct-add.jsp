@@ -48,7 +48,7 @@
                     <label class="form-label">Tên sản phẩm</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="sp" class="form-select">
+                            <form:select path="sp" class="form-select" id="form_sp">
                                 <c:forEach items="${listSP}" var="sp">
                                     <form:option value="${sp}">${sp.ten}</form:option>
                                 </c:forEach>
@@ -188,7 +188,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form <%--id='quick_create_sp'--%> action="/shop-xe/san-pham-chi-tiet/sp/add" modelAttribute="sp1" method="post">
+                    <form id='quick_create_sp'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
                             <input id="ten" name="ten" type="text" class="form-control"/><br>

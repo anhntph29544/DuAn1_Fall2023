@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-<%@include file="../include/header.jsp"%>
+<jsp:include page="../include/header.jsp"/>
 <div class="ql" style="padding: 20px">
     <h2 style="text-align: center">SẢN PHẨM</h2>
     <div class="row">

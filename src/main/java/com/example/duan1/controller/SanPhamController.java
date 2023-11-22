@@ -96,7 +96,7 @@ public class SanPhamController {
         if(!kiemTra(sp1,model)){
             return "sanpham/sp-add";
         }
-        sp1.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
+        sp1.setTen(sp1.getTen().replaceAll("\s\s+", " ").trim());
         service.save(sp1);
         return "redirect:/shop-xe/san-pham";
     }
@@ -117,7 +117,7 @@ public class SanPhamController {
 
     @PostMapping("/shop-xe/san-pham/update")
     public String update(@Valid @ModelAttribute("sp1")SanPham sp1,
-                      BindingResult result, Model model){
+                         BindingResult result, Model model){
         if(result.hasErrors()){
             return "sanpham/update";
         }

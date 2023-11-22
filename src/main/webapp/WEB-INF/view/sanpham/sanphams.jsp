@@ -31,7 +31,7 @@
     <div style="margin-top: 10px">
         <span style="font-weight: bold"><i class="bi bi-funnel-fill"></i> Bộ lọc</span>
     </div>
-<%--    lọc theo tên và trạng thái--%>
+    <%--    lọc theo tên và trạng thái--%>
     <div class="row">
         <div class="col-md-6" style="border: 1px solid black;padding: 10px;">
             <form action="/shop-xe/san-pham-chi-tiet/hien-thi" class="row">
@@ -53,30 +53,30 @@
                 </div>
             </form>
         </div>
-<%--        lọc theo màu sắc và size--%>
-<%--        <div class="col-md-6" style="border: 1px solid black;padding: 10px;">--%>
-<%--            <div class="row">--%>
-<%--                <div class="col-md-6">--%>
-<%--                    <label>Màu sắc</label>--%>
-<%--                    <select name="size" class="form-select" onchange="#">--%>
-<%--                        <option value=""></option>--%>
-<%--                        <c:forEach items="${listMS}" var="ms">--%>
-<%--                            <option value="${ms}" >${ms.ten}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                </div>--%>
-<%--                <div class="col-md-6">--%>
-<%--                    <label>Size</label>--%>
-<%--                    <select name="size" class="form-select">--%>
-<%--                        <option value=""></option>--%>
-<%--                        <c:forEach items="${listKT}" var="kt">--%>
-<%--                            <option value="${kt}">${kt.ten}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            </a>--%>
-<%--        </div>--%>
+        <%--        lọc theo màu sắc và size--%>
+        <%--        <div class="col-md-6" style="border: 1px solid black;padding: 10px;">--%>
+        <%--            <div class="row">--%>
+        <%--                <div class="col-md-6">--%>
+        <%--                    <label>Màu sắc</label>--%>
+        <%--                    <select name="size" class="form-select" onchange="#">--%>
+        <%--                        <option value=""></option>--%>
+        <%--                        <c:forEach items="${listMS}" var="ms">--%>
+        <%--                            <option value="${ms}" >${ms.ten}</option>--%>
+        <%--                        </c:forEach>--%>
+        <%--                    </select>--%>
+        <%--                </div>--%>
+        <%--                <div class="col-md-6">--%>
+        <%--                    <label>Size</label>--%>
+        <%--                    <select name="size" class="form-select">--%>
+        <%--                        <option value=""></option>--%>
+        <%--                        <c:forEach items="${listKT}" var="kt">--%>
+        <%--                            <option value="${kt}">${kt.ten}</option>--%>
+        <%--                        </c:forEach>--%>
+        <%--                    </select>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--            </a>--%>
+        <%--        </div>--%>
         <c:if test="${messege!=0}">
             <div class="alert alert-${messege==1?"success":"danger"}" role="alert">
                     ${messege==1?"Lưu thành công":"Lưu thất bại"}
