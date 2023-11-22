@@ -20,6 +20,7 @@
     <script src="/js/swal.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script>
 
         function readURL(input, thumbimage) {
@@ -60,135 +61,80 @@
             });
         })
     </script>
+    <style>
+        .Choicefile {
+            display: block;
+            background: #14142B;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 150px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 5px 0px;
+            border-radius: 5px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .Choicefile:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        #uploadfile,
+        .removeimg {
+            display: none;
+        }
+
+        #thumbbox {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .removeimg {
+            height: 25px;
+            position: absolute;
+            background-repeat: no-repeat;
+            top: 5px;
+            left: 5px;
+            background-size: 25px;
+            width: 25px;
+            /* border: 3px solid red; */
+            border-radius: 50%;
+
+        }
+
+        .removeimg::before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            content: '';
+            border: 1px solid red;
+            background: red;
+            text-align: center;
+            display: block;
+            margin-top: 11px;
+            transform: rotate(45deg);
+        }
+
+        .removeimg::after {
+            /* color: #FFF; */
+            /* background-color: #DC403B; */
+            content: '';
+            background: red;
+            border: 1px solid red;
+            text-align: center;
+            display: block;
+            transform: rotate(-45deg);
+            margin-top: -2px;
+        }
+    </style>
 </head>
 
 <body class="app sidebar-mini rtl">
-<style>
-    .Choicefile {
-        display: block;
-        background: #14142B;
-        border: 1px solid #fff;
-        color: #fff;
-        width: 150px;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        padding: 5px 0px;
-        border-radius: 5px;
-        font-weight: 500;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .Choicefile:hover {
-        text-decoration: none;
-        color: white;
-    }
-
-    #uploadfile,
-    .removeimg {
-        display: none;
-    }
-
-    #thumbbox {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .removeimg {
-        height: 25px;
-        position: absolute;
-        background-repeat: no-repeat;
-        top: 5px;
-        left: 5px;
-        background-size: 25px;
-        width: 25px;
-        /* border: 3px solid red; */
-        border-radius: 50%;
-
-    }
-
-    .removeimg::before {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        content: '';
-        border: 1px solid red;
-        background: red;
-        text-align: center;
-        display: block;
-        margin-top: 11px;
-        transform: rotate(45deg);
-    }
-
-    .removeimg::after {
-        /* color: #FFF; */
-        /* background-color: #DC403B; */
-        content: '';
-        background: red;
-        border: 1px solid red;
-        text-align: center;
-        display: block;
-        transform: rotate(-45deg);
-        margin-top: -2px;
-    }
-</style>
-<!-- Navbar-->
-<header class="app-header">
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                    aria-label="Hide Sidebar"></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
-        <!-- User Menu-->
-        <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-        </li>
-    </ul>
-</header>
-<!-- Sidebar menu-->
-<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-<aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="#" width="50px" alt="User Image">
-        <div>
-            <p class="app-sidebar__user-name"><b>Dự Hiếu</b></p>
-            <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-        </div>
-    </div>
-    <hr>
-    <ul class="app-menu">
-        <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
-            <span class="app-menu__label">POS Bán Hàng</span></a></li>
-        <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
-                class="app-menu__label">Bảng điều khiển</span></a></li>
-        <li><a class="app-menu__item active" href="/nhan-vien/hien-thi"><i class='app-menu__icon bx bx-id-card'></i>
-            <span class="app-menu__label">Quản lý nhân viên</span></a></li>
-        <li><a class="app-menu__item" href="/khach-hang/hien-thi"><i class='app-menu__icon bx bx-user-voice'></i><span
-                class="app-menu__label">Quản lý khách hàng</span></a></li>
-        <li><a class="app-menu__item" href="table-data-product.html"><i
-                class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
-        </li>
-        <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
-                class="app-menu__label">Quản lý đơn hàng</span></a></li>
-        <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span
-                class="app-menu__label">Quản lý nội bộ
-          </span></a></li>
-        <li><a class="app-menu__item" href="table-data-money.html"><i class='app-menu__icon bx bx-dollar'></i><span
-                class="app-menu__label">Bảng kê lương</span></a></li>
-        <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
-                class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
-        </li>
-        <li><a class="app-menu__item" href="page-calendar.html"><i class='app-menu__icon bx bx-calendar-check'></i><span
-                class="app-menu__label">Lịch công tác </span></a></li>
-        <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
-            đặt hệ thống</span></a></li>
-    </ul>
-</aside>
 <main class="app-content">
-    <div class="app-title">
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item">Danh sách nhân viên</li>
-            <li class="breadcrumb-item"><a href="/nhan-vien/showFormForAdd">Thêm nhân viên</a></li>
-        </ul>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -201,79 +147,79 @@
                         </div>
                     </div>
                     <f:form action="/nhan-vien/save" modelAttribute="nhanVien" method="post" enctype="multipart/form-data">
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Mã nhân viên</label>
-                            <f:input path="ma" cssClass="form-control" pattern="[A-Za-z0-9]+" />
-                            <small class="text-danger"><f:errors path="ma" /></small>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Họ và tên</label>
-                            <f:input path="hoTen" cssClass="form-control" required="true" pattern="^[A-Za-zÀ-ỹ ]+$" />
-                            <small class="text-danger"><f:errors path="hoTen" /></small>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Giới tính</label>
-                            <div class="form-check">
-                                <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
-                                <label class="form-check-label">Nam</label>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Mã nhân viên</label>
+                                <f:input path="ma" cssClass="form-control" pattern="[A-Za-z0-9]+" />
+                                <small class="text-danger"><f:errors path="ma" /></small>
                             </div>
-                            <div class="form-check">
-                                <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
-                                <label class="form-check-label">Nữ</label>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Họ và tên</label>
+                                <f:input path="hoTen" cssClass="form-control" required="true" pattern="^[A-Za-zÀ-ỹ ]+$" />
+                                <small class="text-danger"><f:errors path="hoTen" /></small>
                             </div>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Email</label>
-                            <f:input path="email" cssClass="form-control" required="true" />
-                            <small class="text-danger"><f:errors path="email" /></small>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="control-label">Số CCCD</label>
-                            <f:input path="cccd" cssClass="form-control" required="true" />
-                            <small class="text-danger"><f:errors path="cccd" /></small>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Số điện thoại</label>
-                            <f:input path="sdt" cssClass="form-control" required="true" pattern="^\d{10,11}$" />
-                            <small class="text-danger"><f:errors path="sdt" /></small>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Ngày sinh</label>
-                            <f:input path="ngaySinh" cssClass="form-control" required="true" type="date"/>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Thành phố</label>
-                            <f:select path="thanhPho" id="city" cssClass="form-select">
-<%--                                <f:options items="${cities}"  />--%>
-                                <option value="" selected>Chọn thành phố</option>
-                            </f:select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label  class="control-label">Huyện</label>
-                            <f:select path="huyen" id="district" cssClass="form-select">
-<%--                                <f:options items="${districts}" />--%>
-                                <option value="" selected>Chọn huyện</option>
-                            </f:select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label  class="control-label">Xã</label>
-                            <f:select path="xa" id="ward" cssClass="form-select">
-<%--                                <f:options items="${wards}" />--%>
-                                <option value="" selected>Chọn xã</option>
-                            </f:select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Số nhà</label>
-                            <f:input path="soNha" cssClass="form-control" required="true" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Chức Vụ</label>
-                            <f:select path="chucVu" class="form-select">
-                                <c:forEach items="${chucVu}" var="cv">
-                                    <f:option value="${cv.idChucVu}">${cv.tenChucVu}</f:option>
-                                </c:forEach>
-                            </f:select>
-                        </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Giới tính</label>
+                                <div class="form-check">
+                                    <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
+                                    <label class="form-check-label">Nam</label>
+                                </div>
+                                <div class="form-check">
+                                    <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
+                                    <label class="form-check-label">Nữ</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Email</label>
+                                <f:input path="email" cssClass="form-control" required="true" />
+                                <small class="text-danger"><f:errors path="email" /></small>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Số CCCD</label>
+                                <f:input path="cccd" cssClass="form-control" required="true" />
+                                <small class="text-danger"><f:errors path="cccd" /></small>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Số điện thoại</label>
+                                <f:input path="sdt" cssClass="form-control" required="true" pattern="^\d{10,11}$" />
+                                <small class="text-danger"><f:errors path="sdt" /></small>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Ngày sinh</label>
+                                <f:input path="ngaySinh" cssClass="form-control" required="true" type="date"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Thành phố</label>
+                                <f:select path="thanhPho" id="city" cssClass="form-select">
+                                    <%--                                <f:options items="${cities}"  />--%>
+                                    <option value="" selected>Chọn thành phố</option>
+                                </f:select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label  class="control-label">Huyện</label>
+                                <f:select path="huyen" id="district" cssClass="form-select">
+                                    <%--                                <f:options items="${districts}" />--%>
+                                    <option value="" selected>Chọn huyện</option>
+                                </f:select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label  class="control-label">Xã</label>
+                                <f:select path="xa" id="ward" cssClass="form-select">
+                                    <%--                                <f:options items="${wards}" />--%>
+                                    <option value="" selected>Chọn xã</option>
+                                </f:select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Số nhà</label>
+                                <f:input path="soNha" cssClass="form-control" required="true" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Chức Vụ</label>
+                                <f:select path="chucVu" class="form-select">
+                                    <c:forEach items="${chucVu}" var="cv">
+                                        <f:option value="${cv.idChucVu}">${cv.tenChucVu}</f:option>
+                                    </c:forEach>
+                                </f:select>
+                            </div>
                         <div class="form-group col-md-12">
                             <label class="control-label">Ảnh 3x4 nhân viên</label>
                             <div id="myfileupload">
@@ -370,5 +316,7 @@
         };
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
+

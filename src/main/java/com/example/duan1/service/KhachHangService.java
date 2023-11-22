@@ -18,4 +18,6 @@ public interface KhachHangService {
     Boolean delete(KhachHang khachHang);
 
     Boolean update(KhachHang khachHang, UUID idKhachHang);
+
+    List<KhachHang> findKhachHangByTrangThai(Integer trangThai);
 }

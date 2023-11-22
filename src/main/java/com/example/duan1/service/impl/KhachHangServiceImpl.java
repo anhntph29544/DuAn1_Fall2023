@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,5 +43,10 @@ public class KhachHangServiceImpl implements KhachHangService {
     public Boolean update(KhachHang khachHang, UUID idKhachHang) {
         khachHangRepository.save(khachHang);
         return true;
+    }
+
+    @Override
+    public List<KhachHang> findKhachHangByTrangThai(Integer trangThai) {
+        return khachHangRepository.findKhachHangByTrangThaiOrAll(trangThai);
     }
 }

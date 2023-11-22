@@ -73,6 +73,13 @@ public class KhachHangController {
         return "/khachhang/hienThi";
     }
 
+    @RequestMapping("/search")
+    public String search(@ModelAttribute("khachHang") KhachHang khachHang, Model model ){
+        List<KhachHang> list= khachHangService.findKhachHangByTrangThai(khachHang.getTrangThai());
+        model.addAttribute("list", list);
+        return "/khachhang/hienThi";
+    }
+
     @GetMapping("/detail/{id}")
     public String showFormForUpdate(@PathVariable("id") UUID id, Model model) {
         KhachHang khachHang = khachHangService.detail(id).get();
