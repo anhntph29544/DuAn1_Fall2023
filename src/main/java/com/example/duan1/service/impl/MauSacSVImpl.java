@@ -26,6 +26,11 @@ public class MauSacSVImpl implements MauSacSV {
     }
 
     @Override
+    public List<MauSac> getAllList() {
+        return repository.sortList();
+    }
+
+    @Override
     public String tuTaoMa() {
         Stream<String> ma= repository.maMS().stream();
         Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);

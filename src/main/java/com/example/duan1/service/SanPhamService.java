@@ -10,6 +10,8 @@ public interface SanPhamService {
 
     List<SanPham> getAll();
 
+    List<SanPham> getAllList();
+
     String tuTaoMa();
 
     List<SanPham> search(String ten, Integer trangThai);

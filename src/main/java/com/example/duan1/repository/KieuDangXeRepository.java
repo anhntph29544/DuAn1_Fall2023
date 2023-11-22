@@ -17,6 +17,9 @@ public interface KieuDangXeRepository extends JpaRepository<KieuDangXe, UUID> {
     @Query("select kdx from KieuDangXe kdx where kdx.trangThai=0 order by kdx.ngayThem desc")
     List<KieuDangXe> sort();
 
+    @Query("select kdx from KieuDangXe kdx order by kdx.ngayThem desc")
+    List<KieuDangXe> sortList();
+
     @Query("select kdx.ma from KieuDangXe kdx")
     List<String> maKDX();
 

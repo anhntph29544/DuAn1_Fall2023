@@ -41,6 +41,11 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     }
 
     @Override
+    public List<ThuongHieu> getAllList() {
+        return repository.sortList();
+    }
+
+    @Override
     public ThuongHieu detail(UUID id) {
         return repository.findById(id).get();
     }

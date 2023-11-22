@@ -14,6 +14,8 @@ public interface ThuongHieuService {
 
     List<ThuongHieu> getAll();
 
+    List<ThuongHieu> getAllList();
+
     ThuongHieu detail(UUID id);
 
     Boolean save(ThuongHieu thuongHieu);
