@@ -78,6 +78,12 @@ public class SanPhamController {
         return "sanpham/update";
     }
 
+    @GetMapping("/shop-xe/san-pham/view-add")
+    public String viewAdd(Model model){
+        model.addAttribute("sp1", new SanPham());
+        return "sanpham/sp-add";
+    }
+
     @PostMapping("/shop-xe/san-pham/add")
     public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
                       BindingResult result,
@@ -85,14 +91,12 @@ public class SanPhamController {
                       Model model){
         listSP= service.getData(page);
         if(result.hasErrors()){
-            model.addAttribute("listSP", listSP);
-            return "sanpham/hien-thi";
+            return "sanpham/sp-add";
         }
         if(!kiemTra(sp1,model)){
-            model.addAttribute("listSP", listSP);
-            return "sanpham/hien-thi";
+            return "sanpham/sp-add";
         }
-        sp1.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
+        sp1.setTen(sp1.getTen().replaceAll("\s\s+", " ").trim());
         service.save(sp1);
         return "redirect:/shop-xe/san-pham";
     }
