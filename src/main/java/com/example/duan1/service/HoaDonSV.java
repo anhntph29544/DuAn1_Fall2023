@@ -1,6 +1,7 @@
 package com.example.duan1.service;
 
 import com.example.duan1.entity.HoaDon;
+import com.example.duan1.entity.KhachHang;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -11,9 +12,11 @@ public interface HoaDonSV {
 
     Page<HoaDon> getData(int page);
 
+    KhachHang Search(String email);
     HoaDon detail(UUID id);
 
     List<HoaDon> getCHT();
 
-    void save(HoaDon hoaDon);
+    void add(HoaDon hoaDon);
+
 }

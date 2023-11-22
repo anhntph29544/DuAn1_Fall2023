@@ -1,6 +1,7 @@
 package com.example.duan1.service.impl;
 
 import com.example.duan1.entity.HoaDon;
+import com.example.duan1.entity.KhachHang;
 import com.example.duan1.repository.HoaDonRepository;
 import com.example.duan1.service.HoaDonSV;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class HoaDonSVImpl implements HoaDonSV {
         return repository.findAll(pageable);
     }
 
+    @Override
+    public KhachHang Search(String email) {
+        return repository.search(email);
+    }
+
 
     @Override
     public HoaDon detail(UUID id) {
@@ -40,7 +46,9 @@ public class HoaDonSVImpl implements HoaDonSV {
     }
 
     @Override
-    public void save(HoaDon hoaDon) {
+    public void add(HoaDon hoaDon) {
         repository.save(hoaDon);
     }
+
+
 }

@@ -38,7 +38,7 @@
                             <td>${h.ma}</td>
                             <td>${h.nhanVien.hoTen}</td>
                             <td>${h.khachHang.hoTen}</td>
-                            <td>${h.tinhTrang}</td>
+                            <td>${h.tinhTrang==0?"Chưa Thanh Toán":"Đã Thanh Toán"}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -68,15 +68,26 @@
         <div class="col-md-4">
             <div class="taoHoaDon" style="padding: 5px;border:#0b2e13 1px solid ">
                 <h5>Tạo Hóa Đơn</h5>
-                <form:form modelAttribute="hd" method="post" action="add/hoa-don">
-                    Tên KH :<form:input path="khachHang.hoTen"/><br>
-                    SDT :<form:input path="khachHang.sdt"/><br>
-                    Địa Chỉ:<form:input path="khachHang.thanhPho"/><br>
+                <%--                <div>--%>
+                <%--                    <input type="text" name="emailSearch" class="form-control me-2"--%>
+                <%--                           placeholder="Nhập sdt/email khách hàng"--%>
+                <%--                           value="${emailSearch}">--%>
+                <%--                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i>Tìm Kiếm</button>--%>
+                <%--                </div>--%>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i>Chọn Khách Hàng</button>
+                --%>
+                <label>
+                    Tên Khách Hàng:<input type="text">
+                    SDT Khách Hàng:<input type="text">
+                    Email Khách Hàng:<input type="text">
+                </label>
+
+                <form:form modelAttribute="hd" method="post" action="/hoa-don/add">
                     Tổng Tiền:<br>
                     Khách Cần Trả:<form:input path="thanhTien"/><br>
                     Tiền Khách Đưa:<br>
                     Tiền Thừa:<br>
-                    <form:button type="submit">Tạo Hóa Đơn</form:button>
+                    <form:button class="btn btn-primary" type="submit">Tạo Hóa Đơn</form:button>
                 </form:form>
                 </table>
             </div>
