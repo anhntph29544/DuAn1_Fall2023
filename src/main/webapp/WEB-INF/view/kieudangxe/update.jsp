@@ -16,9 +16,9 @@
     ma: <f:input path="ma"/>
     ten: <f:input path="ten"/>
     <f:errors path="ten"/><br>
-    trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>hoat dong
-    <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
-    <f:button type="submit" class="btn btn-primary">update</f:button>
+    trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
+    <f:radiobutton path="trangThai" value="1"/>Không hoạt động <br>
+    <f:button type="submit" class="btn btn-primary">Update</f:button>
 </f:form>
 </body>
 </html>

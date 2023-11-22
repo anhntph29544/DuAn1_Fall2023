@@ -19,7 +19,7 @@
     <f:errors path="ten"/><br>
     Trạng Thái: <f:radiobutton path="trangThai" value="0" checked="true"/>Hoạt Động
     <f:radiobutton path="trangThai" value="1"/>Không Hoạt Động <br>
-    <f:button type="submit" class="btn btn-primary">add</f:button>
+    <f:button type="submit" class="btn btn-primary">Thêm</f:button>
 </f:form>
 <form action="/shop-xe/thuong-hieu/hien-thi">
     <input type="text" name="tenSearch" value="${tenSearch}">

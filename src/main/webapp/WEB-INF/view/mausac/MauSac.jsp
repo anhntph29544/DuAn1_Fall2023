@@ -20,7 +20,7 @@
 <h3 STYLE="text-align: center">QUẢN LÝ MÀU SẮC</h3>
 <form action="/shop-xe/mau-sac/hien-thi">
     <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
 </form>
 <br>
 <table>
@@ -29,7 +29,7 @@
         Tên:<form:input path="ten"/><br>
         Trạng Thái:<form:radiobutton path="trangThai" value="1" checked="1"/>Hoạt Động
         <form:radiobutton path="trangThai" value="0"/>Không Hoạt Động</br>
-        <form:button type="submit" class="btn btn-primary">ADD</form:button>
+        <form:button type="submit" class="btn btn-primary">Thêm</form:button>
     </form:form>
 </table>
 <br>
@@ -55,10 +55,10 @@
             <td>${m.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>
             <td>
                 <a href="/shop-xe/mau-sac/detail/${m.id}">
-                    <button class="btn btn-success">Detail</button>
+                    <button class="btn btn-success">Chi tiết</button>
                 </a>
                 <a href="/shop-xe/mau-sac/view-update/${m.id}">
-                    <button class="btn btn-warning">Update</button>
+                    <button class="btn btn-warning">Sửa</button>
                 </a>
 <%--                <a href="/shop-xe/mau-sac/delete/${m.id}">--%>
 <%--                    <button class="btn btn-danger">Delete</button>--%>

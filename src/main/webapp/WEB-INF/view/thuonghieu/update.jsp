@@ -20,7 +20,7 @@
     <f:errors path="ten"/><br>
     trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>hoat dong
     <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
-    <f:button type="submit" onclick="return confirm('Bạn chắc chưa ?')" class="btn btn-primary">update</f:button>
+    <f:button type="submit" onclick="return confirm('Bạn chắc chưa ?')" class="btn btn-primary">Update</f:button>
 </f:form>
 </body>
 </html>

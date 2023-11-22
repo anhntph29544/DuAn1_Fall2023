@@ -26,11 +26,6 @@
                 <i class="bi bi-funnel-fill"></i> Bộ lọc
             </span>
         </div>
-        <div class="col-md-6">
-            <span style="font-weight: bold">
-                Thêm sản phẩm
-            </span>
-        </div>
     </div>
     <div class="row">
         <div class="col-md-6" style="border: 1px solid black;padding: 10px;">
@@ -56,40 +51,19 @@
                 <button class="btn btn-danger"><i class="bi bi-x-lg"></i> Xoá lọc</button>
             </a>
         </div>
-        <div class="col-md-6" style="padding: 10px;border: 1px solid black;">
-            <form:form action="/shop-xe/san-pham/add" modelAttribute="sp1" method="post">
-                <div class="mb-3">
-                    <label class="col-form-label">Tên</label>
-                    <form:input path="ten" type="text" class="form-control"/><br>
-                    <div class="form-text"><form:errors path="ten"/></div>
-                    <div class="form-text" ${tenError==null?"hidden":""}>
-                            ${tenError}
-                    </div>
-                </div>
-                <label class="form-label">Trạng thái</label>
-                <div class="mb-3 form-check">
-                    <form:radiobutton path="trangThai" class="form-check-input" value="0"
-                                      id="trangThaiSP1"
-                                      checked="true"/>
-                    <label class="form-check-label" for="trangThaiSP1">Hoạt động</label>
-                </div>
-                <div class="mb-3 form-check">
-                    <form:radiobutton path="trangThai" class="form-check-input" value="1"
-                                      id="trangThaiSP2"/>
-                    <label class="form-check-label" for="trangThaiSP2">Không hoạt động</label>
-                </div>
-                <form:button type="submit" class="btn btn-primary"
-                             onclick="return confirm('Bạn có chắc không?')">Thêm</form:button>
-            </form:form>
-        </div>
     </div>
     <div style="font-weight: bold; margin-top: 10px;" class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <span><i class="bi bi-card-list"></i> Danh sách sản phẩm</span>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <a href="/shop-xe/san-pham-chi-tiet/hien-thi">
                 <button class="btn btn-primary">DS sản phẩm chi tiết</button>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="/shop-xe/san-pham/view-add">
+                <button class="btn btn-success">Thêm sản phẩm</button>
             </a>
         </div>
     </div>
