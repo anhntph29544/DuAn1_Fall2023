@@ -14,6 +14,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        <%@include file="hoadon.js" %>
+    </script>
 </head>
 <body>
 <div class="container ">
@@ -22,23 +27,28 @@
             <div class="bangHoaDon" style="margin-bottom: 30px;border:#0b2e13 1px solid ">
                 <table class="table">
                     <h5>Danh Sách Hóa Đơn</h5>
+                    <form id="tao-hoa-don">
+                        <c:if test="${listHD.size()<5}">
+                        <button type="submit">
+                            Tạo Hóa Đơn
+                        </button>
+                        </c:if>
+                    </form>
                     <thead>
                     <tr>
-                        <th>STT</th>
                         <th>Mã HD</th>
                         <th>Tên NV</th>
                         <th>Tên KH</th>
                         <th>Trạng Thái</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach varStatus="d" var="h" items="${listHD}">
+                    <tbody id="hoa-don-cho">
+                    <c:forEach  var="h" items="${listHD}">
                         <tr>
-                            <td>${d.index+1}</td>
                             <td>${h.ma}</td>
                             <td>${h.nhanVien.hoTen}</td>
                             <td>${h.khachHang.hoTen}</td>
-                            <td>${h.tinhTrang==0?"Chưa Thanh Toán":"Đã Thanh Toán"}</td>
+                            <td style="font-family: Roboto">${h.tinhTrang==0?"Chưa Thanh Toán":"Đã Thanh Toán"}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -75,11 +85,10 @@
                 <%--                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i>Tìm Kiếm</button>--%>
                 <%--                </div>--%>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i>Chọn Khách Hàng</button>
-                --%>
                 <label>
-                    Tên Khách Hàng:<input type="text">
-                    SDT Khách Hàng:<input type="text">
-                    Email Khách Hàng:<input type="text">
+                    Tên Khách Hàng:<input type="text"><br>
+                    SDT Khách Hàng:<input type="text"><br>
+                    Email Khách Hàng:<input type="text"><br>
                 </label>
 
                 <form:form modelAttribute="hd" method="post" action="/hoa-don/add">

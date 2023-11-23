@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -57,4 +58,12 @@ public class HoaDon {
     @Column(name = "thanh_tien")
     private Double thanhTien;
 
+    @Column(name = "tien_khach_dua")
+    private Double tienKhachDua;
+
+    @Column(name = "tien_thua")
+    private Double tienThua;
+
+    @Column(name = "ngay_them")
+    private Date ngayThem;
 }

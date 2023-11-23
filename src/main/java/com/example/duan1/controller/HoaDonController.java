@@ -36,11 +36,11 @@ public class HoaDonController {
         return "/hoadon/hienThi";
     }
 
-    @PostMapping("/hoa-don/add")
-    public String add(@Valid @ModelAttribute("hd") HoaDon h) {
-        sv.add(h);
-        return "redirect:/hoa-don/hien-thi";
-    }
+//    @PostMapping("/hoa-don/add")
+//    public String add(@Valid @ModelAttribute("hd") HoaDon h) {
+//        sv.add(h);
+//        return "redirect:/hoa-don/hien-thi";
+//    }
 
 
 }

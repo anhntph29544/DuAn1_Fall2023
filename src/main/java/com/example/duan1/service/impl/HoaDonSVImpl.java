@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class HoaDonSVImpl implements HoaDonSV {
@@ -41,13 +42,33 @@ public class HoaDonSVImpl implements HoaDonSV {
     }
 
     @Override
+    public List<HoaDon> getNgay() {
+        return repository.getNgay();
+    }
+
+    @Override
     public List<HoaDon> getCHT() {
         return repository.getChuaThanhToan();
     }
 
     @Override
     public void add(HoaDon hoaDon) {
+        if (hoaDon.getMa() == null || hoaDon.getMa() == "") {
+            hoaDon.setMa(this.tuTaoMa());
+        }
+        if (hoaDon.getNgayThem() == null) {
+            hoaDon.setNgayThem(new java.util.Date());
+        }
         repository.save(hoaDon);
+    }
+
+    private String prefix = "HD";
+
+    @Override
+    public String tuTaoMa() {
+        Stream<String> ma = repository.maHD().stream();
+        Integer max = ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
+        return prefix + (String.format("%d", max + 1));
     }
 
 

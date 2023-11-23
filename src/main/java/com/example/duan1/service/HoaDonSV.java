@@ -14,9 +14,9 @@ public interface HoaDonSV {
 
     KhachHang Search(String email);
     HoaDon detail(UUID id);
-
+List<HoaDon>getNgay();
     List<HoaDon> getCHT();
 
     void add(HoaDon hoaDon);
-
+    String tuTaoMa();
 }
