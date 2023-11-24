@@ -52,7 +52,7 @@ public class NhanVien {
 
     @NotEmpty(message = "Email không được để trống")
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@fpt\\.edu\\.vn$", message = "Email phải có đuôi @fpt.edu.vn")
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Pattern(regexp = "^[0-9]{12}$", message = "CCCD phải có 12 chữ số")

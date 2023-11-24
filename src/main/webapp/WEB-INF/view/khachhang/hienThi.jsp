@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Quản lý nhân viên</title>
+    <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -57,23 +57,23 @@
             line-height: 1.5;
             border-radius: 0.2rem;
         }
-        /* Để làm nhỏ ô input */
-        .search-input {
-            max-width: 200px;
-        }
+             /* Để làm nhỏ ô input */
+         .search-input {
+             max-width: 200px;
+         }
     </style>
 </head>
-<body style=" padding-top: 10px" class="text-center">
+<body style="padding-top: 10px" class="text-center">
 <div class="container">
-<h3>Quản lý Nhân Viên</h3>
+<h3>Quản lý khách hàng</h3>
     <div class="d-flex justify-content-between mb-3 align-items-center">
         <!-- Nút thêm mới khách hàng -->
-        <a href="/nhan-vien/showFormForAdd" class="btn btn-primary">Thêm mới nhân viên</a>
+        <a href="/khach-hang/showFormForAdd" class="btn btn-primary">Thêm mới khách hàng</a>
 
 
 
         <!-- Ô input và nút tìm kiếm -->
-        <f:form action="/nhan-vien/search" method="post">
+        <f:form action="/khach-hang/search" method="post">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="trangThai"  value="0">
                 <label class="form-check-label" >Hoạt động</label>
@@ -84,9 +84,9 @@
             </div>
 
             <div class="row">
-                <div class="control-group col-md-8">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm nhân viên..." name="keyword">
-                </div>
+            <div class="control-group col-md-8">
+                <input type="text" class="form-control" placeholder="Tìm kiếm khách hàng..." name="keyword">
+            </div>
                 <div class="control-group col-md-4">
                     <button class="btn btn-success" type="submit">Tìm kiếm</button>
                 </div>
@@ -98,52 +98,50 @@
     <thead>
     <tr>
         <th width="20">STT</th>
-        <th width="20">Ảnh thẻ</th>
-        <th >Mã NV</th>
+        <th width="50">Ảnh thẻ</th>
+        <th >Mã KH</th>
         <th >email</th>
         <th >Họ và tên</th>
         <th >Ngày sinh</th>
         <th >Giới Tính</th>
-        <th>Chức vụ</th>
         <th >SĐT</th>
         <th >Trạng Thái</th>
         <th >Thao Tác</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${list}" var="nv" varStatus="status">
+    <c:forEach items="${list}" var="kh" varStatus="status">
         <tr>
             <td>${num*sizePage + status.index + 1}</td>
             <td>
-                <img src="${nv.image}" />
+                <img src="${kh.image}" />
             </td>
-            <td>${nv.ma}</td>
-            <td>${nv.email}</td>
-            <td>${nv.hoTen}</td>
-            <td>${nv.ngaySinh}</td>
-            <td>${nv.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
-            <td>${nv.chucVu.tenChucVu}</td>
-            <td>${nv.sdt}</td>
-            <td>${nv.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
+            <td>${kh.ma}</td>
+            <td>${kh.email}</td>
+            <td>${kh.hoTen}</td>
+            <td>${kh.ngaySinh}</td>
+            <td>${kh.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
+            <td>${kh.sdt}</td>
+            <td>${kh.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
             <td class="table-td-center">
-                <a href="/nhan-vien/delete/${nv.idNhanVien}" class="btn btn-primary btn-sm trash"
-                   type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa nhân viên này không?'))) return false">
-                    <label> Xóa</label>
+                <a href="/khach-hang/delete/${kh.idKhachHang}" class="btn btn-primary btn-sm trash"
+                   type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa khách hàng này không?'))) return false">
+                    <label>Xóa</label>
                 </a>
-                <a href="/nhan-vien/detail/${nv.idNhanVien}" class="btn btn-primary btn-sm edit"
-                   type="button" title="Sửa" onclick="if (!(confirm('Bạn có muốn sửa nhân viên này không?'))) return false">
-                    <label> Xem</label>
+                <a href="/khach-hang/detail/${kh.idKhachHang}" class="btn btn-primary btn-sm edit"
+                   type="button" title="Sửa" onclick="if (!(confirm('Bạn có muốn sửa khách hàng này không?'))) return false">
+                    <label>Detail</label>
                 </a>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<div>
-    <c:forEach begin="1" end="${total}" varStatus="stt">
-            <a> <a href="/nhan-vien/hien-thi?num=${stt.index-1}"> ${stt.index-1}</a> </a>
-    </c:forEach>
-</div>
+    <div>
+        <c:forEach begin="1" end="${total}" varStatus="stt">
+            <a> <a href="/khach-hang/hien-thi?num=${stt.index-1}"> ${stt.index-1}</a> </a>
+        </c:forEach>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

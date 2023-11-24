@@ -1,45 +1,44 @@
-﻿create database sport_bicycle1
-go
-use sport_bicycle1
-go
-create table kieu_dang_xe(
-	id_kieu_dang_xe uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table kich_thuoc(
-	id_kich_thuoc uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table mau_sac(
-	id_mau_sac uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table san_pham(
-	id_san_pham uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table thuong_hieu(
-	id_thuong_hieu uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table san_pham_chi_tiet(
-	id_spct uniqueidentifier primary key,
-	id_kieu_dang_xe uniqueidentifier,
-	foreign key (id_kieu_dang_xe) references kieu_dang_xe(id_kieu_dang_xe),
-	id_kich_thuoc uniqueidentifier,
-	foreign key (id_kich_thuoc) references kich_thuoc(id_kich_thuoc),
-	hinh_anh varchar(max),
-	
+﻿	create database sport_bicycle1
+	go
+	use sport_bicycle1
+	go
+	create table kieu_dang_xe(
+		id_kieu_dang_xe uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table kich_thuoc(
+		id_kich_thuoc uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table mau_sac(
+		id_mau_sac uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table san_pham(
+		id_san_pham uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table thuong_hieu(
+		id_thuong_hieu uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table san_pham_chi_tiet(
+		id_spct uniqueidentifier primary key,
+		id_kieu_dang_xe uniqueidentifier,
+		foreign key (id_kieu_dang_xe) references kieu_dang_xe(id_kieu_dang_xe),
+		id_kich_thuoc uniqueidentifier,
+		foreign key (id_kich_thuoc) references kich_thuoc(id_kich_thuoc),
+		hinh_anh varchar(max),
 	id_mau_sac uniqueidentifier,
 	foreign key (id_mau_sac) references mau_sac(id_mau_sac),
 	id_thuong_hieu uniqueidentifier,
