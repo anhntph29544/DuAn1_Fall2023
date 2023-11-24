@@ -117,6 +117,14 @@ public class NhanVienController {
         model.addAttribute("districts", districts);
         model.addAttribute("wards", wards);
 
+
+        System.out.println("Danh sách thành phố từ API GHN: " + cities);
+
+        System.out.println("Danh sách huyện từ API GHN: " + districts);
+
+        System.out.println("Danh sách xã từ API GHN: " + wards);
+
+
         return "/nhanvien/formAddNV";
     }
 
