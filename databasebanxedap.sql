@@ -112,7 +112,7 @@ create table hoa_don(
 	foreign key(id_nhan_vien) references nhan_vien(id_nhan_vien),
 	ma varchar(20),
 	loai_hoa_don int,
-	ngay_thanh_toan date,
+	ngay_thanh_toan datetime,
 	tinh_trang int,
 	thanh_tien decimal(20)
 )
