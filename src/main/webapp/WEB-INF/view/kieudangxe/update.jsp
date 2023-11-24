@@ -9,15 +9,16 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body style="padding-top: 10px">
+<body>
+<%@include file="../include/header.jsp"%>
+<h3 STYLE="text-align: center">QUẢN LÝ KIỂU DÁNG</h3>
 <f:form action="/shop-xe/kieu-dang-xe/update" method="post" modelAttribute="kdx1">
     ma: <f:input path="ma"/>
-    <f:errors path="ma"/><br>
     ten: <f:input path="ten"/>
     <f:errors path="ten"/><br>
-    trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>hoat dong
-    <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
-    <f:button type="submit">update</f:button>
+    trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>Hoạt động
+    <f:radiobutton path="trangThai" value="1"/>Không hoạt động <br>
+    <f:button type="submit" class="btn btn-primary">Update</f:button>
 </f:form>
 </body>
 </html>

@@ -11,17 +11,20 @@ import java.util.UUID;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, UUID> {
 
-    @Query("select sp from SanPham sp where sp.ten like %?1%")
+    @Query("select sp from SanPham sp where sp.ten like %?1% order by sp.ngayThem desc")
     List<SanPham> search(String ten);
 
-    @Query("select sp from SanPham sp where sp.trangThai = ?1")
+    @Query("select sp from SanPham sp where sp.trangThai = ?1 order by sp.ngayThem desc")
     List<SanPham> search2(Integer trangThai);
 
-    @Query("select sp from SanPham sp where sp.ten like %?1% and sp.trangThai=?2")
+    @Query("select sp from SanPham sp where sp.ten like %?1% and sp.trangThai=?2 order by sp.ngayThem desc")
     List<SanPham> search3(String ten,Integer trangThai);
 
-    @Query("select sp from SanPham sp order by sp.ngayThem desc")
+    @Query("select sp from SanPham sp where sp.trangThai=0 order by sp.ngayThem desc")
     List<SanPham> sort();
+
+    @Query("select sp from SanPham sp order by sp.ngayThem desc")
+    List<SanPham> sortList();
 
     @Query("select sp.ma from SanPham sp")
     List<String> maSP();

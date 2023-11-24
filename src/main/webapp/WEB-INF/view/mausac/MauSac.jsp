@@ -16,30 +16,34 @@
     <title>Document</title>
 </head>
 <body>
+<%@include file="../include/header.jsp"%>
+<h3 STYLE="text-align: center">QUẢN LÝ MÀU SẮC</h3>
 <form action="/shop-xe/mau-sac/hien-thi">
     <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
-    <button type="submit">Search</button>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
 </form>
+<br>
 <table>
     <form:form method="post" action="/shop-xe/mau-sac/add" modelAttribute="m1">
         Mã:<form:input path="ma" disabled="true"/><br>
         Tên:<form:input path="ten"/><br>
         Trạng Thái:<form:radiobutton path="trangThai" value="1" checked="1"/>Hoạt Động
         <form:radiobutton path="trangThai" value="0"/>Không Hoạt Động</br>
-        <form:button type="submit">ADD</form:button>
+        <form:button type="submit" class="btn btn-primary">Thêm</form:button>
     </form:form>
 </table>
+<br>
 <a href="/shop-xe/mau-sac/hien-thi">
-    <button>Hiển thị tất cả</button>
+    <button class="btn btn-primary">Hiển thị tất cả</button>
 </a>
 <table class="table">
     <thead>
     <tr>
-        <th>STT</th>
-        <th>Mã</th>
-        <th>Tên</th>
-        <th>Trạng Thái</th>
-        <th>Action</th>
+        <th scope="col">#</th>
+        <th scope="col">Mã</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Trạng Thái</th>
+        <th scope="col">Hành Động</th>
     </tr>
     </thead>
     <tbody>
@@ -48,17 +52,17 @@
             <td>${d.index+1}</td>
             <td>${m.ma}</td>
             <td>${m.ten}</td>
-            <td>${m.trangThai==1?"Hoạt Động":"Không Hoạt Động"}</td>
+            <td>${m.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>
             <td>
                 <a href="/shop-xe/mau-sac/detail/${m.id}">
-                    <button>Detail</button>
+                    <button class="btn btn-success">Chi tiết</button>
                 </a>
                 <a href="/shop-xe/mau-sac/view-update/${m.id}">
-                    <button>Update</button>
+                    <button class="btn btn-warning">Sửa</button>
                 </a>
-                <a href="/shop-xe/mau-sac/delete/${m.id}">
-                    <button>Delete</button>
-                </a>
+<%--                <a href="/shop-xe/mau-sac/delete/${m.id}">--%>
+<%--                    <button class="btn btn-danger">Delete</button>--%>
+<%--                </a>--%>
             </td>
         </tr>
     </c:forEach>

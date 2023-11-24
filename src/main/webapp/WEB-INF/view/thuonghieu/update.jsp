@@ -10,7 +10,9 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body style="padding-top: 10px">
+<body>
+<%@include file="../include/header.jsp"%>
+<h3 STYLE="text-align: center">CHỈNH SỬA THƯƠNG HIỆU</h3>
 <f:form action="/shop-xe/thuong-hieu/update" method="post" modelAttribute="th1">
     ma: <f:input path="ma"/>
     <f:errors path="ma"/><br>
@@ -18,7 +20,7 @@
     <f:errors path="ten"/><br>
     trang thai: <f:radiobutton path="trangThai" value="0" checked="true"/>hoat dong
     <f:radiobutton path="trangThai" value="1"/>khong hoat dong <br>
-    <f:button type="submit">update</f:button>
+    <f:button type="submit" onclick="return confirm('Bạn chắc chưa ?')" class="btn btn-primary">Update</f:button>
 </f:form>
 </body>
 </html>

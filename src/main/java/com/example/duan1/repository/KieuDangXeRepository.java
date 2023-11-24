@@ -14,8 +14,11 @@ public interface KieuDangXeRepository extends JpaRepository<KieuDangXe, UUID> {
     @Query("SELECT e FROM KieuDangXe e where e.ten like %?1%")
     List<KieuDangXe> search(String ten);
 
-    @Query("select kdx from KieuDangXe kdx order by kdx.ngayThem desc")
+    @Query("select kdx from KieuDangXe kdx where kdx.trangThai=0 order by kdx.ngayThem desc")
     List<KieuDangXe> sort();
+
+    @Query("select kdx from KieuDangXe kdx order by kdx.ngayThem desc")
+    List<KieuDangXe> sortList();
 
     @Query("select kdx.ma from KieuDangXe kdx")
     List<String> maKDX();

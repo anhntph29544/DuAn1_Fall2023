@@ -27,6 +27,11 @@ public class KichThuocServiceImpl implements KichThuocService {
     }
 
     @Override
+    public List<KichThuoc> getAllList() {
+        return repo.sortList();
+    }
+
+    @Override
     public String tuTaoMa() {
         Stream<String> ma= repo.maKT().stream();
         Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);

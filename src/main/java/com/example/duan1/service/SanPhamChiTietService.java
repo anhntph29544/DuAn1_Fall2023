@@ -1,7 +1,7 @@
 package com.example.duan1.service;
 
+import com.example.duan1.entity.SanPham;
 import com.example.duan1.entity.SanPhamChiTiet;
-import com.oracle.wls.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -24,5 +24,7 @@ public interface SanPhamChiTietService {
     Boolean delete(UUID id);
 
     SanPhamChiTiet detail(UUID id);
+
+    Page<SanPham> sortPage(Double min,Double max);
 
 }

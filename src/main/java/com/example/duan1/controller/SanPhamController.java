@@ -36,7 +36,7 @@ public class SanPhamController {
         }else if(trangThai!=3){
             listSP= service.searchPage(ten.trim(),trangThai, page);
         }
-        model.addAttribute("trangThai", trangThai);
+        model.addAttribute("trangThaiSearch", trangThai);
         model.addAttribute("listSP", listSP);
         model.addAttribute("sp1", new SanPham());
         return "sanpham/hien-thi";
@@ -78,19 +78,20 @@ public class SanPhamController {
         return "sanpham/update";
     }
 
+    @GetMapping("/shop-xe/san-pham/view-add")
+    public String viewAdd(Model model){
+        model.addAttribute("sp1", new SanPham());
+        return "sanpham/sp-add";
+    }
+
     @PostMapping("/shop-xe/san-pham/add")
     public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
-                      BindingResult result,
-                      @RequestParam(value = "page", defaultValue = "0") int page,
-                      Model model){
-        listSP= service.getData(page);
+                      BindingResult result, Model model){
         if(result.hasErrors()){
-            model.addAttribute("listSP", listSP);
-            return "sanpham/hien-thi";
+            return "sanpham/sp-add";
         }
         if(!kiemTra(sp1,model)){
-            model.addAttribute("listSP", listSP);
-            return "sanpham/hien-thi";
+            return "sanpham/sp-add";
         }
         sp1.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
         service.save(sp1);
@@ -102,8 +103,8 @@ public class SanPhamController {
             model.addAttribute("tenError", "Tên không được quá 50 kí tự");
             return false;
         }
-        for (SanPham sp: listSP) {
-            if(sp1.getTen().replaceAll("\\s\\s+", " ").trim().equalsIgnoreCase(sp.getTen())){
+        for (SanPham sp: service.getAllList()) {
+            if(sp.getTen().equalsIgnoreCase(sp1.getTen().replaceAll("\\s\\s+", " ").trim())){
                 model.addAttribute("tenError", "Tên đã tồn tại");
                 return false;
             }
@@ -113,7 +114,7 @@ public class SanPhamController {
 
     @PostMapping("/shop-xe/san-pham/update")
     public String update(@Valid @ModelAttribute("sp1")SanPham sp1,
-                      BindingResult result, Model model){
+                         BindingResult result, Model model){
         if(result.hasErrors()){
             return "sanpham/update";
         }
