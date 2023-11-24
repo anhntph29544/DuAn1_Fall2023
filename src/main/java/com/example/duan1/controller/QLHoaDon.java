@@ -7,10 +7,14 @@ import com.example.duan1.service.HoaDonSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 public class QLHoaDon {
@@ -28,9 +32,18 @@ public class QLHoaDon {
     }
 
     @GetMapping("/hoa-don/get")
-    public ResponseEntity<Object> getHD(){
-        ResponseHoaDon<HoaDon> response = new ResponseHoaDon<HoaDon>("success",hoaDonSV.getCHT().get(0));
+    public ResponseEntity<Object> getHD() {
+        ResponseHoaDon<HoaDon> response = new ResponseHoaDon<HoaDon>("success", hoaDonSV.getCHT().get(0));
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("/hoa-don/delete/{id}")
+    public ResponseEntity<Object> deleteHD(@PathVariable("id") UUID id) {
+        try {
+            hoaDonSV.delete(id);
+            return new ResponseEntity<>("Xóa hóa đơn thành công", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

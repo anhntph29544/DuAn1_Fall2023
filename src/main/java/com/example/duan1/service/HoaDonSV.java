@@ -13,10 +13,15 @@ public interface HoaDonSV {
     Page<HoaDon> getData(int page);
 
     KhachHang Search(String email);
+
     HoaDon detail(UUID id);
-List<HoaDon>getNgay();
+
+    List<HoaDon> getNgay();
+
     List<HoaDon> getCHT();
 
     void add(HoaDon hoaDon);
+    void delete(UUID id);
+
     String tuTaoMa();
 }

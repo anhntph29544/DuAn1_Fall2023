@@ -62,6 +62,11 @@ public class HoaDonSVImpl implements HoaDonSV {
         repository.save(hoaDon);
     }
 
+    @Override
+    public void delete(UUID id) {
+        repository.deleteById(id);
+    }
+
     private String prefix = "HD";
 
     @Override

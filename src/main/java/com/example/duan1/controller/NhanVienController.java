@@ -1,6 +1,7 @@
 package com.example.duan1.controller;
 
 
+import com.example.duan1.entity.KhachHang;
 import com.example.duan1.entity.NhanVien;
 import com.example.duan1.service.ChucVuService;
 import com.example.duan1.service.NhanVienService;
@@ -77,6 +78,13 @@ public class NhanVienController {
         model.addAttribute("sizePage", sizePage);
         model.addAttribute("nhanVien", new NhanVien());
         model.addAttribute("chucVu", chucVuService.getAll());
+        return "/nhanvien/hienThi";
+    }
+
+    @RequestMapping("/search")
+    public String search(@ModelAttribute("nhanVien") NhanVien nhanVien, Model model ){
+        List<NhanVien> list= nhanVienService.findNhanVienByTrangThai(nhanVien.getTrangThai());
+        model.addAttribute("list", list);
         return "/nhanvien/hienThi";
     }
 
@@ -215,6 +223,12 @@ public class NhanVienController {
                        BindingResult bindingResult, Model model,
                        @RequestParam("imageFile") MultipartFile file) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("chucVu", chucVuService.getAll());
+            return "/nhanvien/formAddNV";
+        }
+        if (nhanVienService.isEmailExists(nhanVien.getEmail())) {
+            // Thêm thông báo lỗi cho trường email
+            bindingResult.rejectValue("email", "duplicate.email", "Email đã tồn tại");
             model.addAttribute("chucVu", chucVuService.getAll());
             return "/nhanvien/formAddNV";
         }
