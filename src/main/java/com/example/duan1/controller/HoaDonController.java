@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+
 
 @Controller
 public class HoaDonController {
@@ -54,6 +56,7 @@ public class HoaDonController {
         listHD = sv.getCHT();
         listKH = repository.findAll();
         listSPCT= serviceSPCT.getAll();
+        KhachHang kh = sv.layKHchoHD(idHDSelect);
         model.addAttribute("listSPCT", listSPCT);
         if(idHDSelect==null){
             if(listHD.size()>0){
@@ -62,6 +65,7 @@ public class HoaDonController {
         }
         listHDCT= svHDCT.getListHD(idHDSelect);
         model.addAttribute("idHDSelect",idHDSelect);
+        model.addAttribute("kh",kh);
         model.addAttribute("listKH", listKH);
         model.addAttribute("listHD", listHD);
         model.addAttribute("listHDCT", listHDCT);
@@ -70,8 +74,8 @@ public class HoaDonController {
     }
 
     @GetMapping("/chon-hoa-don/hien-thi/{idSelect}")
-    public String chonHoaDon(@PathVariable(name = "idSelect")UUID idChon, Model model) {
-        idHDSelect=idChon;
+    public String chonHoaDon(@PathVariable(name = "idSelect") UUID idChon, Model model) {
+        idHDSelect = idChon;
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
@@ -115,6 +119,15 @@ public class HoaDonController {
     @GetMapping("/hoa-don/xoa-san-pham/{id}")
     public String xoaSP(@PathVariable("id")UUID id) {
         svHDCT.delete(id);
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+  
+    @PostMapping("/hoa-don/them-khach-hang")
+    public String addKH(@RequestParam("KHID") UUID khid) {
+        HoaDon hd = sv.detail(idHDSelect);
+        Optional<KhachHang> svc = khsv.detail(khid);
+        hd.setKhachHang(svc.get());
+        sv.add(hd);
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
