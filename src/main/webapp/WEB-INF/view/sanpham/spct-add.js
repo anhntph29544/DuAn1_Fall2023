@@ -33,7 +33,7 @@
 // });
 $(document).ready(
     function () {
-        const myModal= new bootstrap.Modal('#sanPham');
+        const myModal = new bootstrap.Modal('#sanPham');
         // SUBMIT FORM
         $("#quick_create_sp").submit(function (event) {
             // Prevent the form from submitting via the browser.
@@ -83,9 +83,9 @@ $(document).ready(
                 success: function (result) {
                     const sp = result.data;
                     if (result.status == "success") {
-                        var select= document.getElementById("form_sp");
-                        var newOption= document.createElement("option");
-                        var newOptionVal= document.createTextNode(sp.ten);
+                        var select = document.getElementById("form_sp");
+                        var newOption = document.createElement("option");
+                        var newOptionVal = document.createTextNode(sp.ten);
                         newOption.setAttribute("value", sp.id);
                         newOption.appendChild(newOptionVal);
                         select.insertBefore(newOption, select.firstChild);
