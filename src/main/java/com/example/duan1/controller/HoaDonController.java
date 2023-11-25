@@ -1,10 +1,14 @@
 package com.example.duan1.controller;
 
 import com.example.duan1.entity.HoaDon;
+import com.example.duan1.entity.HoaDonChiTiet;
 import com.example.duan1.entity.KhachHang;
+import com.example.duan1.entity.SanPhamChiTiet;
 import com.example.duan1.repository.KhachHangRepository;
+import com.example.duan1.service.HoaDonChiTietSV;
 import com.example.duan1.service.HoaDonSV;
 import com.example.duan1.service.KhachHangService;
+import com.example.duan1.service.SanPhamChiTietService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +29,14 @@ public class HoaDonController {
     private HoaDonSV sv;
     private List<HoaDon> listHD = new ArrayList<>();
     @Autowired
+    private HoaDonChiTietSV svHDCT;
+    private List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+    @Autowired
     private KhachHangRepository repository;
     private List<KhachHang> listKH = new ArrayList<>();
+    @Autowired
+    private SanPhamChiTietService serviceSPCT;
+    private List<SanPhamChiTiet> listSPCT = new ArrayList<>();
     private UUID idHDSelect=null;
 
     @GetMapping("/hoa-don/hien-thi")
@@ -43,12 +53,18 @@ public class HoaDonController {
     public String taoHoaDon(Model model) {
         listHD = sv.getCHT();
         listKH = repository.findAll();
+        listSPCT= serviceSPCT.getAll();
+        model.addAttribute("listSPCT", listSPCT);
         if(idHDSelect==null){
-            idHDSelect = listHD.get(0).getId();
+            if(listHD.size()>0){
+                idHDSelect = listHD.get(0).getId();
+            }
         }
+        listHDCT= svHDCT.getListHD(idHDSelect);
         model.addAttribute("idHDSelect",idHDSelect);
         model.addAttribute("listKH", listKH);
         model.addAttribute("listHD", listHD);
+        model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
         return "/hoadon/tao-hoa-don";
     }
@@ -67,5 +83,39 @@ public class HoaDonController {
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
+    private Boolean kiemTra(List<HoaDonChiTiet> listHDCT, UUID spctID){
+        for (HoaDonChiTiet hdct: listHDCT) {
+            if(hdct.getSanPhamCT().getId()==spctID){
+                hdct.setSoLuong(hdct.getSoLuong()+1);
+                hdct.setGia(hdct.getSoLuong()*hdct.getSanPhamCT().getGia());
+                svHDCT.save(hdct);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @PostMapping("/hoa-don/them-san-pham")
+    public String themSP(@RequestParam("spctID") UUID spctID) {
+        HoaDonChiTiet hdct= new HoaDonChiTiet();
+        HoaDon hd= sv.detail(idHDSelect);
+        SanPhamChiTiet spct= serviceSPCT.detail(spctID);
+        listHDCT= svHDCT.getListHD(idHDSelect);
+        if (kiemTra(listHDCT, spctID)){
+            hdct.setHoaDon(hd);
+            hdct.setSanPhamCT(spct);
+            hdct.setSoLuong(1);
+            hdct.setGia(hdct.getSoLuong()*hdct.getSanPhamCT().getGia());
+            hdct.setTrangThai(0);
+            svHDCT.save(hdct);
+        }
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+
+    @GetMapping("/hoa-don/xoa-san-pham/{id}")
+    public String xoaSP(@PathVariable("id")UUID id) {
+        svHDCT.delete(id);
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
 
 }
