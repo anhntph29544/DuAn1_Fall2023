@@ -84,6 +84,7 @@ create table khach_hang(
 	ngay_sinh date,
 	email varchar(50),
 	sdt varchar(20),
+		cccd varchar(20),
 	mat_khau varchar(20),
 	gioi_tinh int,
 	thanh_pho nvarchar(50),
@@ -114,7 +115,10 @@ create table hoa_don(
 	loai_hoa_don int,
 	ngay_thanh_toan datetime,
 	tinh_trang int,
-	thanh_tien decimal(20)
+	tien_khach_dua decimal(30),
+        thanh_tien decimal(30),
+	tien_thua decimal(30),
+	ngay_them datetime,
 )
 create table hoa_don_chi_tiet(
 	id_hoa_don_chi_tiet uniqueidentifier primary key,
