@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class HoaDonController {
@@ -25,6 +27,7 @@ public class HoaDonController {
     @Autowired
     private KhachHangRepository repository;
     private List<KhachHang> listKH = new ArrayList<>();
+    private UUID idHDSelect=null;
 
     @GetMapping("/hoa-don/hien-thi")
     public String hienThi(Model model) {
@@ -36,11 +39,33 @@ public class HoaDonController {
         return "/hoadon/hienThi";
     }
 
-//    @PostMapping("/hoa-don/add")
-//    public String add(@Valid @ModelAttribute("hd") HoaDon h) {
-//        sv.add(h);
-//        return "redirect:/hoa-don/hien-thi";
-//    }
+    @GetMapping("/tao-hoa-don/hien-thi")
+    public String taoHoaDon(Model model) {
+        listHD = sv.getCHT();
+        listKH = repository.findAll();
+        if(idHDSelect==null){
+            idHDSelect = listHD.get(0).getId();
+        }
+        model.addAttribute("idHDSelect",idHDSelect);
+        model.addAttribute("listKH", listKH);
+        model.addAttribute("listHD", listHD);
+        model.addAttribute("hd", new HoaDon());
+        return "/hoadon/tao-hoa-don";
+    }
+
+    @GetMapping("/chon-hoa-don/hien-thi/{idSelect}")
+    public String chonHoaDon(@PathVariable(name = "idSelect")UUID idChon, Model model) {
+        idHDSelect=idChon;
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+
+    @PostMapping("/tao-hoa-don/add")
+    public String add() {
+        HoaDon h = new HoaDon();
+        h.setTinhTrang(0);
+        sv.add(h);
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
 
 
 }
