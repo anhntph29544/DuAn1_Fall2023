@@ -52,6 +52,11 @@ public class HoaDonSVImpl implements HoaDonSV {
     }
 
     @Override
+    public KhachHang layKHchoHD(UUID id) {
+        return repository.chonKHchoHd(id);
+    }
+
+    @Override
     public void add(HoaDon hoaDon) {
         if (hoaDon.getMa() == null || hoaDon.getMa() == "") {
             hoaDon.setMa(this.tuTaoMa());

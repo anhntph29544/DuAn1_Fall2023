@@ -19,7 +19,7 @@ public interface HoaDonSV {
     List<HoaDon> getNgay();
 
     List<HoaDon> getCHT();
-
+KhachHang layKHchoHD(UUID id);
     void add(HoaDon hoaDon);
     void delete(UUID id);
 

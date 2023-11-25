@@ -23,4 +23,7 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
 
     @Query("select hd.ma from HoaDon hd")
     List<String> maHD();
+
+    @Query("select hd.khachHang from HoaDon hd where hd.id=?1 ")
+    KhachHang chonKHchoHd(UUID id);
 }
