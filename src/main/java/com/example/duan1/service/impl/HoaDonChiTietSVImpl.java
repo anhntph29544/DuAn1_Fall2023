@@ -24,6 +24,11 @@ public class HoaDonChiTietSVImpl implements HoaDonChiTietSV {
     }
 
     @Override
+    public List<HoaDonChiTiet> getListHD(UUID idHD) {
+        return repository.getListHD(idHD);
+    }
+
+    @Override
     public Page<HoaDonChiTiet> getData(int page) {
         Pageable pageable = PageRequest.of(page, 5);
         return repository.findAll(pageable);
@@ -37,5 +42,10 @@ public class HoaDonChiTietSVImpl implements HoaDonChiTietSV {
     @Override
     public void save(HoaDonChiTiet hoaDonChiTiet) {
         repository.save(hoaDonChiTiet);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        repository.deleteById(id);
     }
 }

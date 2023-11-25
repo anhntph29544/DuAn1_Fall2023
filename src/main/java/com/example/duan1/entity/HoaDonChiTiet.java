@@ -45,5 +45,5 @@ public class HoaDonChiTiet {
     private Integer soLuong;
 
     @Column(name = "trang_thai")
-    private Integer donGia;
+    private Integer trangThai;
 }
