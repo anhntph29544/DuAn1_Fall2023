@@ -86,17 +86,14 @@ public class SanPhamController {
 
     @PostMapping("/shop-xe/san-pham/add")
     public String add(@Valid @ModelAttribute("sp1")SanPham sp1,
-                      BindingResult result,
-                      @RequestParam(value = "page", defaultValue = "0") int page,
-                      Model model){
-        listSP= service.getData(page);
+                      BindingResult result, Model model){
         if(result.hasErrors()){
             return "sanpham/sp-add";
         }
         if(!kiemTra(sp1,model)){
             return "sanpham/sp-add";
         }
-        sp1.setTen(sp1.getTen().replaceAll("\s\s+", " ").trim());
+        sp1.setTen(sp1.getTen().replaceAll("\\s\\s+", " ").trim());
         service.save(sp1);
         return "redirect:/shop-xe/san-pham";
     }
@@ -106,8 +103,8 @@ public class SanPhamController {
             model.addAttribute("tenError", "Tên không được quá 50 kí tự");
             return false;
         }
-        for (SanPham sp: listSP) {
-            if(sp1.getTen().replaceAll("\\s\\s+", " ").trim().equalsIgnoreCase(sp.getTen())){
+        for (SanPham sp: service.getAllList()) {
+            if(sp.getTen().equalsIgnoreCase(sp1.getTen().replaceAll("\\s\\s+", " ").trim())){
                 model.addAttribute("tenError", "Tên đã tồn tại");
                 return false;
             }

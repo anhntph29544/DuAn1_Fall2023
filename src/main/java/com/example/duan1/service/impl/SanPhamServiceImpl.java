@@ -27,6 +27,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
+    public List<SanPham> getAllList() {
+        return repository.sortList();
+    }
+
+    @Override
     public String tuTaoMa() {
         Stream<String> ma= repository.maSP().stream();
         Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);

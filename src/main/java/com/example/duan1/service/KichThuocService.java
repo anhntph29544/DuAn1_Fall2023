@@ -10,6 +10,8 @@ public interface KichThuocService {
 
     List<KichThuoc> getAll();
 
+    List<KichThuoc> getAllList();
+
     String tuTaoMa();
 
     Page<KichThuoc> getData(int page);
@@ -17,7 +19,6 @@ public interface KichThuocService {
     List<KichThuoc> search(String ten);
 
     Page<KichThuoc> searchPage(String ten,int page);
-
 
     KichThuoc detail(UUID id);
 

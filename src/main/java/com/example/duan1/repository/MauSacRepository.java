@@ -16,6 +16,9 @@ public interface MauSacRepository extends JpaRepository<MauSac, UUID> {
     @Query("select ms from MauSac ms where ms.trangThai=0 order by ms.ngayThem desc ")
     List<MauSac > sort();
 
+    @Query("select ms from MauSac ms order by ms.ngayThem desc ")
+    List<MauSac > sortList();
+
     @Query("select ms.ma from MauSac ms")
     List<String> maMS();
 

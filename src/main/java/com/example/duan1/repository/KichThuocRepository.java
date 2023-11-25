@@ -17,6 +17,9 @@ public interface KichThuocRepository extends JpaRepository<KichThuoc, UUID> {
     @Query("select kt from KichThuoc kt where kt.trangThai=0 order by kt.ngayThem desc")
     List<KichThuoc> sort();
 
+    @Query("select kt from KichThuoc kt order by kt.ngayThem desc")
+    List<KichThuoc> sortList();
+
     @Query("select kt.ma from KichThuoc kt")
     List<String> maKT();
 

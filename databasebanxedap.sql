@@ -1,45 +1,44 @@
-﻿create database sport_bicycle1
-go
-use sport_bicycle1
-go
-create table kieu_dang_xe(
-	id_kieu_dang_xe uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table kich_thuoc(
-	id_kich_thuoc uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table mau_sac(
-	id_mau_sac uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table san_pham(
-	id_san_pham uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table thuong_hieu(
-	id_thuong_hieu uniqueidentifier primary key,
-	ma varchar(10),
-	ten nvarchar(50),
-	trang_thai int
-)
-create table san_pham_chi_tiet(
-	id_spct uniqueidentifier primary key,
-	id_kieu_dang_xe uniqueidentifier,
-	foreign key (id_kieu_dang_xe) references kieu_dang_xe(id_kieu_dang_xe),
-	id_kich_thuoc uniqueidentifier,
-	foreign key (id_kich_thuoc) references kich_thuoc(id_kich_thuoc),
-	hinh_anh varchar(max),
-	
+﻿	create database sport_bicycle1
+	go
+	use sport_bicycle1
+	go
+	create table kieu_dang_xe(
+		id_kieu_dang_xe uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table kich_thuoc(
+		id_kich_thuoc uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table mau_sac(
+		id_mau_sac uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table san_pham(
+		id_san_pham uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table thuong_hieu(
+		id_thuong_hieu uniqueidentifier primary key,
+		ma varchar(10),
+		ten nvarchar(50),
+		trang_thai int
+	)
+	create table san_pham_chi_tiet(
+		id_spct uniqueidentifier primary key,
+		id_kieu_dang_xe uniqueidentifier,
+		foreign key (id_kieu_dang_xe) references kieu_dang_xe(id_kieu_dang_xe),
+		id_kich_thuoc uniqueidentifier,
+		foreign key (id_kich_thuoc) references kich_thuoc(id_kich_thuoc),
+		hinh_anh varchar(max),
 	id_mau_sac uniqueidentifier,
 	foreign key (id_mau_sac) references mau_sac(id_mau_sac),
 	id_thuong_hieu uniqueidentifier,
@@ -113,9 +112,12 @@ create table hoa_don(
 	foreign key(id_nhan_vien) references nhan_vien(id_nhan_vien),
 	ma varchar(20),
 	loai_hoa_don int,
-	ngay_thanh_toan date,
+	ngay_thanh_toan datetime,
 	tinh_trang int,
-	thanh_tien decimal(20)
+	tien_khach_dua decimal(30),
+        thanh_tien decimal(30),
+	tien_thua decimal(30),
+	ngay_them datetime,
 )
 create table hoa_don_chi_tiet(
 	id_hoa_don_chi_tiet uniqueidentifier primary key,
@@ -133,6 +135,7 @@ alter table kieu_dang_xe add ngay_them datetime
 alter table kich_thuoc add ngay_them datetime
 alter table thuong_hieu add ngay_them datetime
 alter table mau_sac add ngay_them datetime
+alter table khach_hang add cccd varchar(20)
 INSERT INTO chuc_vu (id_chuc_vu, ma, ten, trang_thai)
 VALUES
     ('3f3d5487-60c0-4eb8-9004-2023e69cff26', 'CV001', 'Quản lý', 1),

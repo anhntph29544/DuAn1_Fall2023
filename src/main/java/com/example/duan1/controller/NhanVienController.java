@@ -1,6 +1,7 @@
 package com.example.duan1.controller;
 
 
+import com.example.duan1.entity.KhachHang;
 import com.example.duan1.entity.NhanVien;
 import com.example.duan1.service.ChucVuService;
 import com.example.duan1.service.NhanVienService;
@@ -80,12 +81,19 @@ public class NhanVienController {
         return "/nhanvien/hienThi";
     }
 
+    @RequestMapping("/search")
+    public String search(@ModelAttribute("nhanVien") NhanVien nhanVien, Model model ){
+        List<NhanVien> list= nhanVienService.findNhanVienByTrangThai(nhanVien.getTrangThai());
+        model.addAttribute("list", list);
+        return "/nhanvien/hienThi";
+    }
+
     @GetMapping("/detail/{id}")
     public String showFormForUpdate(@PathVariable("id") UUID id, Model model) {
         NhanVien nhanVien = nhanVienService.detail(id).get();
         model.addAttribute("nhanVien", nhanVien);
         model.addAttribute("chucVu", chucVuService.getAll());
-        return "formUpdateNV";
+        return "/nhanvien/formUpdateNV";
     }
 
     @GetMapping("/delete/{id}")
@@ -97,16 +105,18 @@ public class NhanVienController {
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
         NhanVien nhanVien = new NhanVien();
+        nhanVien.setTrangThai(0);
         model.addAttribute("nhanVien", nhanVien);
         model.addAttribute("chucVu", chucVuService.getAll());
 
         List<String> cities = getGhnCities();
         List<String> districts = getGhnDistricts("202");
-        List<String> wards = getGhnWards("1442"); // Không có thông tin quận/huyện ban đầu, bạn có thể cung cấp districtId tùy ý
+        List<String> wards = getGhnWards("1442");
 
         model.addAttribute("cities", cities);
         model.addAttribute("districts", districts);
         model.addAttribute("wards", wards);
+
 
         System.out.println("Danh sách thành phố từ API GHN: " + cities);
 
@@ -114,7 +124,8 @@ public class NhanVienController {
 
         System.out.println("Danh sách xã từ API GHN: " + wards);
 
-        return "formAddNV";
+
+        return "/nhanvien/formAddNV";
     }
 
     private List<String> getGhnCities() {
@@ -137,7 +148,6 @@ public class NhanVienController {
                             cities.add(cityNode.get("ProvinceName").asText());
                         }
                     }
-
                     return cities;
                 }
             }
@@ -214,7 +224,13 @@ public class NhanVienController {
                        @RequestParam("imageFile") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("chucVu", chucVuService.getAll());
-            return "formAddNV";
+            return "/nhanvien/formAddNV";
+        }
+        if (nhanVienService.isEmailExists(nhanVien.getEmail())) {
+            // Thêm thông báo lỗi cho trường email
+            bindingResult.rejectValue("email", "duplicate.email", "Email đã tồn tại");
+            model.addAttribute("chucVu", chucVuService.getAll());
+            return "/nhanvien/formAddNV";
         }
         if (!file.isEmpty()) {
             try {
@@ -284,13 +300,14 @@ public class NhanVienController {
         return password.toString();
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update/{id}")
     public String update(@ModelAttribute("nhanVien") @Valid NhanVien nhanVien,
                          BindingResult bindingResult, Model model,
-                         @RequestParam("imageFile") MultipartFile file) {
+                         @RequestParam("imageFile") MultipartFile file,
+                         @PathVariable("id") UUID idNhanVien) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("chucVu", chucVuService.getAll());
-            return "formUpdateNV";
+            return "/nhanvien/formUpdateNV";
         }
         if (nhanVien.getIdNhanVien() == null) {
             return "error-page";
@@ -316,7 +333,7 @@ public class NhanVienController {
                 nhanVien.setImage(currentNhanVien.getImage());
             }
 
-            boolean updated = nhanVienService.update(nhanVien, nhanVien.getIdNhanVien());
+            boolean updated = nhanVienService.update(nhanVien, idNhanVien);
             if (updated) {
                 return "redirect:/nhan-vien/hien-thi";
             } else {

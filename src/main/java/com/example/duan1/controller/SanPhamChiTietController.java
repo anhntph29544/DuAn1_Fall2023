@@ -156,33 +156,6 @@ public class SanPhamChiTietController {
         }
         return "redirect:/shop-xe/san-pham-chi-tiet/hien-thi";
     }
-//
-//    @PostMapping("/shop-xe/san-pham-chi-tiet/ms/add")
-//    public String addMS(@Valid @ModelAttribute("ms1") MauSac ms1,  Model model){
-//        serviceMS.save(ms1);
-//        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-//    }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/kdx/add")
-    public String addKDX(@Valid @ModelAttribute("kdx1") KieuDangXe kdx1,
-                         BindingResult result, Model model){
-        serviceKDX.save(kdx1);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/kt/add")
-    public String addKT(@Valid @ModelAttribute("kt1") KichThuoc kt1,
-                        BindingResult result, Model model){
-        serviceKT.save(kt1);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
-
-    @PostMapping("/shop-xe/san-pham-chi-tiet/th/add")
-    public String addTH(@Valid @ModelAttribute("th1") ThuongHieu th1,
-                        BindingResult result, Model model){
-        serviceTH.save(th1);
-        return "redirect:/shop-xe/san-pham-chi-tiet/view-add";
-    }
 
     @GetMapping("/shop-xe/san-pham-chi-tiet/detail/{id}")
     public String detail(@PathVariable("id")UUID id, Model model){

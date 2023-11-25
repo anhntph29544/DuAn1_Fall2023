@@ -22,8 +22,8 @@
     <form:form method="post" action="/shop-xe/mau-sac/update" modelAttribute="m1">
         Mã:<form:input path="ma"/><br>
         Tên:<form:input path="ten"/><br>
-        Trạng Thái:<form:radiobutton path="trangThai" value="1" checked="1"/>Hoạt Động
-        <form:radiobutton path="trangThai" value="0"/>Không Hoạt Động</br>
+        Trạng Thái:<form:radiobutton path="trangThai" value="0" checked="1"/>Hoạt Động
+        <form:radiobutton path="trangThai" value="1"/>Không Hoạt Động</br>
         <form:button type="submit" onclick="return confirm('Bạn chắc chưa?')" class="btn btn-primary">Update</form:button>
     </form:form>
 </table>

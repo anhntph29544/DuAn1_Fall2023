@@ -14,6 +14,8 @@ public interface KieuDangXeService {
 
     List<KieuDangXe> getAll();
 
+    List<KieuDangXe> getAllList();
+
     void save(KieuDangXe kdx);
 
     KieuDangXe detail(UUID id);

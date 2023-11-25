@@ -15,7 +15,7 @@
 <h3 STYLE="text-align: center">QUẢN LÝ KÍCH THƯỚC</h3>
 <form action="/shop-xe/kich-thuoc/hien-thi">
     <input type="text" name="tenSearch" placeholder="Search" value="${tenSearch}">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
 </form>
 <br>
 <form:form action="/shop-xe/kich-thuoc/add" method="post" modelAttribute="kt1">
