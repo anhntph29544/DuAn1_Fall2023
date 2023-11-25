@@ -84,6 +84,7 @@ create table khach_hang(
 	ngay_sinh date,
 	email varchar(50),
 	sdt varchar(20),
+		cccd varchar(20),
 	mat_khau varchar(20),
 	gioi_tinh int,
 	thanh_pho nvarchar(50),
