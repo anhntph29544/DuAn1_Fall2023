@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -49,9 +50,11 @@
             let id = $(button).data('id'); // Lấy giá trị ID từ data attribute của nút
             ajaxDelete(id); // Gọi hàm ajaxDelete với ID vừa lấy được
         }
-        $(".btn-info").on("click", function() {
+
+        $(".btn-info").on("click", function () {
             prepareDelete(this);
         });
+
         function ajaxDelete(id) {
             $.ajax({
                 url: 'http://localhost:8080/hoa-don/delete/' + id,
@@ -123,7 +126,12 @@
 
             <div class="gioHang" style="margin-top: 30px;border:#0b2e13 1px solid ">
                 <table class="table">
-                    <h5>Giỏ Hàng</h5>
+                    <h5 style="display: inline-flex">Giỏ Hàng</h5>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themSP">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+
                     <thead>
                     <tr>
                         <th>STT</th>
@@ -163,14 +171,78 @@
                             Tạo Hóa Đơn
                         </button>
                     </c:if>
-
                 </form>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
+<!-- Modal -->
+<div class="modal fade" id="themSP" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nhập mã sản phẩm" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm kiếm</button>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã</th>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Kích thước</th>
+                        <th>Màu sắc</th>
+                        <th>Đơn giá</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${listSPCT}" var="spct" varStatus="stt">
+                        <tr>
+                            <td>${stt.index+1}</td>
+                            <td>${spct.ma}</td>
+                            <td>
+                                <img src='<c:url value="/getimage/${spct.hinhAnh}"></c:url>' style="max-width: 100px">
+                            </td>
+                            <td>${spct.sp.ten}</td>
+                            <td>${spct.soLuong}</td>
+                            <td>${spct.kt.ten}</td>
+                            <td>${spct.ms.ten}</td>
+                            <td>${spct.gia}</td>
+                            <td>${spct.moTa}</td>
+                            <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
+                            <td>
+                                <a href="/hoa-don/them-san-pham">
+                                    <button class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="Thêm vào giỏ hàng">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
 </body>
 </html>

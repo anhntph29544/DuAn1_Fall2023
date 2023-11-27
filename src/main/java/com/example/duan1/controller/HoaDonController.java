@@ -2,9 +2,11 @@ package com.example.duan1.controller;
 
 import com.example.duan1.entity.HoaDon;
 import com.example.duan1.entity.KhachHang;
+import com.example.duan1.entity.SanPhamChiTiet;
 import com.example.duan1.repository.KhachHangRepository;
 import com.example.duan1.service.HoaDonSV;
 import com.example.duan1.service.KhachHangService;
+import com.example.duan1.service.SanPhamChiTietService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +27,16 @@ public class HoaDonController {
     @Autowired
     private KhachHangRepository repository;
     private List<KhachHang> listKH = new ArrayList<>();
+    @Autowired
+    private SanPhamChiTietService serviceSPCT;
+    private List<SanPhamChiTiet> listSPCT = new ArrayList<>();
 
     @GetMapping("/hoa-don/hien-thi")
     public String hienThi(Model model) {
         listHD = sv.getCHT();
         listKH = repository.findAll();
+        listSPCT= serviceSPCT.getAll();
+        model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("listKH", listKH);
         model.addAttribute("listHD", listHD);
         model.addAttribute("hd", new HoaDon());

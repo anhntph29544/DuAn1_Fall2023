@@ -151,7 +151,7 @@
                     <%--hinh anh--%>
                 <div class="mb-3">
                     <label class="form-label">Hình ảnh</label>
-                    <input type="file" name="photo" accept="image/gif, image/png, image/jpeg"/>
+                    <input class="form-control" type="file" name="photo" accept="image/gif, image/png, image/jpeg"/>
                 </div>
                     <%--trạng thái--%>
                 <div class="mb-3">
