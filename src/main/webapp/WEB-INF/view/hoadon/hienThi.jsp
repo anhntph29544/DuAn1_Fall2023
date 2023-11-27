@@ -151,7 +151,6 @@
                             Tạo Hóa Đơn
                         </button>
                     </c:if>
-
                 </form>
                 </table>
             </div>

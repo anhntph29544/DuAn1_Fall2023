@@ -37,9 +37,12 @@ public class HoaDonController {
     private KhachHangRepository repository;
     private List<KhachHang> listKH = new ArrayList<>();
     @Autowired
+    private KhachHangService khsv;
+    @Autowired
     private SanPhamChiTietService serviceSPCT;
     private List<SanPhamChiTiet> listSPCT = new ArrayList<>();
     private UUID idHDSelect=null;
+
 
     @GetMapping("/hoa-don/hien-thi")
     public String hienThi(Model model) {
@@ -88,11 +91,14 @@ public class HoaDonController {
     }
 
     private Boolean kiemTra(List<HoaDonChiTiet> listHDCT, UUID spctID){
+        SanPhamChiTiet spct= serviceSPCT.detail(spctID);
         for (HoaDonChiTiet hdct: listHDCT) {
             if(hdct.getSanPhamCT().getId()==spctID){
                 hdct.setSoLuong(hdct.getSoLuong()+1);
                 hdct.setGia(hdct.getSoLuong()*hdct.getSanPhamCT().getGia());
                 svHDCT.save(hdct);
+                spct.setSoLuong(String.valueOf(Integer.parseInt(spct.getSoLuong()) - 1));
+                serviceSPCT.save(spct);
                 return false;
             }
         }
@@ -112,12 +118,32 @@ public class HoaDonController {
             hdct.setGia(hdct.getSoLuong()*hdct.getSanPhamCT().getGia());
             hdct.setTrangThai(0);
             svHDCT.save(hdct);
+            spct.setSoLuong(String.valueOf(Integer.parseInt(spct.getSoLuong()) - hdct.getSoLuong()));
+            serviceSPCT.save(spct);
+            return "redirect:/tao-hoa-don/hien-thi";
+        }
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+
+    @PostMapping("/hoa-don/sua-san-pham")
+    public String suaSP(@ModelAttribute("hdct") HoaDonChiTiet hdctMoi) {
+        HoaDonChiTiet hdctCu= svHDCT.detail(hdctMoi.getId());
+        if (hdctCu.getSoLuong()==hdctMoi.getSoLuong()){
+            return "redirect:/tao-hoa-don/hien-thi";
+        }else if(hdctCu.getSoLuong()<hdctMoi.getSoLuong()||hdctCu.getSoLuong()>hdctMoi.getSoLuong()){
+            hdctCu.setSoLuong(hdctMoi.getSoLuong());
+            svHDCT.save(hdctCu);
+            return "redirect:/tao-hoa-don/hien-thi";
         }
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
     @GetMapping("/hoa-don/xoa-san-pham/{id}")
     public String xoaSP(@PathVariable("id")UUID id) {
+        HoaDonChiTiet hdct= svHDCT.detail(id);
+        SanPhamChiTiet spct= serviceSPCT.detail(hdct.getSanPhamCT().getId());
+        spct.setSoLuong(String.valueOf(Integer.parseInt(spct.getSoLuong()) + hdct.getSoLuong()));
+        serviceSPCT.save(spct);
         svHDCT.delete(id);
         return "redirect:/tao-hoa-don/hien-thi";
     }
