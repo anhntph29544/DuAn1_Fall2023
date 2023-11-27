@@ -9,6 +9,63 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        input[type="date"],
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Optional: Add some spacing between the forms */
+        form + form {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,9 +78,6 @@
     <br>
     Ngày Kết Thúc: <input type="date" name="ngayKT" value="${vc.ngayKT}">
     <br>
-<%--    Trang Thai:<input type="radio" name="trangThai" checked value="0" ${vc.trangThai=="0"?'Checked':''}/>hoat dong--%>
-<%--    <input type="radio" name="trangThai" value="1" ${vc.trangThai=="1"?'Checked':''}/>khong hoat dong--%>
-<%--    <br>--%>
     <button type="submit">update</button>
 </form>
 </body>

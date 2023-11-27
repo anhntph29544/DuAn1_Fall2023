@@ -1,6 +1,5 @@
 package com.example.duan1.controller;
 
-import com.example.duan1.entity.KieuDangXe;
 import com.example.duan1.entity.Voucher;
 import com.example.duan1.service.VoucherService;
 import jakarta.validation.Valid;
@@ -34,7 +33,6 @@ public class VoucherController {
     @GetMapping("/voucher/detail/{id}")
     public String detail(@PathVariable("id") UUID id, Model model) {
         Voucher vc = service.detail(id);
-
         model.addAttribute("vc", vc);
         return "/voucher/voucher";
     }
