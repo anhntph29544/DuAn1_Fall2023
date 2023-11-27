@@ -41,6 +41,11 @@ public class KieuDangXeServiceImpl implements KieuDangXeService {
     }
 
     @Override
+    public List<KieuDangXe> getAllList() {
+        return kdxr.sortList();
+    }
+
+    @Override
     public void save(KieuDangXe kdx) {
         if(kdx.getMa()==null || kdx.getMa().trim()==""){
             kdx.setMa(this.tuTaoMa());

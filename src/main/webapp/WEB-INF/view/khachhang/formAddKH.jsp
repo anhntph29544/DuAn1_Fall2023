@@ -20,6 +20,7 @@
     <script src="/js/swal.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"></head>
     <script>
 
         function readURL(input, thumbimage) {
@@ -60,135 +61,79 @@
             });
         })
     </script>
+    <style>
+        .Choicefile {
+            display: block;
+            background: #14142B;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 150px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 5px 0px;
+            border-radius: 5px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .Choicefile:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        #uploadfile,
+        .removeimg {
+            display: none;
+        }
+
+        #thumbbox {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .removeimg {
+            height: 25px;
+            position: absolute;
+            background-repeat: no-repeat;
+            top: 5px;
+            left: 5px;
+            background-size: 25px;
+            width: 25px;
+            /* border: 3px solid red; */
+            border-radius: 50%;
+
+        }
+
+        .removeimg::before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            content: '';
+            border: 1px solid red;
+            background: red;
+            text-align: center;
+            display: block;
+            margin-top: 11px;
+            transform: rotate(45deg);
+        }
+
+        .removeimg::after {
+            /* color: #FFF; */
+            /* background-color: #DC403B; */
+            content: '';
+            background: red;
+            border: 1px solid red;
+            text-align: center;
+            display: block;
+            transform: rotate(-45deg);
+            margin-top: -2px;
+        }
+    </style>
 </head>
-
 <body class="app sidebar-mini rtl">
-<style>
-    .Choicefile {
-        display: block;
-        background: #14142B;
-        border: 1px solid #fff;
-        color: #fff;
-        width: 150px;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        padding: 5px 0px;
-        border-radius: 5px;
-        font-weight: 500;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .Choicefile:hover {
-        text-decoration: none;
-        color: white;
-    }
-
-    #uploadfile,
-    .removeimg {
-        display: none;
-    }
-
-    #thumbbox {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .removeimg {
-        height: 25px;
-        position: absolute;
-        background-repeat: no-repeat;
-        top: 5px;
-        left: 5px;
-        background-size: 25px;
-        width: 25px;
-        /* border: 3px solid red; */
-        border-radius: 50%;
-
-    }
-
-    .removeimg::before {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        content: '';
-        border: 1px solid red;
-        background: red;
-        text-align: center;
-        display: block;
-        margin-top: 11px;
-        transform: rotate(45deg);
-    }
-
-    .removeimg::after {
-        /* color: #FFF; */
-        /* background-color: #DC403B; */
-        content: '';
-        background: red;
-        border: 1px solid red;
-        text-align: center;
-        display: block;
-        transform: rotate(-45deg);
-        margin-top: -2px;
-    }
-</style>
-<!-- Navbar-->
-<header class="app-header">
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                    aria-label="Hide Sidebar"></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
-        <!-- User Menu-->
-        <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-        </li>
-    </ul>
-</header>
-<!-- Sidebar menu-->
-<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-<aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="#" width="50px" alt="User Image">
-        <div>
-            <p class="app-sidebar__user-name"><b>Dự Hiếu</b></p>
-            <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-        </div>
-    </div>
-    <hr>
-    <ul class="app-menu">
-        <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
-            <span class="app-menu__label">POS Bán Hàng</span></a></li>
-        <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
-                class="app-menu__label">Bảng điều khiển</span></a></li>
-        <li><a class="app-menu__item active" href="/nhan-vien/hien-thi"><i class='app-menu__icon bx bx-id-card'></i>
-            <span class="app-menu__label">Quản lý nhân viên</span></a></li>
-        <li><a class="app-menu__item" href="/khach-hang/hien-thi"><i class='app-menu__icon bx bx-user-voice'></i><span
-                class="app-menu__label">Quản lý khách hàng</span></a></li>
-        <li><a class="app-menu__item" href="table-data-product.html"><i
-                class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
-        </li>
-        <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
-                class="app-menu__label">Quản lý đơn hàng</span></a></li>
-        <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span
-                class="app-menu__label">Quản lý nội bộ
-          </span></a></li>
-        <li><a class="app-menu__item" href="table-data-money.html"><i class='app-menu__icon bx bx-dollar'></i><span
-                class="app-menu__label">Bảng kê lương</span></a></li>
-        <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
-                class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
-        </li>
-        <li><a class="app-menu__item" href="page-calendar.html"><i class='app-menu__icon bx bx-calendar-check'></i><span
-                class="app-menu__label">Lịch công tác </span></a></li>
-        <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
-            đặt hệ thống</span></a></li>
-    </ul>
-</aside>
 <main class="app-content">
-    <div class="app-title">
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item">Danh sách khách hàng</li>
-            <li class="breadcrumb-item"><a href="/khach-hang/showFormForAdd">Thêm nhân viên</a></li>
-        </ul>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -214,11 +159,19 @@
                         <div class="form-group col-md-4">
                             <label class="control-label">Giới tính</label>
                             <div class="form-check">
+<<<<<<< HEAD
+                                <f:radiobutton path="gioiTinh" value="1" label="nam" cssClass="form-check-input" />
+                                <label class="form-check-label">Nam</label>
+                            </div>
+                            <div class="form-check">
+                                <f:radiobutton path="gioiTinh" value="0" label="nữ" cssClass="form-check-input" />
+=======
                                 <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
                                 <label class="form-check-label">Nam</label>
                             </div>
                             <div class="form-check">
                                 <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
+>>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
                                 <label class="form-check-label">Nữ</label>
                             </div>
                         </div>
@@ -227,7 +180,7 @@
                             <f:input path="email" cssClass="form-control" required="true" />
                             <small class="text-danger"><f:errors path="email" /></small>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Số CCCD</label>
                             <f:input path="cccd" cssClass="form-control" required="true" />
                             <small class="text-danger"><f:errors path="cccd" /></small>
@@ -284,7 +237,10 @@
                             <f:button type="submit" cssClass="btn btn-info" onclick="if (!(confirm('Bạn có muốn thêm nhân viên mới không?'))) return false">Lưu lại</f:button>
                             <a class="btn btn-cancel" href="/khach-hang/hien-thi" onclick="if (!(confirm('Bạn có muốn thoát không?'))) return false">Hủy bỏ</a>
                         </div>
+<<<<<<< HEAD
+=======
                         <input type="hidden" name="trangThai" value="${khachHang.trangThai}" />
+>>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
                     </f:form>
                 </div>
             </div>
@@ -362,5 +318,6 @@
         };
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

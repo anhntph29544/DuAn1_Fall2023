@@ -27,6 +27,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
+    public List<SanPham> getAllList() {
+        return repository.sortList();
+    }
+
+    @Override
     public String tuTaoMa() {
         Stream<String> ma= repository.maSP().stream();
         Integer max= ma.map(o -> o.replace(prefix, "")).mapToInt(Integer::parseInt).max().orElse(0);
@@ -56,8 +61,14 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public Page<SanPham> getData(int page) {
-        Pageable pageable= PageRequest.of(page, 5);
-        return repository.findAll(pageable);
+//        Pageable pageable= PageRequest.of(page, 5);
+//        return repository.findAll(pageable);
+        List list= repository.sortList();
+        Pageable pageable= PageRequest.of(page,5);
+        Integer start = (int) pageable.getOffset();
+        Integer end = (int) (pageable.getOffset()+ pageable.getPageSize()>list.size()? list.size():pageable.getOffset()+ pageable.getPageSize());
+        list= list.subList(start,end);
+        return new PageImpl<SanPham>(list, pageable, repository.sortList().size());
     }
 
     @Override
@@ -80,4 +91,5 @@ public class SanPhamServiceImpl implements SanPhamService {
     public void delete(UUID id) {
         repository.deleteById(id);
     }
+
 }

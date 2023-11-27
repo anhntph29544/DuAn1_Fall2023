@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-
+@Service
 public class HoaDonChiTietSVImpl implements HoaDonChiTietSV {
     @Autowired
     private HoaDonChiTietRepository repository;
@@ -20,6 +21,11 @@ public class HoaDonChiTietSVImpl implements HoaDonChiTietSV {
     @Override
     public List<HoaDonChiTiet> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<HoaDonChiTiet> getListHD(UUID idHD) {
+        return repository.getListHD(idHD);
     }
 
     @Override
@@ -36,5 +42,10 @@ public class HoaDonChiTietSVImpl implements HoaDonChiTietSV {
     @Override
     public void save(HoaDonChiTiet hoaDonChiTiet) {
         repository.save(hoaDonChiTiet);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        repository.deleteById(id);
     }
 }

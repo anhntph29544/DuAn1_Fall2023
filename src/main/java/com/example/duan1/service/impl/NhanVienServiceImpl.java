@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +21,11 @@ public class NhanVienServiceImpl implements NhanVienService {
     @Override
     public Page<NhanVien> getAll(Pageable pageable) {
         return nhanVienRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<NhanVien> findNhanVienByTrangThai(Integer trangThai) {
+        return nhanVienRepository.findNhanVienByTrangThaiOrAll(trangThai);
     }
 
     @Override
@@ -45,6 +51,10 @@ public class NhanVienServiceImpl implements NhanVienService {
         return true;
     }
 
+    @Override
+    public Boolean isEmailExists(String email) {
+        return nhanVienRepository.existsByEmail(email);
+    }
 
 
 }

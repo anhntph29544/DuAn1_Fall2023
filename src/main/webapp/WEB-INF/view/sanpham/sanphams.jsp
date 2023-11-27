@@ -10,6 +10,11 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
     <style>
         body {
             margin: auto;
@@ -17,48 +22,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">TÀI KHOẢN</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Trang Chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Tạo Hóa Đơn</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Quản Lý Chung
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Quản Lý Nhân Viên</a></li>
-                        <li><a class="dropdown-item" href="#">Quản Lý Khách Hàng</a></li>
-                        <li><a class="dropdown-item" href="/shop-xe/san-pham">Quản Lý Sản Phẩm</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Thống Kê</a></li>
-                        <li><a class="dropdown-item" href="">Quản Lý Voucher</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Linh kiện
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@include file="../include/header.jsp"%>
 <div style="padding: 20px">
     <h3 style="text-align: center">SẢN PHẨM CHI TIẾT</h3>
     <a href="/shop-xe/san-pham-chi-tiet/view-add">
@@ -67,13 +31,13 @@
     <div style="margin-top: 10px">
         <span style="font-weight: bold"><i class="bi bi-funnel-fill"></i> Bộ lọc</span>
     </div>
-<%--    lọc theo tên và trạng thái--%>
+    <%--    lọc theo tên và trạng thái--%>
     <div class="row">
         <div class="col-md-6" style="border: 1px solid black;padding: 10px;">
             <form action="/shop-xe/san-pham-chi-tiet/hien-thi" class="row">
                 <div class="col-md-6">
-                    <label>Tên sản phẩm</label>
-                    <input type="text" name="tenSearch" class="form-control me-2" placeholder="Nhập tên sản phẩm"
+                    <label>Mã sản phẩm</label>
+                    <input type="text" name="tenSearch" class="form-control me-2" placeholder="Nhập mã sản phẩm"
                            value="${tenSearch}">
                 </div>
                 <div class="col-md-6">
@@ -89,36 +53,36 @@
                 </div>
             </form>
         </div>
-<%--        lọc theo màu sắc và size--%>
-        <div class="col-md-6" style="border: 1px solid black;padding: 10px;">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Màu sắc</label>
-                    <select name="size" class="form-select">
-                        <option value=""></option>
-                        <c:forEach items="${listMS}" var="ms">
-                            <option value="${ms}">${ms.ten}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label>Size</label>
-                    <select name="size" class="form-select">
-                        <option value=""></option>
-                        <c:forEach items="${listKT}" var="kt">
-                            <option value="${kt}">${kt.ten}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-            </a>
-        </div>
+        <%--        lọc theo màu sắc và size--%>
+        <%--        <div class="col-md-6" style="border: 1px solid black;padding: 10px;">--%>
+        <%--            <div class="row">--%>
+        <%--                <div class="col-md-6">--%>
+        <%--                    <label>Màu sắc</label>--%>
+        <%--                    <select name="size" class="form-select" onchange="#">--%>
+        <%--                        <option value=""></option>--%>
+        <%--                        <c:forEach items="${listMS}" var="ms">--%>
+        <%--                            <option value="${ms}" >${ms.ten}</option>--%>
+        <%--                        </c:forEach>--%>
+        <%--                    </select>--%>
+        <%--                </div>--%>
+        <%--                <div class="col-md-6">--%>
+        <%--                    <label>Size</label>--%>
+        <%--                    <select name="size" class="form-select">--%>
+        <%--                        <option value=""></option>--%>
+        <%--                        <c:forEach items="${listKT}" var="kt">--%>
+        <%--                            <option value="${kt}">${kt.ten}</option>--%>
+        <%--                        </c:forEach>--%>
+        <%--                    </select>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--            </a>--%>
+        <%--        </div>--%>
         <c:if test="${messege!=0}">
             <div class="alert alert-${messege==1?"success":"danger"}" role="alert">
                     ${messege==1?"Lưu thành công":"Lưu thất bại"}
             </div>
         </c:if>
-        <div style="margin-top: 10px;" class="col-md-2">
+        <div style="margin-top: 10px;" class="col-md-12">
             <a href="/shop-xe/san-pham-chi-tiet/hien-thi">
                 <button class="btn btn-danger"><i class="bi bi-x-lg"></i> Xoá lọc</button>
             </a>
@@ -173,14 +137,24 @@
                 <c:forEach begin="0" end="${listSPCT.totalPages-1<0?0:listSPCT.totalPages-1}" varStatus="loop">
                     <c:if test="${listSPCT.totalPages-1>=0}">
                         <li class="page-item">
-                            <a class="page-link" href="/shop-xe/san-pham-chi-tiet/hien-thi?page=${loop.index}">
-                                    ${loop.index+1}
-                            </a>
+                            <c:if test="${tenSearch!=''}">
+                                <a class="page-link"
+                                   href="/shop-xe/san-pham-chi-tiet/hien-thi?tenSearch=${tenSearch}&trangThai=${trangThai}&page=${loop.index}">
+                                        ${loop.index+1}
+                                </a>
+                            </c:if>
+                            <c:if test="${tenSearch==''}">
+                                <a class="page-link"
+                                   href="/shop-xe/san-pham-chi-tiet/hien-thi?page=${loop.index}">
+                                        ${loop.index+1}
+                                </a>
+                            </c:if>
                         </li>
                     </c:if>
                 </c:forEach>
             </ul>
         </nav>
     </div>
+    <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
 </body>
 </html>

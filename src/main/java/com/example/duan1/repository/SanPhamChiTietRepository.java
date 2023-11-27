@@ -11,13 +11,13 @@ import java.util.UUID;
 @Repository
 public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, UUID> {
 
-    @Query("select spct from SanPhamChiTiet spct where spct.sp.ten like %?1%")
+    @Query("select spct from SanPhamChiTiet spct where spct.sp.ma like %?1% or spct.ma like %?1%")
     List<SanPhamChiTiet> search(String ten);
 
     @Query("select spct from SanPhamChiTiet spct where spct.trangThai = ?1")
     List<SanPhamChiTiet> search2(Integer trangThai);
 
-    @Query("select spct from SanPhamChiTiet spct where spct.sp.ten like %?1% and spct.trangThai=?2")
+    @Query("select spct from SanPhamChiTiet spct where spct.sp.ma like %?1% or spct.ma like %?1% and spct.trangThai=?2")
     List<SanPhamChiTiet> search3(String ten,Integer trangThai);
 
     @Query("select spct.ma from SanPhamChiTiet spct")

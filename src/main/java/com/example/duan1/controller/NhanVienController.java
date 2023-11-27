@@ -1,6 +1,7 @@
 package com.example.duan1.controller;
 
 
+import com.example.duan1.entity.KhachHang;
 import com.example.duan1.entity.NhanVien;
 import com.example.duan1.service.ChucVuService;
 import com.example.duan1.service.NhanVienService;
@@ -80,6 +81,13 @@ public class NhanVienController {
         return "/nhanvien/hienThi";
     }
 
+    @RequestMapping("/search")
+    public String search(@ModelAttribute("nhanVien") NhanVien nhanVien, Model model ){
+        List<NhanVien> list= nhanVienService.findNhanVienByTrangThai(nhanVien.getTrangThai());
+        model.addAttribute("list", list);
+        return "/nhanvien/hienThi";
+    }
+
     @GetMapping("/detail/{id}")
     public String showFormForUpdate(@PathVariable("id") UUID id, Model model) {
         NhanVien nhanVien = nhanVienService.detail(id).get();
@@ -108,6 +116,14 @@ public class NhanVienController {
         model.addAttribute("cities", cities);
         model.addAttribute("districts", districts);
         model.addAttribute("wards", wards);
+
+
+        System.out.println("Danh sách thành phố từ API GHN: " + cities);
+
+        System.out.println("Danh sách huyện từ API GHN: " + districts);
+
+        System.out.println("Danh sách xã từ API GHN: " + wards);
+
 
         return "/nhanvien/formAddNV";
     }
@@ -207,6 +223,12 @@ public class NhanVienController {
                        BindingResult bindingResult, Model model,
                        @RequestParam("imageFile") MultipartFile file) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("chucVu", chucVuService.getAll());
+            return "/nhanvien/formAddNV";
+        }
+        if (nhanVienService.isEmailExists(nhanVien.getEmail())) {
+            // Thêm thông báo lỗi cho trường email
+            bindingResult.rejectValue("email", "duplicate.email", "Email đã tồn tại");
             model.addAttribute("chucVu", chucVuService.getAll());
             return "/nhanvien/formAddNV";
         }

@@ -22,11 +22,19 @@
     <div class="form-group col-md-4">
         <label class="control-label">Giới tính</label>
         <div class="form-check">
+<<<<<<< HEAD
+            <f:radiobutton path="gioiTinh" value="1" label="nam" cssClass="form-check-input" />
+            <label class="form-check-label">Nam</label>
+        </div>
+        <div class="form-check">
+            <f:radiobutton path="gioiTinh" value="0" label="nữ" cssClass="form-check-input" />
+=======
             <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
             <label class="form-check-label">Nam</label>
         </div>
         <div class="form-check">
             <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
+>>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
             <label class="form-check-label">Nữ</label>
         </div>
     </div>
@@ -85,11 +93,19 @@
     <div class="form-group col-md-4">
         <label class="control-label">Trạng thái</label>
         <div class="form-check">
+<<<<<<< HEAD
+            <f:radiobutton path="trangThai" value="1" cssClass="form-check-input" />
+            <label class="form-check-label">hoạt động</label>
+        </div>
+        <div class="form-check">
+            <f:radiobutton path="trangThai" value="0" cssClass="form-check-input" />
+=======
             <f:radiobutton path="trangThai" value="0" cssClass="form-check-input" />
             <label class="form-check-label">hoạt động</label>
         </div>
         <div class="form-check">
             <f:radiobutton path="trangThai" value="1" cssClass="form-check-input" />
+>>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
             <label class="form-check-label">dừng hoạt động</label>
         </div>
     </div>
@@ -136,8 +152,8 @@
             citis.options.add(opt);
         }
         citis.onchange = function () {
-            district.length = 1;
-            ward.length = 1;
+            districts.length = 1;
+            wards.length = 1;
             if (this.options[this.selectedIndex].dataset.id != "") {
                 const result = data.filter(n => n.Id === this.options[this.selectedIndex].dataset.id);
 
@@ -150,8 +166,8 @@
                 }
             }
         };
-        district.onchange = function () {
-            ward.length = 1;
+        districts.onchange = function () {
+            wards.length = 1;
             const dataCity = data.filter((n) => n.Id === citis.options[citis.selectedIndex].dataset.id);
             if (this.options[this.selectedIndex].dataset.id != "") {
                 const dataWards = dataCity[0].Districts.filter(n => n.Id === this.options[this.selectedIndex].dataset.id)[0].Wards;

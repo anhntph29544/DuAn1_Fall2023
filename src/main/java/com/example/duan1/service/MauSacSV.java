@@ -9,6 +9,8 @@ import java.util.UUID;
 public interface MauSacSV {
     List<MauSac> getAll();
 
+    List<MauSac> getAllList();
+
     String tuTaoMa();
 
     Page<MauSac> getData(int page);

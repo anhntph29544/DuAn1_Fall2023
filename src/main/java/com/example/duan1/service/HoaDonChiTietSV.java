@@ -10,9 +10,13 @@ import java.util.UUID;
 public interface HoaDonChiTietSV {
     List<HoaDonChiTiet> getAll();
 
+    List<HoaDonChiTiet> getListHD(UUID idHD);
+
     Page<HoaDonChiTiet> getData(int page);
 
     HoaDonChiTiet detail(UUID id);
 
     void save(HoaDonChiTiet hoaDonChiTiet);
+
+    void delete(UUID id);
 }
