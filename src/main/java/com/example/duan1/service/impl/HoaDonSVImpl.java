@@ -47,6 +47,16 @@ public class HoaDonSVImpl implements HoaDonSV {
     }
 
     @Override
+    public List<HoaDon> getHUy() {
+        return repository.getHuy();
+    }
+
+    @Override
+    public List<HoaDon> getDTT() {
+        return repository.getDaThanhToan();
+    }
+
+    @Override
     public List<HoaDon> getCHT() {
         return repository.getChuaThanhToan();
     }

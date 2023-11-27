@@ -26,6 +26,8 @@
                         </li>
                         <li><a class="dropdown-item" href="#">Thống Kê</a></li>
                         <li><a class="dropdown-item" href="">Quản Lý Voucher</a></li>
+                        <li><a class="dropdown-item" href="/hoa-don/hien-thi">Quản Lý Hóa Đơn</a></li>
+
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

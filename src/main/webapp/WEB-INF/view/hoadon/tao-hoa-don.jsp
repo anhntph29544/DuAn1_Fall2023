@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script>
         function thongbao() {
-            alert("Chỉ được tạo tối đa 8 hoá đơn");
+            alert("Chỉ được tạo tối đa 5 hoá đơn");
         }
     </script>
 </head>
@@ -43,7 +43,7 @@
             </c:forEach>
         </c:if>
         <li>
-            <c:if test="${listHD.size()>=0}">
+            <c:if test="${listHD.size()<5}">
                 <form action="/tao-hoa-don/add" method="post">
                     <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Tạo hoá đơn">
@@ -51,7 +51,7 @@
                     </button>
                 </form>
             </c:if>
-            <c:if test="${listHD.size()>=8}">
+            <c:if test="${listHD.size()>=5}">
                 <button class="btn btn-primary" onclick="thongbao()"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Đã tối đa">
                     <i class="bi bi-plus-lg"></i>
@@ -100,8 +100,10 @@
                                 <fmt:formatNumber type="number" value="${hdct.sanPhamCT.gia*hdct.soLuong}"/>
                             </td>
                             <td>
-                                <button class="btn btn-success" data-bs-placement="bottom" data-bs-toggle2="suaSL" data-bs-toggle="modal"
-                                        data-bs-target="#suaSL" data-bs-slSua="${hdct.soLuong}" data-bs-idHDCT="${hdct.id}" title="Sửa số lượng">
+                                <button class="btn btn-success" data-bs-placement="bottom" data-bs-toggle2="suaSL"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#suaSL" data-bs-slSua="${hdct.soLuong}"
+                                        data-bs-idHDCT="${hdct.id}" title="Sửa số lượng">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 <!-- Modal -->
@@ -114,12 +116,17 @@
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/hoa-don/sua-san-pham" method="post" modelAttribute="hdct">
-                                                    <input type="text" name="id" id="idSuaSL" class="form-control" hidden>
+                                                <form action="/hoa-don/sua-san-pham" method="post"
+                                                      modelAttribute="hdct">
+                                                    <input type="text" name="id" id="idSuaSL" class="form-control"
+                                                           hidden>
                                                     <div class="input-group mb-3">
-                                                        <input class="form-control" name="soLuong" aria-describedby="button-suaSL"
+                                                        <input class="form-control" name="soLuong"
+                                                               aria-describedby="button-suaSL"
                                                                id="slSua" type="number" placeholder="Nhập số lượng">
-                                                        <button class="btn btn-outline-primary" type="submit" id="button-suaSL">Sửa</button>
+                                                        <button class="btn btn-outline-primary" type="submit"
+                                                                id="button-suaSL">Sửa
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -220,12 +227,9 @@
                     SDT Khách Hàng: ${kh.sdt}<br>
                 </td>
                 <!--het modal-->
-                <form:form modelAttribute="hd" method="post" action="/hoa-don/add">
-                    Tổng Tiền:<form:input path=""/><br>
-                    Khách Cần Trả:<form:input path="thanhTien"/><br>
-                    Tiền Khách Đưa:<form:input path="tienKhachDua"/><br>
-                    Tiền Thừa:<form:input path="tienThua"/><br>
-                </form:form>
+                    Tạm Tính :<br>
+                    Tổng Tiền:<br>
+                    Tiền Khách Đưa:<input name="tienKhachDua"><br>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-wallet-fill"></i> Thanh Toán</button>
             </c:if>
         </div>
@@ -307,7 +311,7 @@
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
     var exampleModal = document.getElementById('suaSL')
-    if (exampleModal!=null){
+    if (exampleModal != null) {
         exampleModal.addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget
             var slSua = button.getAttribute('data-bs-slSua')

@@ -14,7 +14,10 @@ import java.util.UUID;
 public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
     @Query("Select hd from HoaDon hd where hd.tinhTrang=0 order by hd.ngayThem asc")
     public List<HoaDon> getChuaThanhToan();
-
+    @Query("Select hd from HoaDon hd where hd.tinhTrang=2 order by hd.ngayThem asc")
+    public List<HoaDon> getHuy();
+    @Query("Select hd from HoaDon hd where hd.tinhTrang=1 order by hd.ngayThem asc")
+    public List<HoaDon> getDaThanhToan();
     @Query("select hd from HoaDon hd where hd.khachHang.email = ?1 or hd.khachHang.sdt=?1")
     KhachHang search(String email);
 
