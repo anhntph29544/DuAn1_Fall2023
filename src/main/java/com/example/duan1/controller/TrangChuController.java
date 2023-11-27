@@ -21,13 +21,16 @@ public class TrangChuController {
     public String form() {
         return "index";
     }
-
+    @GetMapping("/trang-chu")
+    public String hienThi() {
+        return "trangchu/hien-thi";
+    }
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password) {
         NhanVien nhanVien = nhanVienRepository.findByEmail(username);
         if (nhanVien != null && nhanVien.getMatKhau().equals(password)) {
-            return "redirect:/nhan-vien/hien-thi";
+            return "redirect:/shop-xe/trang-chu";
         }
         return "index";
     }

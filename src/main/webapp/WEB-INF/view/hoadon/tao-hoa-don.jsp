@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script>
         function thongbao() {
-            alert("Chỉ được tạo tối đa 8 hoá đơn");
+            alert("Chỉ được tạo tối đa 5 hoá đơn");
         }
     </script>
 </head>
@@ -43,7 +43,7 @@
             </c:forEach>
         </c:if>
         <li>
-            <c:if test="${listHD.size()<8}">
+            <c:if test="${listHD.size()<5}">
                 <form action="/tao-hoa-don/add" method="post">
                     <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Tạo hoá đơn">
@@ -51,7 +51,7 @@
                     </button>
                 </form>
             </c:if>
-            <c:if test="${listHD.size()>=8}">
+            <c:if test="${listHD.size()>=5}">
                 <button class="btn btn-primary" onclick="thongbao()"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Đã tối đa">
                     <i class="bi bi-plus-lg"></i>
@@ -59,8 +59,13 @@
             </c:if>
         </li>
     </ul>
+    <c:if test="${listHD.size()<=0}">
+        <div style="text-align: center">
+            <h3>Chưa có hoá đơn nào được tạo</h3>
+        </div>
+    </c:if>
     <div class="ban-hang row" style="margin-top: 10px">
-        <div class="gio-hang col-md-9">
+        <div class="gio-hang col-md-8">
             <c:if test="${listHD.size()>0}">
                 <!--code giỏ hàng và modal sản phẩm-->
                 <!-- Button modal -->
@@ -95,6 +100,39 @@
                                 <fmt:formatNumber type="number" value="${hdct.sanPhamCT.gia*hdct.soLuong}"/>
                             </td>
                             <td>
+                                <button class="btn btn-success" data-bs-placement="bottom" data-bs-toggle2="suaSL"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#suaSL" data-bs-slSua="${hdct.soLuong}"
+                                        data-bs-idHDCT="${hdct.id}" title="Sửa số lượng">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="suaSL" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/hoa-don/sua-san-pham" method="post"
+                                                      modelAttribute="hdct">
+                                                    <input type="text" name="id" id="idSuaSL" class="form-control"
+                                                           hidden>
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control" name="soLuong"
+                                                               aria-describedby="button-suaSL"
+                                                               id="slSua" type="number" placeholder="Nhập số lượng">
+                                                        <button class="btn btn-outline-primary" type="submit"
+                                                                id="button-suaSL">Sửa
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <a href="/hoa-don/xoa-san-pham/${hdct.id}" style="text-decoration: none; color: white">
                                     <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Xoá sản phẩm" onclick="return confirm('Bạn có chắc không?')">
@@ -108,98 +146,94 @@
                 </table>
             </c:if>
         </div>
-        <div class="thanh-toan col-md-3">
-            <!--Thông tin thanh toán và khách hàng-->
-            <h3>Thanh Toán</h3>
-            <!--Thông tin thanh toán và khách hàng-->
-            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themKH"><i
-                    class="bi bi-search"></i>Chọn Khách Hàng
-            </button>
-            <br>
-            <!--modal-->
-            <div class="modal fade" id="themKH" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Nhập email khách hàng"
-                                           aria-describedby="button-addon2">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon3">Tìm
-                                        kiếm
-                                    </button>
-                                </div>
-                            </form>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Mã</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Tên Khách Hàng</th>
-                                    <th>SDT</th>
-                                    <th>Địa Chỉ</th>
-                                    <th>Trạng Thái</th>
-                                    <th>Hành động</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${listKH}" var="kh" varStatus="stt">
+        <div class="thanh-toan col-md-4">
+            <c:if test="${listHD.size()>0}">
+                <!--Thông tin thanh toán và khách hàng-->
+                <h3>Thanh Toán</h3>
+                <!--Thông tin thanh toán và khách hàng-->
+                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themKH"><i
+                        class="bi bi-search"></i>Chọn Khách Hàng
+                </button>
+                <br>
+                <!--modal-->
+                <div class="modal fade" id="themKH" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Nhập email khách hàng"
+                                               aria-describedby="button-addon2">
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon3">Tìm
+                                            kiếm
+                                        </button>
+                                    </div>
+                                </form>
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <td>${stt.index+1}</td>
-                                        <td>${kh.ma}</td>
-                                        <td>
-                                                <%--<img src='<c:url value="/getimage/${spct.hinhAnh}"></c:url>' style="max-width: 100px">--%>
-                                        </td>
-                                        <td>${kh.hoTen}</td>
-                                        <td>${kh.sdt}</td>
-                                        <td>${kh.soNha}</td>
-                                        <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
-                                        <td>
-                                            <form action="/hoa-don/them-khach-hang" method="post">
-                                                <input name="KHID" value="${kh.idKhachHang}" hidden>
-                                                <button style="padding-bottom: 3px" class="btn btn-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="right"
-                                                        title="Chọn">
-                                                    <i class="bi bi-plus"></i>
-                                                </button>
-                                            </form>
-
-                                        </td>
+                                        <th>STT</th>
+                                        <th>Mã</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Tên Khách Hàng</th>
+                                        <th>SDT</th>
+                                        <th>Địa Chỉ</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Hành động</th>
                                     </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${listKH}" var="kh" varStatus="stt">
+                                        <tr>
+                                            <td>${stt.index+1}</td>
+                                            <td>${kh.ma}</td>
+                                            <td>
+                                                    <%--<img src='<c:url value="/getimage/${spct.hinhAnh}"></c:url>' style="max-width: 100px">--%>
+                                            </td>
+                                            <td>${kh.hoTen}</td>
+                                            <td>${kh.sdt}</td>
+                                            <td>${kh.soNha}</td>
+                                            <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
+                                            <td>
+                                                <form action="/hoa-don/them-khach-hang" method="post">
+                                                    <input name="KHID" value="${kh.idKhachHang}" hidden>
+                                                    <button class="btn btn-warning" data-bs-toggle="tooltip"
+                                                            data-bs-placement="right"
+                                                            title="Chọn">
+                                                        <i class="bi bi-plus"></i>
+                                                    </button>
+                                                </form>
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Nhập voucher"
-                       aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon4">Tìm
-                    kiếm
-                </button></br>
-            </div>
-            <td>
-                Tên Khách Hàng: <input value="${kh.hoTen}"><br>
-            </td>
-            <td>
-                Email Khách Hàng:<input value="${kh.email}"><br>
-            </td>
-            <td>
-                SDT Khách Hàng:<input value="${kh.sdt}"><br>
-            </td>
-            <!--het modal-->
-            <form:form modelAttribute="hd" method="post" action="/hoa-don/add">
-                Tạm Tính :<form:input path="thanhTien"/><br>
-                Tổng Tiền:<form:input path="tienKhachDua"/><br>
-            </form:form>
-            <button type="submit" class="btn btn-primary"><i class="bi bi-wallet-fill"></i>Thanh Toán</button>
+                <td>
+                    Tên Khách Hàng: ${kh.hoTen}<br>
+                </td>
+                <td>
+                    Email Khách Hàng: ${kh.email}<br>
+                </td>
+                <td>
+                    SDT Khách Hàng: ${kh.sdt}<br>
+                </td>
+                <!--het modal-->
+                    Tạm Tính :<br>
+                    Tổng Tiền:<br>
+                    Tiền Khách Đưa:<input name="tienKhachDua"><br>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-wallet-fill"></i> Thanh Toán</button>
+            </c:if>
         </div>
+        <%--        end thanh toan--%>
     </div>
 </div>
 <!-- Modal -->
@@ -214,7 +248,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nhập mã sản phẩm"
                                aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm kiếm</button>
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Tìm kiếm</button>
                     </div>
                 </form>
                 <table class="table">
@@ -245,7 +279,9 @@
                             <td>${spct.soLuong}</td>
                             <td>${spct.kt.ten}</td>
                             <td>${spct.ms.ten}</td>
-                            <td>${spct.gia}</td>
+                            <td>
+                                <fmt:formatNumber type="number" value="${spct.gia}"/>
+                            </td>
                             <td>${spct.moTa}</td>
                             <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
                             <td>
@@ -270,6 +306,23 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+    var suaSLTrigger = [].slice.call(document.querySelectorAll('[data-bs-toggle2="suaSL"]'))
+    var suaSL = suaSLTrigger.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+    var exampleModal = document.getElementById('suaSL')
+    if (exampleModal != null) {
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var slSua = button.getAttribute('data-bs-slSua')
+            var idHDCT = button.getAttribute('data-bs-idHDCT')
+            var slInput = exampleModal.querySelector('.modal-body #slSua')
+            var idInput = exampleModal.querySelector('.modal-body #idSuaSL')
+            slInput.value = slSua
+            idInput.value = idHDCT
+        })
+    }
+
 </script>
 </body>
 </html>
