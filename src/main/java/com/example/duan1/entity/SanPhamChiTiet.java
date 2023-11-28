@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.util.UUID;
 
@@ -66,8 +67,7 @@ public class SanPhamChiTiet {
     @Column(name = "so_luong_ton")
     @NotNull(message = "Không được trống")
     @Min(value = 0, message = "Số lượng phải >=0")
-    @Pattern(regexp = "[0-9]+", message = "Số lượng phải là số nguyên dương")
-    private String soLuong;
+    private Integer soLuong;
 
     @Column(name = "gia")
     @NotNull(message = "Không được trống")

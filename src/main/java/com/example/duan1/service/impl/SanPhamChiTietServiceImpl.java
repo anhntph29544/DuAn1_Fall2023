@@ -26,7 +26,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
     @Override
     public List<SanPhamChiTiet> getAll() {
-        return spctr.findAll();
+        return spctr.spctHD();
     }
 
     @Override

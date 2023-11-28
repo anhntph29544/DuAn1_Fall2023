@@ -45,7 +45,7 @@ public class HoaDonController {
     private SanPhamChiTietService serviceSPCT;
     private List<SanPhamChiTiet> listSPCT = new ArrayList<>();
     private UUID idHDSelect = null;
-
+    private Integer errorSL=0;
 
     // Chuyển đổi ngày thanh toán thành chuỗi theo định dạng đã cho
 
@@ -53,6 +53,8 @@ public class HoaDonController {
     public String hienThi(Model model) {
         listHD = sv.getAll();
         listKH = repository.findAll();
+        listSPCT = serviceSPCT.getAll();
+        model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("listKH", listKH);
         model.addAttribute("listHD", listHD);
         return "/hoadon/hienThi";
@@ -101,7 +103,8 @@ public class HoaDonController {
         model.addAttribute("listHD", listHD);
         model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
-
+        model.addAttribute("errorSL", errorSL);
+        errorSL=0;
         return "/hoadon/tao-hoa-don";
     }
 
@@ -152,7 +155,7 @@ public class HoaDonController {
                 hdct.setSoLuong(hdct.getSoLuong() + 1);
                 hdct.setGia(hdct.getSoLuong() * hdct.getSanPhamCT().getGia());
                 svHDCT.save(hdct);
-                spct.setSoLuong(String.valueOf(Integer.parseInt(spct.getSoLuong()) - 1));
+                spct.setSoLuong(spct.getSoLuong() - 1);
                 serviceSPCT.save(spct);
                 return false;
             }
@@ -173,7 +176,7 @@ public class HoaDonController {
             hdct.setGia(hdct.getSoLuong() * hdct.getSanPhamCT().getGia());
             hdct.setTrangThai(0);
             svHDCT.save(hdct);
-            spct.setSoLuong(String.valueOf(Integer.parseInt(spct.getSoLuong()) - hdct.getSoLuong()));
+            spct.setSoLuong(spct.getSoLuong() - hdct.getSoLuong());
             serviceSPCT.save(spct);
             return "redirect:/tao-hoa-don/hien-thi";
         }
@@ -183,13 +186,24 @@ public class HoaDonController {
     @PostMapping("/hoa-don/sua-san-pham")
     public String suaSP(@ModelAttribute("hdct") HoaDonChiTiet hdctMoi) {
         HoaDonChiTiet hdctCu = svHDCT.detail(hdctMoi.getId());
-        if (hdctCu.getSoLuong() == hdctMoi.getSoLuong()) {
-            return "redirect:/tao-hoa-don/hien-thi";
-        } else if (hdctCu.getSoLuong() < hdctMoi.getSoLuong() || hdctCu.getSoLuong() > hdctMoi.getSoLuong()) {
-            hdctCu.setSoLuong(hdctMoi.getSoLuong());
-            svHDCT.save(hdctCu);
+        SanPhamChiTiet spct = serviceSPCT.detail(hdctCu.getSanPhamCT().getId());
+        if (hdctMoi.getSoLuong()<0){
+            errorSL=2;
             return "redirect:/tao-hoa-don/hien-thi";
         }
+        if (hdctMoi.getSoLuong()==0){
+            return "redirect:/hoa-don/xoa-san-pham/"+hdctMoi.getId();
+        }
+        if((spct.getSoLuong() + hdctCu.getSoLuong()) - hdctMoi.getSoLuong()>=0){
+            if (hdctCu.getSoLuong() < hdctMoi.getSoLuong() || hdctCu.getSoLuong() > hdctMoi.getSoLuong()) {
+                spct.setSoLuong((spct.getSoLuong() + hdctCu.getSoLuong()) - hdctMoi.getSoLuong());
+                hdctCu.setSoLuong(hdctMoi.getSoLuong());
+                svHDCT.save(hdctCu);
+                serviceSPCT.save(spct);
+                return "redirect:/tao-hoa-don/hien-thi";
+            }
+        }
+        errorSL=1;
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
@@ -197,7 +211,7 @@ public class HoaDonController {
     public String xoaSP(@PathVariable("id") UUID id) {
         HoaDonChiTiet hdct = svHDCT.detail(id);
         SanPhamChiTiet spct = serviceSPCT.detail(hdct.getSanPhamCT().getId());
-        spct.setSoLuong(String.valueOf(Integer.parseInt(spct.getSoLuong()) + hdct.getSoLuong()));
+        spct.setSoLuong(spct.getSoLuong() + hdct.getSoLuong());
         serviceSPCT.save(spct);
         svHDCT.delete(id);
         return "redirect:/tao-hoa-don/hien-thi";
