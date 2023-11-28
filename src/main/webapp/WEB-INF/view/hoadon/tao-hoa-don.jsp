@@ -243,11 +243,21 @@
                     SDT Khách Hàng: ${kh.sdt}<br>
                 </td>
                 <!--het modal-->
-                Tạm Tính :<br>
-                Tổng Tiền:<br>
-                Tiền Khách Đưa:<input id="tienKhachDua"><br>
-                Tiền trả lại<label id="tienTraLai"></label><br>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-wallet-fill"></i> Thanh Toán</button>
+                Tạm Tính : <fmt:formatNumber type="number" value="${tamTinh}"/> VND<br>
+                Tổng Tiền: <br>
+                Tiền Khách Đưa:<input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua"><br>
+                <form action="/hoa-don/thanh-toan" method="post">
+                    <input hidden value="${tamTinh}" name="tamTinh">
+                    <button id="pay" type="submit" class="btn btn-primary"><i
+                            class="bi bi-wallet-fill"></i>Thanh Toán
+                    </button>
+                </form>
+                <form action="/hoa-don/huy" method="post">
+                    <input hidden value="${tamTinh}" name="tamTinh">
+                    <button id="huy" type="submit" class="btn btn-danger">
+                        <i class="bi bi-x-square"></i>Hủy
+                    </button>
+                </form>
             </c:if>
         </div>
         <%--        end thanh toan--%>
@@ -342,6 +352,19 @@
             idInput.value = idHDCT
         })
     }
+    document.getElementById('pay').addEventListener('click', function Pay() {
+        const submitButton = document.getElementById('pay');
+        const tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value);
+        const tamTinh = parseFloat('${tamTinh}');
+        if (tienKhachDua == tamTinh) {
+            submitButton.disabled = false;
+            alert("Thanh Toán Thành Công");
+        } else {
+            event.preventDefault();
+            alert("Vui Lòng Điền Đúng Số Tiền");
+        }
+
+    });
 </script>
 </body>
 </html>

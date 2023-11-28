@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -47,18 +48,26 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Mã HD</th>
-                        <th>Tên NV</th>
+                        <th>SDT</th>
                         <th>Tên KH</th>
+                        <th>Thành Tiền</th>
+                        <th>Ngày Tạo</th>
+                        <th>Ngày Thanh Toán</th>
                         <th>Trạng Thái</th>
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <c:forEach var="h" items="${listHD}">
+                    <c:forEach var="h" items="${listHD}" varStatus="d">
                         <tr>
+                            <td>${d.index+1}</td>
                             <td>${h.ma}</td>
-                            <td>${h.nhanVien.hoTen}</td>
+                            <td>${h.khachHang.sdt}</td>
                             <td>${h.khachHang.hoTen}</td>
+                            <td><fmt:formatNumber type="number" value="${h.thanhTien}"/>VND</td>
+                            <td>${h.ngayThem}</td>
+                            <td>${h.ngayThanhToan}</td>
                             <td>${h.tinhTrang==0?"Chưa Thanh Toán":h.tinhTrang==1?"Đã Thanh Toán":"Đã Hủy"}</td>
                             <td>
                                 <a href="/chi-tiet/id=${h.id}">

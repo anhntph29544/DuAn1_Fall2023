@@ -20,7 +20,8 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
     public List<HoaDon> getDaThanhToan();
     @Query("select hd from HoaDon hd where hd.khachHang.email = ?1 or hd.khachHang.sdt=?1")
     KhachHang search(String email);
-
+    @Query("select kh from KhachHang kh where kh.ma='KH0' ")
+    KhachHang searchKHL();
     @Query("select hd from HoaDon hd order by hd.ngayThem desc ")
     List<HoaDon> getNgay();
 

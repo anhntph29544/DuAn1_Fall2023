@@ -16,8 +16,12 @@ public interface HoaDonSV {
 
     HoaDon detail(UUID id);
 
+    KhachHang KHL();
+
     List<HoaDon> getNgay();
+
     List<HoaDon> getHUy();
+
     List<HoaDon> getDTT();
 
     List<HoaDon> getCHT();
