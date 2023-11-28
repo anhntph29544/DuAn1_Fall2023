@@ -42,6 +42,11 @@ public class HoaDonSVImpl implements HoaDonSV {
     }
 
     @Override
+    public KhachHang KHL() {
+        return repository.searchKHL();
+    }
+
+    @Override
     public List<HoaDon> getNgay() {
         return repository.getNgay();
     }

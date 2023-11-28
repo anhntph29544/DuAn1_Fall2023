@@ -9,7 +9,6 @@ import com.example.duan1.service.HoaDonChiTietSV;
 import com.example.duan1.service.HoaDonSV;
 import com.example.duan1.service.KhachHangService;
 import com.example.duan1.service.SanPhamChiTietService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,6 +46,8 @@ public class HoaDonController {
     private List<SanPhamChiTiet> listSPCT = new ArrayList<>();
     private UUID idHDSelect = null;
 
+
+    // Chuyển đổi ngày thanh toán thành chuỗi theo định dạng đã cho
 
     @GetMapping("/hoa-don/hien-thi")
     public String hienThi(Model model) {
@@ -85,14 +87,21 @@ public class HoaDonController {
                 idHDSelect = listHD.get(0).getId();
             }
         }
+        Double sum = 0.0;
+        List<HoaDonChiTiet> listTT = svHDCT.getListHD(idHDSelect);
+        for (HoaDonChiTiet hdct : listTT) {
+            sum += hdct.getSanPhamCT().getGia() * hdct.getSoLuong();
+        }
         KhachHang kh = sv.layKHchoHD(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
+        model.addAttribute("tamTinh", sum);
         model.addAttribute("idHDSelect", idHDSelect);
         model.addAttribute("kh", kh);
         model.addAttribute("listKH", listKH);
         model.addAttribute("listHD", listHD);
         model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
+
         return "/hoadon/tao-hoa-don";
     }
 
@@ -110,6 +119,32 @@ public class HoaDonController {
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
+    @PostMapping("/hoa-don/thanh-toan")
+    public String update(@RequestParam("tamTinh") Double tamTinh) {
+        HoaDon hd = sv.detail(idHDSelect);
+        hd.setTinhTrang(1);
+        hd.setNgayThanhToan(new java.util.Date());
+        hd.setThanhTien(tamTinh);
+        if (hd.getKhachHang() == null) {
+            hd.setKhachHang(sv.KHL());
+        }
+        sv.add(hd);
+        idHDSelect = null;
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+    @PostMapping("/hoa-don/huy")
+    public String huy(@RequestParam("tamTinh") Double tamTinh) {
+        HoaDon hd1 = sv.detail(idHDSelect);
+        hd1.setTinhTrang(2);
+        hd1.setThanhTien(tamTinh);
+        if (hd1.getKhachHang() == null) {
+            hd1.setKhachHang(sv.KHL());
+        }
+
+        sv.add(hd1);
+        idHDSelect = null;
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
     private Boolean kiemTra(List<HoaDonChiTiet> listHDCT, UUID spctID) {
         SanPhamChiTiet spct = serviceSPCT.detail(spctID);
         for (HoaDonChiTiet hdct : listHDCT) {

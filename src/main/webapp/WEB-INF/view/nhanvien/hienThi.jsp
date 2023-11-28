@@ -64,6 +64,8 @@
     </style>
 </head>
 <body style=" padding-top: 10px" class="text-center">
+<jsp:include page="../include/header.jsp"/>
+
 <div class="container">
 <h3>Quản lý Nhân Viên</h3>
     <div class="d-flex justify-content-between mb-3 align-items-center">

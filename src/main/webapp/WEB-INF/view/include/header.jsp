@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Trang Chủ</a>
+                    <a class="nav-link active" aria-current="page" href="/shop-xe/trang-chu">Trang Chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/tao-hoa-don/hien-thi">Tạo Hóa Đơn</a>
