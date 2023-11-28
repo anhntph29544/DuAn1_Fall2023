@@ -17,10 +17,15 @@ public interface HoaDonSV {
     HoaDon detail(UUID id);
 
     List<HoaDon> getNgay();
+    List<HoaDon> getHUy();
+    List<HoaDon> getDTT();
 
     List<HoaDon> getCHT();
 
+    KhachHang layKHchoHD(UUID id);
+
     void add(HoaDon hoaDon);
+
     void delete(UUID id);
 
     String tuTaoMa();

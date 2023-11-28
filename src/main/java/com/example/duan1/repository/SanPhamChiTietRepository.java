@@ -20,6 +20,9 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
     @Query("select spct from SanPhamChiTiet spct where spct.sp.ma like %?1% or spct.ma like %?1% and spct.trangThai=?2")
     List<SanPhamChiTiet> search3(String ten,Integer trangThai);
 
+    @Query("select spct from SanPhamChiTiet spct where spct.trangThai = 0")
+    List<SanPhamChiTiet> spctHD();
+
     @Query("select spct.ma from SanPhamChiTiet spct")
     List<String> maSPCT();
 

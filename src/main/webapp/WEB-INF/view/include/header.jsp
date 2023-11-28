@@ -12,7 +12,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Trang Chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Tạo Hóa Đơn</a>
+                    <a class="nav-link active" href="/tao-hoa-don/hien-thi">Tạo Hóa Đơn</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
@@ -20,12 +20,14 @@
                         Quản Lý Chung
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Quản Lý Nhân Viên</a></li>
-                        <li><a class="dropdown-item" href="#">Quản Lý Khách Hàng</a></li>
+                        <li><a class="dropdown-item" href="/nhan-vien/hien-thi">Quản Lý Nhân Viên</a></li>
+                        <li><a class="dropdown-item" href="/khach-hang/hien-thi">Quản Lý Khách Hàng</a></li>
                         <li><a class="dropdown-item" href="/shop-xe/san-pham">Quản Lý Sản Phẩm</a>
                         </li>
                         <li><a class="dropdown-item" href="#">Thống Kê</a></li>
                         <li><a class="dropdown-item" href="">Quản Lý Voucher</a></li>
+                        <li><a class="dropdown-item" href="/hoa-don/hien-thi">Quản Lý Hóa Đơn</a></li>
+
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

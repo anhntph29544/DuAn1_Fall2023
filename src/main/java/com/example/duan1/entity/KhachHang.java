@@ -43,9 +43,6 @@ public class KhachHang {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "cccd")
-    private String cccd;
-
     @Column(name = "gioi_tinh")
     private Integer gioiTinh;
 

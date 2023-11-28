@@ -126,8 +126,8 @@ public class SanPhamChiTietController {
 
     @PostMapping("/shop-xe/san-pham-chi-tiet/update")
     public String update(@Valid @ModelAttribute("spct1")SanPhamChiTiet spct1,
-                         @RequestParam("photo") MultipartFile photo,
                          BindingResult result,
+                         @RequestParam("photo") MultipartFile photo,
                          Model model){
         if(result.hasErrors()){
             combobox(model);
