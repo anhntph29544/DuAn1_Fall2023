@@ -70,8 +70,8 @@
                             <td>${h.ngayThanhToan}</td>
                             <td>${h.tinhTrang==0?"Chưa Thanh Toán":h.tinhTrang==1?"Đã Thanh Toán":"Đã Hủy"}</td>
                             <td>
-                                <a href="/chi-tiet/id=${h.id}">
-                                    <button class="btn btn-primary"><i class="bi bi-eye-fill"></i></button>
+                                <a href="/hoa-don/detail/${h.id}">
+                                    <button  class="btn btn-dark"><i class="bi bi-eye-fill"></i></button>
                                 </a>
                             </td>
                         </tr>

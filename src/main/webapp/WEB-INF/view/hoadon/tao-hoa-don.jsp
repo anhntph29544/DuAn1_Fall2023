@@ -264,20 +264,23 @@
                     Tiền Khách Đưa: <input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua">
                 </label><br>
                 <label>
-                Tiền Trả Lại: <label id="tienTraLai"></label>
+                    Tiền Trả Lại: <label id="tienTraLai"></label>
                 </label><br>
-                <form action="/hoa-don/thanh-toan" method="post">
+                <div class="row">
+                <form class="col-md-6" action="/hoa-don/thanh-toan" method="post">
                     <input hidden value="${tamTinh}" name="tamTinh">
                     <button id="pay" type="submit" class="btn btn-primary"><i
-                            class="bi bi-wallet-fill"></i>Thanh Toán
+                            class="bi bi-wallet-fill"></i> Thanh Toán
                     </button>
                 </form>
-                <form action="/hoa-don/huy" method="post">
+                <form class="col-md-6" action="/hoa-don/huy" method="post">
                     <input hidden value="${tamTinh}" name="tamTinh">
                     <button id="huy" type="submit" class="btn btn-danger">
-                        <i class="bi bi-x-square"></i>Hủy
+                        <i class="bi bi-x-square"></i>
+                        Hủy
                     </button>
                 </form>
+                </div>
             </c:if>
         </div>
         <%--        end thanh toan--%>
@@ -355,13 +358,10 @@
                             <td>
                                 <form action="/hoa-don/them-san-pham" method="post">
                                     <input name="spctID" value="${spct.id}" hidden>
-                                    <c:if test="${spct.soLuong>0}">
-                                        <button class="btn btn-warning" data-bs-toggle="tooltip"
-                                                data-bs-placement="right"
-                                                title="Thêm vào giỏ hàng">
-                                            <i class="bi bi-cart-plus"></i>
-                                        </button>
-                                    </c:if>
+                                    <button class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="Thêm vào giỏ hàng">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

@@ -2,10 +2,12 @@ package com.example.duan1.service.impl;
 
 import com.example.duan1.entity.HoaDon;
 import com.example.duan1.entity.KhachHang;
+import com.example.duan1.entity.SanPham;
 import com.example.duan1.repository.HoaDonRepository;
 import com.example.duan1.service.HoaDonSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,8 +44,24 @@ public class HoaDonSVImpl implements HoaDonSV {
     }
 
     @Override
+    public List<HoaDon> findAllHD() {
+        return repository.findAllHoaDon();
+    }
+
+
+    @Override
     public KhachHang KHL() {
         return repository.searchKHL();
+    }
+
+    @Override
+    public Page<HoaDon> getDataPT(int page) {
+        List list = repository.sortList();
+        Pageable pageable = PageRequest.of(page, 5);
+        Integer start = (int) pageable.getOffset();
+        Integer end = (int) (pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<HoaDon>(list, pageable, repository.sortList().size());
     }
 
     @Override

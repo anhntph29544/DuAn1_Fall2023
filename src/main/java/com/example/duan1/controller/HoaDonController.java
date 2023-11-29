@@ -10,6 +10,7 @@ import com.example.duan1.service.HoaDonSV;
 import com.example.duan1.service.KhachHangService;
 import com.example.duan1.service.SanPhamChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,18 @@ public class HoaDonController {
     @Autowired
     private HoaDonSV sv;
     private List<HoaDon> listHD = new ArrayList<>();
+    private List<HoaDon> listPage = new ArrayList<>();
     private List<HoaDon> listCTT = new ArrayList<>();
     private List<HoaDon> listDTT = new ArrayList<>();
     private List<HoaDon> listHuy = new ArrayList<>();
+    private List<HoaDon> listHDc = new ArrayList<>();
+    private HoaDon h;
+    private HoaDonChiTiet hdct;
     @Autowired
     private HoaDonChiTietSV svHDCT;
     private List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+    private List<HoaDonChiTiet> listHDCT1 = new ArrayList<>();
+
     @Autowired
     private KhachHangService khsv;
     @Autowired
@@ -46,19 +53,29 @@ public class HoaDonController {
     private SanPhamChiTietService serviceSPCT;
     private List<SanPhamChiTiet> listSPCT = new ArrayList<>();
     private UUID idHDSelect = null;
-    private Integer errorSL=0;
-
-    // Chuyển đổi ngày thanh toán thành chuỗi theo định dạng đã cho
+    private Integer errorSL = 0;
 
     @GetMapping("/hoa-don/hien-thi")
-    public String hienThi(Model model) {
-        listHD = sv.getAll();
+    public String hienThi(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+        listPage = sv.getAll();
         listKH = repository.findAll();
         listSPCT = serviceSPCT.getAll();
         model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("listKH", listKH);
-        model.addAttribute("listHD", listHD);
+        model.addAttribute("listHD", listPage);
         return "/hoadon/hienThi";
+    }
+
+    @GetMapping("hoa-don/detail/{id}")
+    public String detail(@PathVariable("id") UUID id, Model model) {
+        listHD = sv.getAll();
+        listHDCT = svHDCT.getListHD(id);
+        listHDCT1 = svHDCT.getListHD(id);
+        h = sv.detail(id);
+        model.addAttribute("h1", h);
+        model.addAttribute("listHDCT1", listHDCT1);
+        model.addAttribute("listHDCT", listHDCT);
+        return "hoadon/chitiet";
     }
 
     @GetMapping("/hoa-don/hien-thi/dh")
@@ -105,7 +122,7 @@ public class HoaDonController {
         model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
         model.addAttribute("errorSL", errorSL);
-        errorSL=0;
+        errorSL = 0;
         return "/hoadon/tao-hoa-don";
     }
 
@@ -118,6 +135,7 @@ public class HoaDonController {
     @PostMapping("/tao-hoa-don/add")
     public String add() {
         HoaDon h = new HoaDon();
+        h.setKhachHang(sv.KHL());
         h.setTinhTrang(0);
         sv.add(h);
         return "redirect:/tao-hoa-don/hien-thi";
@@ -136,6 +154,7 @@ public class HoaDonController {
         idHDSelect = null;
         return "redirect:/tao-hoa-don/hien-thi";
     }
+
     @PostMapping("/hoa-don/huy")
     public String huy(@RequestParam("tamTinh") Double tamTinh) {
         HoaDon hd1 = sv.detail(idHDSelect);
@@ -214,14 +233,14 @@ public class HoaDonController {
     public String suaSP(@ModelAttribute("hdct") HoaDonChiTiet hdctMoi) {
         HoaDonChiTiet hdctCu = svHDCT.detail(hdctMoi.getId());
         SanPhamChiTiet spct = serviceSPCT.detail(hdctCu.getSanPhamCT().getId());
-        if (hdctMoi.getSoLuong()<0){
-            errorSL=2;
+        if (hdctMoi.getSoLuong() < 0) {
+            errorSL = 2;
             return "redirect:/tao-hoa-don/hien-thi";
         }
-        if (hdctMoi.getSoLuong()==0){
-            return "redirect:/hoa-don/xoa-san-pham/"+hdctMoi.getId();
+        if (hdctMoi.getSoLuong() == 0) {
+            return "redirect:/hoa-don/xoa-san-pham/" + hdctMoi.getId();
         }
-        if((spct.getSoLuong() + hdctCu.getSoLuong()) - hdctMoi.getSoLuong()>=0){
+        if ((spct.getSoLuong() + hdctCu.getSoLuong()) - hdctMoi.getSoLuong() >= 0) {
             if (hdctCu.getSoLuong() < hdctMoi.getSoLuong() || hdctCu.getSoLuong() > hdctMoi.getSoLuong()) {
                 spct.setSoLuong((spct.getSoLuong() + hdctCu.getSoLuong()) - hdctMoi.getSoLuong());
                 hdctCu.setSoLuong(hdctMoi.getSoLuong());
@@ -230,7 +249,7 @@ public class HoaDonController {
                 return "redirect:/tao-hoa-don/hien-thi";
             }
         }
-        errorSL=1;
+        errorSL = 1;
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
