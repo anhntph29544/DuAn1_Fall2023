@@ -2,6 +2,7 @@ package com.example.duan1.service;
 
 import com.example.duan1.entity.HoaDon;
 import com.example.duan1.entity.KhachHang;
+import com.example.duan1.entity.SanPham;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -16,7 +17,11 @@ public interface HoaDonSV {
 
     HoaDon detail(UUID id);
 
+    List<HoaDon> findAllHD();
+
     KhachHang KHL();
+
+    Page<HoaDon> getDataPT(int page);
 
     List<HoaDon> getNgay();
 

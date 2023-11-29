@@ -72,22 +72,6 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themSP">
                     Thêm sản phẩm
                 </button>
-                <c:if test="${errorSL==1}">
-                    <div class="alert alert-danger d-flex" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                        </svg>
-                        <div>Số lượng sản phẩm còn lại không đủ</div>
-                    </div>
-                </c:if>
-                <c:if test="${errorSL==2}">
-                    <div class="alert alert-danger d-flex" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                        </svg>
-                        <div>Số lượng phải lớn hơn 0</div>
-                    </div>
-                </c:if>
                 <table class="table">
                     <thead>
                     <tr>
@@ -243,21 +227,30 @@
                     SDT Khách Hàng: ${kh.sdt}<br>
                 </td>
                 <!--het modal-->
-                Tạm Tính : <fmt:formatNumber type="number" value="${tamTinh}"/> VND<br>
-                Tổng Tiền: <br>
-                Tiền Khách Đưa:<input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua"><br>
-                <form action="/hoa-don/thanh-toan" method="post">
+                <label>Tạm Tính : <fmt:formatNumber type="number" value="${tamTinh}"/> VND</label><br>
+                <input type="number" id="tamTinh" value="${tamTinh}" hidden>
+                <label>Tổng Tiền: </label><br>
+                <label>
+                    Tiền Khách Đưa: <input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua">
+                </label><br>
+                <label>
+                    Tiền Trả Lại: <label id="tienTraLai"></label>
+                </label><br>
+                <div class="row">
+                <form class="col-md-6" action="/hoa-don/thanh-toan" method="post">
                     <input hidden value="${tamTinh}" name="tamTinh">
                     <button id="pay" type="submit" class="btn btn-primary"><i
-                            class="bi bi-wallet-fill"></i>Thanh Toán
+                            class="bi bi-wallet-fill"></i> Thanh Toán
                     </button>
                 </form>
-                <form action="/hoa-don/huy" method="post">
+                <form class="col-md-6" action="/hoa-don/huy" method="post">
                     <input hidden value="${tamTinh}" name="tamTinh">
                     <button id="huy" type="submit" class="btn btn-danger">
-                        <i class="bi bi-x-square"></i>Hủy
+                        <i class="bi bi-x-square"></i>
+                        Hủy
                     </button>
                 </form>
+                </div>
             </c:if>
         </div>
         <%--        end thanh toan--%>
@@ -314,13 +307,10 @@
                             <td>
                                 <form action="/hoa-don/them-san-pham" method="post">
                                     <input name="spctID" value="${spct.id}" hidden>
-                                    <c:if test="${spct.soLuong>0}">
-                                        <button class="btn btn-warning" data-bs-toggle="tooltip"
-                                                data-bs-placement="right"
-                                                title="Thêm vào giỏ hàng">
-                                            <i class="bi bi-cart-plus"></i>
-                                        </button>
-                                    </c:if>
+                                    <button class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="Thêm vào giỏ hàng">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -356,7 +346,7 @@
         const submitButton = document.getElementById('pay');
         const tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value);
         const tamTinh = parseFloat('${tamTinh}');
-        if (tienKhachDua == tamTinh) {
+        if (tienKhachDua >= tamTinh) {
             submitButton.disabled = false;
             alert("Thanh Toán Thành Công");
         } else {
@@ -365,6 +355,12 @@
         }
 
     });
+    const tienKhachDua= document.getElementById("tienKhachDua");
+    const tienTraLai= document.getElementById("tienTraLai");
+    const tamTinh= document.getElementById("tamTinh").value;
+    tienKhachDua.addEventListener("input", ()=>{
+        tienTraLai.innerHTML= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tienKhachDua.value- tamTinh);
+    })
 </script>
 </body>
 </html>
