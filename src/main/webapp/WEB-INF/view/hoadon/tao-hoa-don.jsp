@@ -19,6 +19,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+    </style>
     <script>
         function thongbao() {
             alert("Chỉ được tạo tối đa 5 hoá đơn");
@@ -65,12 +67,16 @@
         </div>
     </c:if>
     <div class="ban-hang row" style="margin-top: 10px">
-        <div class="gio-hang col-md-8">
+        <div class="gio-hang col-md-9">
             <c:if test="${listHD.size()>0}">
                 <!--code giỏ hàng và modal sản phẩm-->
                 <!-- Button modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themSP">
                     Thêm sản phẩm
+                </button>
+                <!-- Button modal quét qr-->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Quét QR
                 </button>
                 <c:if test="${errorSL==1}">
                     <div class="alert alert-danger d-flex" role="alert">
@@ -94,6 +100,10 @@
                         <th>STT</th>
                         <th>Ảnh</th>
                         <th>Tên sản phẩm</th>
+                        <th>Kiểu dáng</th>
+                        <th>Màu sắc</th>
+                        <th>Kích thước</th>
+                        <th>Thương hiệu</th>
                         <th>Số lượng</th>
                         <th>Đơn giá</th>
                         <th>Tổng tiền</th>
@@ -108,6 +118,10 @@
                                      style="max-width: 100px">
                             </td>
                             <td>${hdct.sanPhamCT.sp.ten}</td>
+                            <td>${hdct.sanPhamCT.kdx.ten}</td>
+                            <td>${hdct.sanPhamCT.ms.ten}</td>
+                            <td>${hdct.sanPhamCT.kt.ten}</td>
+                            <td>${hdct.sanPhamCT.th.ten}</td>
                             <td>${hdct.soLuong}</td>
                             <td>
                                 <fmt:formatNumber type="number" value="${hdct.sanPhamCT.gia}"/>
@@ -162,7 +176,7 @@
                 </table>
             </c:if>
         </div>
-        <div class="thanh-toan col-md-4">
+        <div class="thanh-toan col-md-3">
             <c:if test="${listHD.size()>0}">
                 <!--Thông tin thanh toán và khách hàng-->
                 <h3>Thanh Toán</h3>
@@ -243,9 +257,15 @@
                     SDT Khách Hàng: ${kh.sdt}<br>
                 </td>
                 <!--het modal-->
-                Tạm Tính : <fmt:formatNumber type="number" value="${tamTinh}"/> VND<br>
-                Tổng Tiền: <br>
-                Tiền Khách Đưa:<input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua"><br>
+                <label>Tạm Tính : <fmt:formatNumber type="number" value="${tamTinh}"/> VND</label><br>
+                <input type="number" id="tamTinh" value="${tamTinh}" hidden>
+                <label>Tổng Tiền: </label><br>
+                <label>
+                    Tiền Khách Đưa: <input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua">
+                </label><br>
+                <label>
+                Tiền Trả Lại: <label id="tienTraLai"></label>
+                </label><br>
                 <form action="/hoa-don/thanh-toan" method="post">
                     <input hidden value="${tamTinh}" name="tamTinh">
                     <button id="pay" type="submit" class="btn btn-primary"><i
@@ -261,6 +281,27 @@
             </c:if>
         </div>
         <%--        end thanh toan--%>
+    </div>
+</div>
+<!-- Modal QR-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Quét QR</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="section">
+                        <div id="my-qr-reader">
+                        </div>
+                    </div>
+                </div>
+                <script src="https://unpkg.com/html5-qrcode"></script>
+                <script type="text/javascript"><%@include file="script.js" %></script>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Modal -->
@@ -356,7 +397,7 @@
         const submitButton = document.getElementById('pay');
         const tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value);
         const tamTinh = parseFloat('${tamTinh}');
-        if (tienKhachDua == tamTinh) {
+        if (tienKhachDua >= tamTinh) {
             submitButton.disabled = false;
             alert("Thanh Toán Thành Công");
         } else {
@@ -365,6 +406,12 @@
         }
 
     });
+    const tienKhachDua= document.getElementById("tienKhachDua");
+    const tienTraLai= document.getElementById("tienTraLai");
+    const tamTinh= document.getElementById("tamTinh").value;
+    tienKhachDua.addEventListener("input", ()=>{
+        tienTraLai.innerHTML= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tienKhachDua.value- tamTinh);
+    })
 </script>
 </body>
 </html>
