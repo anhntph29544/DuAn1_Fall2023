@@ -70,6 +70,8 @@
 <body>
 
 <form action="/voucher/update" method="post"  modelAttribute ="vc">
+    Mã: <input type="text" name="ma" value="${vc.ma}">
+    <br>
     Số lượng: <input type="text" name="soLuong" value="${vc.soLuong}">
     <br/>
     Giá trị: <input type="text" name="giaTri" value="${vc.giaTri}">

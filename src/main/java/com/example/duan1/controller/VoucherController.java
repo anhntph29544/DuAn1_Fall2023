@@ -44,6 +44,7 @@ public class VoucherController {
         Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
         if (ngayHienTai.after(ngayBD)&& ngayHienTai.before(ngayKT)) {
             Voucher vc1 = Voucher.builder()
+                    .ma(vc.getMa())
                     .soLuong(vc.getSoLuong())
                     .giaTri(vc.getGiaTri())
                     .ngayBD(vc.getNgayBD())
@@ -53,6 +54,7 @@ public class VoucherController {
             service.save(vc1);
         }else {
             Voucher vc1 = Voucher.builder()
+                    .ma(vc.getMa())
                     .soLuong(vc.getSoLuong())
                     .giaTri(vc.getGiaTri())
                     .ngayBD(vc.getNgayBD())
@@ -80,6 +82,7 @@ public class VoucherController {
         if (ngayHienTai.after(ngayBD)&& ngayHienTai.before(ngayKT)) {
             Voucher vc1 = Voucher.builder()
                     .id(idCu)
+                    .ma(vc.getMa())
                     .soLuong(vc.getSoLuong())
                     .giaTri(vc.getGiaTri())
                     .ngayBD(vc.getNgayBD())
@@ -90,6 +93,7 @@ public class VoucherController {
         }else {
             Voucher vc1 = Voucher.builder()
                     .id(idCu)
+                    .ma(vc.getMa())
                     .soLuong(vc.getSoLuong())
                     .giaTri(vc.getGiaTri())
                     .ngayBD(vc.getNgayBD())

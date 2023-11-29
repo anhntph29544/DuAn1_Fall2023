@@ -65,13 +65,18 @@
     <div class="them">
         <form action="/voucher/add" method="post" modelAttribute="vc">
             <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon9">Mã</span>
+                <input type="text" name="ma" value="${vc.ma}" class="form-control" placeholder="Mã"
+                       aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Số Lượng</span>
-                <input type="text" name="soLuong" value="${vc.soLuong}" class="form-control" placeholder="Username"
+                <input type="text" name="soLuong" value="${vc.soLuong}" class="form-control" placeholder="Số Lượng"
                        aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon2">Giá Trị</span>
-                <input type="text" name="giaTri" value="${vc.giaTri}" class="form-control" placeholder="Username"
+                <input type="text" name="giaTri" value="${vc.giaTri}" class="form-control" placeholder="Giá Trị"
                        aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
@@ -95,6 +100,7 @@
     <thead>
     <tr>
         <th scope="col">#</th>
+        <th scope="col">Mã</th>
         <th scope="col">Số lượng</th>
         <th scope="col">Giá trị</th>
         <th scope="col">Ngày Bắt Đầu</th>
@@ -107,6 +113,7 @@
     <c:forEach items="${list.content}" var="vc" varStatus="stt">
         <tr>
             <th scope="row">${stt.index+1}</th>
+            <td>${vc.ma}</td>
             <td>${vc.soLuong}</td>
             <td>${vc.giaTri}</td>
             <td>${vc.ngayBD}</td>

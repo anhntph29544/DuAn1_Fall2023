@@ -29,6 +29,9 @@ public class Voucher {
     @Column(name = "id_voucher")
     private UUID id;
 
+    @Column(name = "ma")
+    private String ma;
+
     @Column(name = "so_luong")
     private int soLuong;
 
