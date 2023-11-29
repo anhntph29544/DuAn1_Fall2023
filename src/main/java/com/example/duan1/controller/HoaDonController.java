@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -171,6 +172,9 @@ public class HoaDonController {
         SanPhamChiTiet spct = serviceSPCT.detail(spctID);
         for (HoaDonChiTiet hdct : listHDCT) {
             if (hdct.getSanPhamCT().getId() == spctID) {
+                if(spct.getSoLuong() - 1<0){
+                    return false;
+                }
                 hdct.setSoLuong(hdct.getSoLuong() + 1);
                 hdct.setGia(hdct.getSoLuong() * hdct.getSanPhamCT().getGia());
                 svHDCT.save(hdct);
@@ -189,6 +193,29 @@ public class HoaDonController {
         SanPhamChiTiet spct = serviceSPCT.detail(spctID);
         listHDCT = svHDCT.getListHD(idHDSelect);
         if (kiemTra(listHDCT, spctID)) {
+            hdct.setHoaDon(hd);
+            hdct.setSanPhamCT(spct);
+            hdct.setSoLuong(1);
+            hdct.setGia(hdct.getSoLuong() * hdct.getSanPhamCT().getGia());
+            hdct.setTrangThai(0);
+            svHDCT.save(hdct);
+            spct.setSoLuong(spct.getSoLuong() - hdct.getSoLuong());
+            serviceSPCT.save(spct);
+            return "redirect:/tao-hoa-don/hien-thi";
+        }
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+
+    @PostMapping("/hoa-don/them-san-pham-qr")
+    public String themSPQR(@RequestBody UUID spctID, Model model) {
+        HoaDonChiTiet hdct = new HoaDonChiTiet();
+        HoaDon hd = sv.detail(idHDSelect);
+        SanPhamChiTiet spct = serviceSPCT.detail(spctID);
+        listHDCT = svHDCT.getListHD(idHDSelect);
+        if (kiemTra(listHDCT, spctID)) {
+            if(spct.getSoLuong() - 1<0){
+                return "redirect:/tao-hoa-don/hien-thi";
+            }
             hdct.setHoaDon(hd);
             hdct.setSanPhamCT(spct);
             hdct.setSoLuong(1);
