@@ -138,6 +138,7 @@ alter table thuong_hieu add ngay_them datetime
 alter table mau_sac add ngay_them datetime
 alter table khach_hang add cccd varchar(20)
 alter table voucher add ma nvarchar(50)
+alter table hoa_don add tong_tien decimal(30),
 INSERT INTO chuc_vu (id_chuc_vu, ma, ten, trang_thai)
 VALUES
     ('3f3d5487-60c0-4eb8-9004-2023e69cff26', 'CV001', 'Quản lý', 1),
