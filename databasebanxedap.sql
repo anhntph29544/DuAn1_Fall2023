@@ -155,3 +155,6 @@ INSERT INTO khach_hang (id_kh, ma, ten, image, ngay_sinh, email, sdt, mat_khau, 
 VALUES
 	('8579ae3f-8b87-4f2e-b3fa-8c0f4a9733f0', 'KH001', N'Nguyễn Thị D', 'null', '1988-08-08', 'khachhang1@fpt.edu.vn', '0987123456', 'password', 0, N'Hà Nội', N'Cầu Giấy', N'Dịch Vọng', N'101 Đường GHI', 1),
 	('754df0f5-30e5-4c3a-bbbf-67decc15687d', 'KH002', N'Phạm Văn E', 'null', '1992-02-02', 'khachhang2@fpt.edu.vn', '0909123456', 'password', 1, N'Hồ Chí Minh', N'Quận 5', N'An Bình', N'202 Đường KLM', 1)
+	INSERT INTO khach_hang (id_kh, ma, ten, trang_thai,thanh_pho,sdt)
+VALUES
+('678ca9e6-f859-48e7-8351-56752b09d5c4', N'KH00', 'Khách hàng lẻ', 0,'Không có','Không có')
