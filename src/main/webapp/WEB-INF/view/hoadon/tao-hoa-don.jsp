@@ -358,10 +358,13 @@
                             <td>
                                 <form action="/hoa-don/them-san-pham" method="post">
                                     <input name="spctID" value="${spct.id}" hidden>
-                                    <button class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="Thêm vào giỏ hàng">
-                                        <i class="bi bi-cart-plus"></i>
-                                    </button>
+                                    <c:if test="${spct.soLuong>0}">
+                                        <button class="btn btn-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="right"
+                                                title="Thêm vào giỏ hàng">
+                                            <i class="bi bi-cart-plus"></i>
+                                        </button>
+                                    </c:if>
                                 </form>
                             </td>
                         </tr>
