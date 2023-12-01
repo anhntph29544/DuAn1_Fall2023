@@ -38,28 +38,32 @@
             <table class="table">
                 <thead>
                 <div class="row">
-                <tr>
-                    <div class="col-md-3">
-                        <th>Mã Đơn Hàng</th>
-                    </div>
-                    <div class="col-md-3">
-                        <th>Khách Hàng</th>
-                    </div>
-                    <div class="col-md-3">
-                        <th>Số Điện Thoại</th>
-                    </div>
-                    <div class="col-md-3">
-                        <th>Địa Chỉ</th>
-                    </div>
-                </tr>
+                    <tr>
+                        <div class="col-md-2">
+                            <th>Mã Đơn Hàng</th>
+                        </div>
+                        <div class="col-md-2">
+                            <th>Khách Hàng</th>
+                        </div>
+                        <div class="col-md-2">
+                            <th>Số Điện Thoại</th>
+                        </div>
+                        <div class="col-md-3">
+                            <th>Địa Chỉ</th>
+                        </div>
+                        <div class="col-md-3">
+                            <th>Voucher Sử Dụng</th>
+                        </div>
+                    </tr>
                 </div>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="col-md-3 ">${h1.ma}</td>
-                    <td  class="col-md-3 ">${h1.khachHang.hoTen}</td>
-                    <td  class="col-md-3 ">${h1.khachHang.sdt}</td>
-                    <td  class=" col-md-3 ">${h1.khachHang.thanhPho}</td>
+                    <td class="col-md-2 ">${h1.ma}</td>
+                    <td class="col-md-2 ">${h1.khachHang.hoTen}</td>
+                    <td class="col-md-2 ">${h1.khachHang.sdt}</td>
+                    <td class="col-md-3 ">${h1.khachHang.thanhPho}</td>
+                    <td class="col-md-3 ">${h1.voucher.ma} : ${h1.voucher.giaTri}%</td>
                 </tr>
                 </tbody>
             </table>
@@ -67,28 +71,32 @@
                 <table class="table">
                     <thead>
                     <div class="row">
-                    <tr>
-                        <div class="col-md-3">
-                            <th>Tổng Tiền</th>
-                        </div>
-                        <div class="col-md-3">
-                            <th>Trạng Thái</th>
-                        </div>
-                        <div class="col-md-3">
-                            <th>Ngày Tạo</th>
-                        </div>
-                        <div class="col-md-3">
-                            <th>Ngày Thanh Toán</th>
-                        </div>
-                    </tr>
-                        </div>
+                        <tr>
+                            <div class="col-md-2">
+                                <th>Tạm Tính</th>
+                            </div>
+                            <div class="col-md-2">
+                                <th>Tổng Tiền</th>
+                            </div>
+                            <div class="col-md-2">
+                                <th>Trạng Thái</th>
+                            </div>
+                            <div class="col-md-3">
+                                <th>Ngày Tạo</th>
+                            </div>
+                            <div class="col-md-3">
+                                <th>Ngày Thanh Toán</th>
+                            </div>
+                        </tr>
+                    </div>
                     </thead>
                     <tbody>
                     <tr>
-                        <td  class="col-md-3"><fmt:formatNumber type="number" value="${h1.thanhTien}"/></td>
-                        <td  class="col-md-3 ">${h1.tinhTrang==0?"Chưa Thanh Toán":h1.tinhTrang==1?"Đã Thanh Toán":"Đã Hủy"}</td>
-                        <td  class="col-md-3 ">${h1.ngayThem}</td>
-                        <td  class="col-md-3">${h1.ngayThanhToan}</td>
+                        <td class="col-md-2"><fmt:formatNumber type="number" value="${h1.thanhTien}"/></td>
+                        <td class="col-md-2"><fmt:formatNumber type="number" value="${h1.tongTien}"/></td>
+                        <td class="col-md-2 ">${h1.tinhTrang==0?"Chưa Thanh Toán":h1.tinhTrang==1?"Đã Thanh Toán":"Đã Hủy"}</td>
+                        <td class="col-md-3 ">${h1.ngayThem}</td>
+                        <td class="col-md-3">${h1.ngayThanhToan}</td>
 
                     </tr>
                     </tbody>
@@ -106,7 +114,7 @@
                     <th>Ảnh</th>
                     <th>Sản Phẩm</th>
                     <th>Số Lượng</th>
-                    <th>Tổng Tiền</th>
+                    <th><Thành></Thành> Tiền</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -133,6 +141,6 @@
         </div>
         </form:form>
     </div>
-        <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
+    <button onclick="goBack()" class="btn btn-danger">Quay lại</button>
 </body>
 </html>
