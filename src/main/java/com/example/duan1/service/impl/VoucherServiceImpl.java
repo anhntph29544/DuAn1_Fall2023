@@ -57,4 +57,9 @@ public class VoucherServiceImpl implements VoucherService {
     public Voucher detail(UUID id) {
         return repo.findById(id).get();
     }
+
+    @Override
+    public List<Voucher> getHD() {
+        return repo.getHD();
+    }
 }

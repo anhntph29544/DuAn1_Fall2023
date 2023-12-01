@@ -10,9 +10,10 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <style>
-        body{
+        body {
             margin: 0px 20px;
         }
+
         h1, h3 {
             text-align: center;
         }
@@ -43,6 +44,7 @@
 
 </head>
 <body>
+<jsp:include page="../include/header.jsp"/>
 <h1>Quản Lý Voucher</h1>
 <div class="tonginput">
     <div class="timkiem">
@@ -95,7 +97,7 @@
         </form>
     </div>
 </div>
-<h3>Danh Sách Vorcher</h3>
+<h3>Danh Sách Voucher</h3>
 <table class="table" border="1">
     <thead>
     <tr>
@@ -115,7 +117,7 @@
             <th scope="row">${stt.index+1}</th>
             <td>${vc.ma}</td>
             <td>${vc.soLuong}</td>
-            <td>${vc.giaTri}</td>
+            <td>${vc.giaTri}%</td>
             <td>${vc.ngayBD}</td>
             <td>${vc.ngayKT}</td>
             <td>${vc.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>

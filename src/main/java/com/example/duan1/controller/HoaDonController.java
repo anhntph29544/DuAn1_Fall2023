@@ -4,11 +4,14 @@ import com.example.duan1.entity.HoaDon;
 import com.example.duan1.entity.HoaDonChiTiet;
 import com.example.duan1.entity.KhachHang;
 import com.example.duan1.entity.SanPhamChiTiet;
+import com.example.duan1.entity.Voucher;
 import com.example.duan1.repository.KhachHangRepository;
+import com.example.duan1.repository.VoucherRepository;
 import com.example.duan1.service.HoaDonChiTietSV;
 import com.example.duan1.service.HoaDonSV;
 import com.example.duan1.service.KhachHangService;
 import com.example.duan1.service.SanPhamChiTietService;
+import com.example.duan1.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -20,8 +23,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,18 +38,19 @@ public class HoaDonController {
     @Autowired
     private HoaDonSV sv;
     private List<HoaDon> listHD = new ArrayList<>();
-    private List<HoaDon> listPage = new ArrayList<>();
-    private List<HoaDon> listCTT = new ArrayList<>();
-    private List<HoaDon> listDTT = new ArrayList<>();
-    private List<HoaDon> listHuy = new ArrayList<>();
     private List<HoaDon> listHDc = new ArrayList<>();
     private HoaDon h;
     private HoaDonChiTiet hdct;
+    private Page<HoaDon> listHD1;
+
     @Autowired
     private HoaDonChiTietSV svHDCT;
     private List<HoaDonChiTiet> listHDCT = new ArrayList<>();
     private List<HoaDonChiTiet> listHDCT1 = new ArrayList<>();
-
+    @Autowired
+    private VoucherRepository voucherRepository;
+    private VoucherService voucherService;
+    private List<Voucher> listV = new ArrayList<>();
     @Autowired
     private KhachHangService khsv;
     @Autowired
@@ -56,13 +63,40 @@ public class HoaDonController {
     private Integer errorSL = 0;
 
     @GetMapping("/hoa-don/hien-thi")
-    public String hienThi(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        listPage = sv.getAll();
+    public String hienThi(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                          @RequestParam(value = "ngayBD", defaultValue = "") String ngayBDS,
+                          @RequestParam(value = "ngayKT", defaultValue = "") String ngayKTS,
+                          @RequestParam(value = "trangThai", defaultValue = "3") Integer trangThai) {
+        listHD1 = sv.getData(page);
+        Date ngayBD = null;
+        Date ngayKT = null;
+//        if(ngayBDS != null && ngayKTS != null || ngayBDS != "" && ngayKTS != ""){
+//            try {
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//                ngayBD = sdf.parse(ngayBDS);
+//                ngayKT = sdf.parse(ngayKTS);
+//                System.out.println("hehe");
+//                listHD1 = sv.search1(ngayBD, ngayKT, trangThai, page);
+//                model.addAttribute("ngayBD", ngayBD);
+//                model.addAttribute("ngayKT", ngayKT);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else
+        if (trangThai != 3) {
+            listHD1 = sv.search1(ngayBD, ngayKT, trangThai, page);
+        }
         listKH = repository.findAll();
         listSPCT = serviceSPCT.getAll();
+        listV = voucherRepository.findAll();
+        model.addAttribute("listV", listV);
+        model.addAttribute("trangThai", trangThai);
+        for (HoaDon test: listHD1) {
+            System.out.println(test.getMa());
+        }
+        model.addAttribute("listHD", listHD1);
         model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("listKH", listKH);
-        model.addAttribute("listHD", listPage);
         return "/hoadon/hienThi";
     }
 
@@ -78,46 +112,43 @@ public class HoaDonController {
         return "hoadon/chitiet";
     }
 
-    @GetMapping("/hoa-don/hien-thi/dh")
-    public String hienThiCTT(Model model) {
-        listHuy = sv.getHUy();
-        listKH = repository.findAll();
-        model.addAttribute("listKH", listKH);
-        model.addAttribute("listHD", listHuy);
-        return "/hoadon/hienThi";
-    }
-
-    @GetMapping("/hoa-don/hien-thi/dtt")
-    public String hienThiDTT(Model model) {
-        listDTT = sv.getDTT();
-        listKH = repository.findAll();
-        model.addAttribute("listKH", listKH);
-        model.addAttribute("listHD", listDTT);
-        return "/hoadon/hienThi";
-    }
-
     @GetMapping("/tao-hoa-don/hien-thi")
     public String taoHoaDon(Model model) {
+        Double sum = 0.0;
+        Double tongTien = 0.0;
         listHD = sv.getCHT();
+        listV = voucherRepository.findAll();
         listKH = repository.findAll();
         listSPCT = serviceSPCT.getAll();
         model.addAttribute("listSPCT", listSPCT);
-        if (idHDSelect == null) {
-            if (listHD.size() > 0) {
-                idHDSelect = listHD.get(0).getId();
-            }
-        }
-        Double sum = 0.0;
         List<HoaDonChiTiet> listTT = svHDCT.getListHD(idHDSelect);
         for (HoaDonChiTiet hdct : listTT) {
             sum += hdct.getSanPhamCT().getGia() * hdct.getSoLuong();
         }
+        if (idHDSelect == null) {
+            if (listHD.size() > 0) {
+                idHDSelect = listHD.get(0).getId();
+            }
+        } else {
+            HoaDon hd = sv.detail(idHDSelect);
+            if (hd.getVoucher() != null) {
+                tongTien = sum - (sum / 100 * hd.getVoucher().getGiaTri());
+            } else {
+                tongTien = sum;
+            }
+        }
+
+
         KhachHang kh = sv.layKHchoHD(idHDSelect);
+        Voucher v = sv.layVCchoHD(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
         model.addAttribute("tamTinh", sum);
+        model.addAttribute("tongTien", tongTien);
         model.addAttribute("idHDSelect", idHDSelect);
         model.addAttribute("kh", kh);
+        model.addAttribute("v", v);
         model.addAttribute("listKH", listKH);
+        model.addAttribute("listV", listV);
         model.addAttribute("listHD", listHD);
         model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
@@ -142,11 +173,12 @@ public class HoaDonController {
     }
 
     @PostMapping("/hoa-don/thanh-toan")
-    public String update(@RequestParam("tamTinh") Double tamTinh) {
+    public String update(@RequestParam("tamTinh") Double tamTinh, @RequestParam("tongTien") Double tongTien) {
         HoaDon hd = sv.detail(idHDSelect);
         hd.setTinhTrang(1);
         hd.setNgayThanhToan(new java.util.Date());
         hd.setThanhTien(tamTinh);
+        hd.setTongTien(tongTien);
         if (hd.getKhachHang() == null) {
             hd.setKhachHang(sv.KHL());
         }
@@ -156,10 +188,17 @@ public class HoaDonController {
     }
 
     @PostMapping("/hoa-don/huy")
-    public String huy(@RequestParam("tamTinh") Double tamTinh) {
+    public String huy() {
         HoaDon hd1 = sv.detail(idHDSelect);
+        listHDCT = svHDCT.getListHD(idHDSelect);
+        if (listHDCT != null) {
+            for (HoaDonChiTiet hdct : listHDCT) {
+                SanPhamChiTiet sanPhamChiTiet = serviceSPCT.detail(hdct.getSanPhamCT().getId());
+                sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() + hdct.getSoLuong());
+                serviceSPCT.save(sanPhamChiTiet);
+            }
+        }
         hd1.setTinhTrang(2);
-        hd1.setThanhTien(tamTinh);
         if (hd1.getKhachHang() == null) {
             hd1.setKhachHang(sv.KHL());
         }
@@ -172,7 +211,7 @@ public class HoaDonController {
         SanPhamChiTiet spct = serviceSPCT.detail(spctID);
         for (HoaDonChiTiet hdct : listHDCT) {
             if (hdct.getSanPhamCT().getId() == spctID) {
-                if(spct.getSoLuong() - 1<0){
+                if (spct.getSoLuong() - 1 < 0) {
                     return false;
                 }
                 hdct.setSoLuong(hdct.getSoLuong() + 1);
@@ -213,7 +252,7 @@ public class HoaDonController {
         SanPhamChiTiet spct = serviceSPCT.detail(spctID);
         listHDCT = svHDCT.getListHD(idHDSelect);
         if (kiemTra(listHDCT, spctID)) {
-            if(spct.getSoLuong() - 1<0){
+            if (spct.getSoLuong() - 1 < 0) {
                 return "redirect:/tao-hoa-don/hien-thi";
             }
             hdct.setHoaDon(hd);
@@ -272,4 +311,12 @@ public class HoaDonController {
         return "redirect:/tao-hoa-don/hien-thi";
     }
 
+    @PostMapping("/hoa-don/them-voucher")
+    public String addVC(@RequestParam("VCID") UUID vcid) {
+        HoaDon hd = sv.detail(idHDSelect);
+        Optional<Voucher> vc = voucherRepository.findById(vcid);
+        hd.setVoucher(vc.get());
+        sv.add(hd);
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
 }

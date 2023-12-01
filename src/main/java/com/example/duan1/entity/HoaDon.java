@@ -28,7 +28,7 @@ import java.util.UUID;
 public class HoaDon {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name="id_hoa_don")
+    @Column(name = "id_hoa_don")
     private UUID id;
 
     @ManyToOne
@@ -57,6 +57,9 @@ public class HoaDon {
 
     @Column(name = "thanh_tien")
     private Double thanhTien;
+
+    @Column(name = "tong_tien")
+    private Double tongTien;
 
     @Column(name = "tien_khach_dua")
     private Double tienKhachDua;
