@@ -41,7 +41,6 @@ public class HoaDonChiTiet {
     private Double gia;
 
     @Column(name = "so_luong")
-
     private Integer soLuong;
 
     @Column(name = "trang_thai")

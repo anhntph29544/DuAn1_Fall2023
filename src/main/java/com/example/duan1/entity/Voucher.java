@@ -6,12 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -27,6 +29,9 @@ public class Voucher {
     @Column(name = "id_voucher")
     private UUID id;
 
+    @Column(name = "ma")
+    private String ma;
+
     @Column(name = "so_luong")
     private int soLuong;
 
@@ -34,10 +39,10 @@ public class Voucher {
     private int giaTri;
 
     @Column(name = "ngay_bat_dau")
-    private String ngayBD;
+    private java.sql.Date ngayBD;
 
     @Column(name = "ngay_ket_thuc")
-    private String ngayKT;
+    private java.sql.Date ngayKT;
 
     @Column(name = "trang_thai")
     private int trangThai;
