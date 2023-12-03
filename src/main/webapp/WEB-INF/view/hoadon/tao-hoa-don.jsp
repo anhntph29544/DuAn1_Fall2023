@@ -485,10 +485,14 @@
         const submitButton = document.getElementById('pay');
         const tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value);
         const tongTien = parseFloat('${tongTien}');
-        if (tienKhachDua >= tongTien) {
+        const tamTinh = parseFloat('${tamTinh}');
+        if(tamTinh==0){
+            event.preventDefault();
+            alert("Vui Lòng Chọn Sản Phẩm");
+        }else if (tienKhachDua >= tongTien) {
             submitButton.disabled = false;
             alert("Thanh Toán Thành Công");
-        } else {
+        }else {
             event.preventDefault();
             alert("Vui Lòng Điền Đúng Số Tiền");
         }

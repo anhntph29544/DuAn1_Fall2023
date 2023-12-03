@@ -91,9 +91,6 @@ public class HoaDonController {
         listV = voucherRepository.findAll();
         model.addAttribute("listV", listV);
         model.addAttribute("trangThai", trangThai);
-        for (HoaDon test: listHD1) {
-            System.out.println(test.getMa());
-        }
         model.addAttribute("listHD", listHD1);
         model.addAttribute("listSPCT", listSPCT);
         model.addAttribute("listKH", listKH);
@@ -137,8 +134,6 @@ public class HoaDonController {
                 tongTien = sum;
             }
         }
-
-
         KhachHang kh = sv.layKHchoHD(idHDSelect);
         Voucher v = sv.layVCchoHD(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
