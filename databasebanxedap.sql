@@ -141,8 +141,8 @@ alter table voucher add ma nvarchar(50)
 alter table hoa_don add tong_tien decimal(30),
 INSERT INTO chuc_vu (id_chuc_vu, ma, ten, trang_thai)
 VALUES
-    ('3f3d5487-60c0-4eb8-9004-2023e69cff26', 'CV001', 'Quản lý', 1),
-	('a0b5ab61-0634-436a-b471-f53b29cbdffe', 'CV002', 'Nhân viên', 1)
+    ('3f3d5487-60c0-4eb8-9004-2023e69cff26', 'CV001', N'Quản lý', 1),
+	('a0b5ab61-0634-436a-b471-f53b29cbdffe', 'CV002', N'Nhân viên', 1)
 
 	-- Dữ liệu cho bảng nhan_vien
 INSERT INTO nhan_vien (id_nhan_vien, id_chuc_vu, ma, email, ho_ten, image, cccd, gioi_tinh, ngay_sinh, thanh_pho, huyen, xa, so_nha, sdt, mat_khau, trang_thai)

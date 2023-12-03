@@ -49,12 +49,6 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
     @Query("select hd.voucher from HoaDon hd where hd.id=?1 ")
     Voucher chonVCchoHd(UUID id);
 
-    @Query("SELECT h, nv, kh, hdct FROM HoaDon h " +
-            "JOIN NhanVien nv ON h.nhanVien.idNhanVien = nv.idNhanVien " +
-            "JOIN KhachHang kh ON h.khachHang.idKhachHang = kh.idKhachHang " +
-            "JOIN HoaDonChiTiet hdct ON h.id = hdct.id")
-    List<HoaDon> findAllHoaDon();
-
     @Query("select hd from HoaDon hd where hd.voucher.id = ?1")
     List<HoaDon> getListHDdc(UUID id);
 }

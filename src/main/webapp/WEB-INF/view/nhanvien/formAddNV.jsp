@@ -140,14 +140,7 @@
             <div class="tile">
                 <h3 class="tile-title">Tạo mới nhân viên</h3>
                 <div class="tile-body">
-                    <div class="row element-button">
-                        <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm">
-                                <i class="fas fa-qrcode"></i> Quét Mã QR</a>
-                        </div>
-                    </div>
                     <f:form action="/nhan-vien/save" modelAttribute="nhanVien" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
                         <div class="form-group col-md-4">
                             <label class="control-label">Mã nhân viên</label>
                             <f:input path="ma" cssClass="form-control" pattern="[A-Za-z0-9]+" />
@@ -161,95 +154,66 @@
                         <div class="form-group col-md-4">
                             <label class="control-label">Giới tính</label>
                             <div class="form-check">
-<<<<<<< HEAD
-                                <f:radiobutton path="gioiTinh" value="1" label="nam" cssClass="form-check-input" />
-                                <label class="form-check-label">Nam</label>
-                            </div>
-                            <div class="form-check">
-                                <f:radiobutton path="gioiTinh" value="0" label="nữ" cssClass="form-check-input" />
-=======
                                 <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
                                 <label class="form-check-label">Nam</label>
                             </div>
                             <div class="form-check">
                                 <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
                                 <label class="form-check-label">Nữ</label>
-=======
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Mã nhân viên</label>
-                                <f:input path="ma" cssClass="form-control" pattern="[A-Za-z0-9]+" />
-                                <small class="text-danger"><f:errors path="ma" /></small>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Họ và tên</label>
-                                <f:input path="hoTen" cssClass="form-control" required="true" pattern="^[A-Za-zÀ-ỹ ]+$" />
-                                <small class="text-danger"><f:errors path="hoTen" /></small>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Giới tính</label>
-                                <div class="form-check">
-                                    <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
-                                    <label class="form-check-label">Nam</label>
-                                </div>
-                                <div class="form-check">
-                                    <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
-                                    <label class="form-check-label">Nữ</label>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Email</label>
-                                <f:input path="email" cssClass="form-control" required="true" />
-                                <small class="text-danger"><f:errors path="email" /></small>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Số CCCD</label>
-                                <f:input path="cccd" cssClass="form-control" required="true" />
-                                <small class="text-danger"><f:errors path="cccd" /></small>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Số điện thoại</label>
-                                <f:input path="sdt" cssClass="form-control" required="true" pattern="^\d{10,11}$" />
-                                <small class="text-danger"><f:errors path="sdt" /></small>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Ngày sinh</label>
-                                <f:input path="ngaySinh" cssClass="form-control" required="true" type="date"/>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Thành phố</label>
-                                <f:select path="thanhPho" id="city" cssClass="form-select">
-                                    <%--                                <f:options items="${cities}"  />--%>
-                                    <option value="" selected>Chọn thành phố</option>
-                                </f:select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label  class="control-label">Huyện</label>
-                                <f:select path="huyen" id="district" cssClass="form-select">
-                                    <%--                                <f:options items="${districts}" />--%>
-                                    <option value="" selected>Chọn huyện</option>
-                                </f:select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label  class="control-label">Xã</label>
-                                <f:select path="xa" id="ward" cssClass="form-select">
-                                    <%--                                <f:options items="${wards}" />--%>
-                                    <option value="" selected>Chọn xã</option>
-                                </f:select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Số nhà</label>
-                                <f:input path="soNha" cssClass="form-control" required="true" />
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Chức Vụ</label>
-                                <f:select path="chucVu" class="form-select">
-                                    <c:forEach items="${chucVu}" var="cv">
-                                        <f:option value="${cv.idChucVu}">${cv.tenChucVu}</f:option>
-                                    </c:forEach>
-                                </f:select>
->>>>>>> 072ec5854b3f72718d348ea4c7b2f5f05af86ae8
-                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Email</label>
+                            <f:input path="email" cssClass="form-control" required="true" />
+                            <small class="text-danger"><f:errors path="email" /></small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Số CCCD</label>
+                            <f:input path="cccd" cssClass="form-control" required="true" />
+                            <small class="text-danger"><f:errors path="cccd" /></small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Số điện thoại</label>
+                            <f:input path="sdt" cssClass="form-control" required="true" pattern="^\d{10,11}$" />
+                            <small class="text-danger"><f:errors path="sdt" /></small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ngày sinh</label>
+                            <f:input path="ngaySinh" cssClass="form-control" required="true" type="date"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Thành phố</label>
+                            <f:select path="thanhPho" id="city" cssClass="form-select">
+                                <%--                                <f:options items="${cities}"  />--%>
+                                <option value="" selected>Chọn thành phố</option>
+                            </f:select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label  class="control-label">Huyện</label>
+                            <f:select path="huyen" id="district" cssClass="form-select">
+                                <%--                                <f:options items="${districts}" />--%>
+                                <option value="" selected>Chọn huyện</option>
+                            </f:select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label  class="control-label">Xã</label>
+                            <f:select path="xa" id="ward" cssClass="form-select">
+                                <%--                                <f:options items="${wards}" />--%>
+                                <option value="" selected>Chọn xã</option>
+                            </f:select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Số nhà</label>
+                            <f:input path="soNha" cssClass="form-control" required="true" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Chức Vụ</label>
+                            <f:select path="chucVu" class="form-select">
+                                <c:forEach items="${chucVu}" var="cv">
+                                    <f:option value="${cv.idChucVu}">${cv.tenChucVu}</f:option>
+                                </c:forEach>
+                            </f:select>
+                        </div>
                         <div class="form-group col-md-12">
                             <label class="control-label">Ảnh 3x4 nhân viên</label>
                             <div id="myfileupload">
@@ -268,10 +232,7 @@
                             <f:button type="submit" cssClass="btn btn-info" onclick="if (!(confirm('Bạn có muốn thêm nhân viên mới không?'))) return false">Lưu lại</f:button>
                             <a class="btn btn-cancel" href="/nhan-vien/hien-thi" onclick="if (!(confirm('Bạn có muốn thoát không?'))) return false">Hủy bỏ</a>
                         </div>
-<<<<<<< HEAD
-=======
                         <input type="hidden" name="trangThai" value="${nhanVien.trangThai}" />
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
                     </f:form>
                 </div>
             </div>
@@ -349,7 +310,5 @@
         };
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
-

@@ -70,10 +70,6 @@ public class HoaDonSVImpl implements HoaDonSV {
         return repository.findById(id).get();
     }
 
-    @Override
-    public List<HoaDon> findAllHD() {
-        return repository.findAllHoaDon();
-    }
 
 
     @Override

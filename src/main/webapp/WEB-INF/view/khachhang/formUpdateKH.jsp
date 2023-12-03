@@ -9,6 +9,10 @@
 </head>
 <body>
 <f:form action="/khach-hang/update/${khachHang.idKhachHang}" modelAttribute="khachHang" method="post" enctype="multipart/form-data">
+    <div class="form-group col-md-4" style="display: none;">
+        <label class="control-label">Id Khách Hàng</label>
+        <f:input path="idKhachHang" cssClass="form-control" />
+    </div>
     <div class="form-group col-md-4">
         <label class="control-label">Mã Khách hàng</label>
         <f:input path="ma" cssClass="form-control" pattern="[A-Za-z0-9]+" />
@@ -22,19 +26,11 @@
     <div class="form-group col-md-4">
         <label class="control-label">Giới tính</label>
         <div class="form-check">
-<<<<<<< HEAD
-            <f:radiobutton path="gioiTinh" value="1" label="nam" cssClass="form-check-input" />
-            <label class="form-check-label">Nam</label>
-        </div>
-        <div class="form-check">
-            <f:radiobutton path="gioiTinh" value="0" label="nữ" cssClass="form-check-input" />
-=======
             <f:radiobutton path="gioiTinh" value="0" cssClass="form-check-input" />
             <label class="form-check-label">Nam</label>
         </div>
         <div class="form-check">
             <f:radiobutton path="gioiTinh" value="1" cssClass="form-check-input" />
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
             <label class="form-check-label">Nữ</label>
         </div>
     </div>
@@ -60,37 +56,28 @@
     <div class="form-group col-md-4">
         <label class="control-label">Thành phố</label>
         <f:select path="thanhPho" id="city" cssClass="form-select">
-<<<<<<< HEAD
             <%--<f:options items="${cities}"  />--%>
             <option value="" selected>Chọn thành phố</option>
-=======
             <f:options items="${thanhPho}"  />
-<%--            <option value="" selected>Chọn thành phố</option>--%>
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
+            <%--            <option value="" selected>Chọn thành phố</option>--%>
         </f:select>
     </div>
     <div class="form-group col-md-4">
         <label  class="control-label">Huyện</label>
         <f:select path="huyen" id="district" cssClass="form-select">
-<<<<<<< HEAD
             <%--<f:options items="${districts}" />--%>
             <option value="" selected>Chọn huyện</option>
-=======
             <f:options items="${huyen}" />
-<%--            <option value="" selected>Chọn huyện</option>--%>
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
+            <%--            <option value="" selected>Chọn huyện</option>--%>
         </f:select>
     </div>
     <div class="form-group col-md-4">
         <label  class="control-label">Xã</label>
         <f:select path="xa" id="ward" cssClass="form-select">
-<<<<<<< HEAD
             <%--<f:options items="${wards}" />--%>
             <option value="" selected>Chọn xã</option>
-=======
             <f:options items="${xa}" />
-<%--            <option value="" selected>Chọn xã</option>--%>
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
+            <%--            <option value="" selected>Chọn xã</option>--%>
         </f:select>
     </div>
     <div class="form-group col-md-4">
@@ -100,19 +87,11 @@
     <div class="form-group col-md-4">
         <label class="control-label">Trạng thái</label>
         <div class="form-check">
-<<<<<<< HEAD
-            <f:radiobutton path="trangThai" value="1" cssClass="form-check-input" />
-            <label class="form-check-label">hoạt động</label>
-        </div>
-        <div class="form-check">
-            <f:radiobutton path="trangThai" value="0" cssClass="form-check-input" />
-=======
             <f:radiobutton path="trangThai" value="0" cssClass="form-check-input" />
             <label class="form-check-label">hoạt động</label>
         </div>
         <div class="form-check">
             <f:radiobutton path="trangThai" value="1" cssClass="form-check-input" />
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
             <label class="form-check-label">dừng hoạt động</label>
         </div>
     </div>
@@ -159,13 +138,10 @@
             citis.options.add(opt);
         }
         citis.onchange = function () {
-<<<<<<< HEAD
             district.length = 1;
             ward.length = 1;
-=======
             districts.length = 1;
             wards.length = 1;
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
             if (this.options[this.selectedIndex].dataset.id != "") {
                 const result = data.filter(n => n.Id === this.options[this.selectedIndex].dataset.id);
 
@@ -178,26 +154,24 @@
                 }
             }
         };
-<<<<<<< HEAD
         district.onchange = function () {
             ward.length = 1;
-=======
-        districts.onchange = function () {
-            wards.length = 1;
->>>>>>> 6aa8c36647a190afbe383be2c734c980ae014ac7
-            const dataCity = data.filter((n) => n.Id === citis.options[citis.selectedIndex].dataset.id);
-            if (this.options[this.selectedIndex].dataset.id != "") {
-                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.options[this.selectedIndex].dataset.id)[0].Wards;
+            districts.onchange = function () {
+                wards.length = 1;
+                const dataCity = data.filter((n) => n.Id === citis.options[citis.selectedIndex].dataset.id);
+                if (this.options[this.selectedIndex].dataset.id != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.options[this.selectedIndex].dataset.id)[0].Wards;
 
-                for (const w of dataWards) {
-                    var opt = document.createElement('option');
-                    opt.value = w.Name;
-                    opt.text = w.Name;
-                    opt.setAttribute('data-id', w.Id);
-                    wards.options.add(opt);
+                    for (const w of dataWards) {
+                        var opt = document.createElement('option');
+                        opt.value = w.Name;
+                        opt.text = w.Name;
+                        opt.setAttribute('data-id', w.Id);
+                        wards.options.add(opt);
+                    }
                 }
-            }
-        };
+            };
+        }
     }
 </script>
 </body>

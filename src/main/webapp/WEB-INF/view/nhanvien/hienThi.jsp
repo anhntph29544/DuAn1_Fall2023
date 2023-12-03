@@ -67,7 +67,7 @@
 <jsp:include page="../include/header.jsp"/>
 
 <div class="container">
-<h3>Quản lý Nhân Viên</h3>
+    <h3>Quản lý Nhân Viên</h3>
     <div class="d-flex justify-content-between mb-3 align-items-center">
         <!-- Nút thêm mới khách hàng -->
         <a href="/nhan-vien/showFormForAdd" class="btn btn-primary">Thêm mới nhân viên</a>
@@ -96,57 +96,56 @@
             </div>
         </f:form>
     </div>
-<table class="table">
-    <thead>
-    <tr>
-        <th width="20">STT</th>
-        <th width="20">Ảnh thẻ</th>
-        <th >Mã NV</th>
-        <th >email</th>
-        <th >Họ và tên</th>
-        <th >Ngày sinh</th>
-        <th >Giới Tính</th>
-        <th>Chức vụ</th>
-        <th >SĐT</th>
-        <th >Trạng Thái</th>
-        <th >Thao Tác</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${list}" var="nv" varStatus="status">
+    <table class="table">
+        <thead>
         <tr>
-            <td>${num*sizePage + status.index + 1}</td>
-            <td>
-                <img src="${nv.image}" />
-            </td>
-            <td>${nv.ma}</td>
-            <td>${nv.email}</td>
-            <td>${nv.hoTen}</td>
-            <td>${nv.ngaySinh}</td>
-            <td>${nv.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
-            <td>${nv.chucVu.tenChucVu}</td>
-            <td>${nv.sdt}</td>
-            <td>${nv.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
-            <td class="table-td-center">
-                <a href="/nhan-vien/delete/${nv.idNhanVien}" class="btn btn-primary btn-sm trash"
-                   type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa nhân viên này không?'))) return false">
-                    <label> Xóa</label>
-                </a>
-                <a href="/nhan-vien/detail/${nv.idNhanVien}" class="btn btn-primary btn-sm edit"
-                   type="button" title="Sửa" onclick="if (!(confirm('Bạn có muốn sửa nhân viên này không?'))) return false">
-                    <label> Xem</label>
-                </a>
-            </td>
+            <th width="20">STT</th>
+            <th width="20">Ảnh thẻ</th>
+            <th >Mã NV</th>
+            <th >email</th>
+            <th >Họ và tên</th>
+            <th >Ngày sinh</th>
+            <th >Giới Tính</th>
+            <th>Chức vụ</th>
+            <th >SĐT</th>
+            <th >Trạng Thái</th>
+            <th >Thao Tác</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<div>
-    <c:forEach begin="1" end="${total}" varStatus="stt">
+        </thead>
+        <tbody>
+        <c:forEach items="${list}" var="nv" varStatus="status">
+            <tr>
+                <td>${num*sizePage + status.index + 1}</td>
+                <td>
+                    <img src="${nv.image}" />
+                </td>
+                <td>${nv.ma}</td>
+                <td>${nv.email}</td>
+                <td>${nv.hoTen}</td>
+                <td>${nv.ngaySinh}</td>
+                <td>${nv.gioiTinh == 0 ? 'nam' : 'nữ'}</td>
+                <td>${nv.chucVu.tenChucVu}</td>
+                <td>${nv.sdt}</td>
+                <td>${nv.trangThai == 0 ? 'Hoạt động' : 'Dừng hoạt động'}</td>
+                <td class="table-td-center">
+                    <a href="/nhan-vien/delete/${nv.idNhanVien}" class="btn btn-primary btn-sm trash"
+                       type="button" title="Xóa" onclick="if (!(confirm('Bạn có muốn xóa nhân viên này không?'))) return false">
+                        <label> Xóa</label>
+                    </a>
+                    <a href="/nhan-vien/detail/${nv.idNhanVien}" class="btn btn-primary btn-sm edit"
+                       type="button" title="Sửa" onclick="if (!(confirm('Bạn có muốn sửa nhân viên này không?'))) return false">
+                        <label> Xem</label>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <div>
+        <c:forEach begin="1" end="${total}" varStatus="stt">
             <a> <a href="/nhan-vien/hien-thi?num=${stt.index-1}"> ${stt.index-1}</a> </a>
-    </c:forEach>
+        </c:forEach>
+    </div>
 </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
