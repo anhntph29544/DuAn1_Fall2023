@@ -91,7 +91,7 @@ public class HoaDonController {
         listV = voucherRepository.findAll();
         model.addAttribute("listV", listV);
         model.addAttribute("trangThai", trangThai);
-        for (HoaDon test: listHD1) {
+        for (HoaDon test : listHD1) {
             System.out.println(test.getMa());
         }
         model.addAttribute("listHD", listHD1);
@@ -114,6 +114,7 @@ public class HoaDonController {
 
     @GetMapping("/tao-hoa-don/hien-thi")
     public String taoHoaDon(Model model) {
+        model.addAttribute("nv",TrangChuController.nvDN);
         Double sum = 0.0;
         Double tongTien = 0.0;
         listHD = sv.getCHT();
@@ -138,7 +139,7 @@ public class HoaDonController {
             }
         }
 
-
+        HoaDon hd1 = sv.detail(idHDSelect);
         KhachHang kh = sv.layKHchoHD(idHDSelect);
         Voucher v = sv.layVCchoHD(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
@@ -153,6 +154,8 @@ public class HoaDonController {
         model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
         model.addAttribute("errorSL", errorSL);
+        model.addAttribute("hd1", hd1);
+
         errorSL = 0;
         return "/hoadon/tao-hoa-don";
     }
@@ -314,8 +317,25 @@ public class HoaDonController {
     @PostMapping("/hoa-don/them-voucher")
     public String addVC(@RequestParam("VCID") UUID vcid) {
         HoaDon hd = sv.detail(idHDSelect);
+        if (hd.getVoucher() != null) {
+            Optional<Voucher> vcc = voucherRepository.findById(hd.getVoucher().getId());
+            vcc.get().setSoLuong(vcc.get().getSoLuong() + 1);
+        }
         Optional<Voucher> vc = voucherRepository.findById(vcid);
+        vc.get().setSoLuong(vc.get().getSoLuong() - 1);
         hd.setVoucher(vc.get());
+        sv.add(hd);
+        return "redirect:/tao-hoa-don/hien-thi";
+    }
+
+    @GetMapping("/huy/voucher")
+    public String huyvc() {
+        HoaDon hd = sv.detail(idHDSelect);
+        if (hd.getVoucher() != null) {
+            Optional<Voucher> vcc = voucherRepository.findById(hd.getVoucher().getId());
+            vcc.get().setSoLuong(vcc.get().getSoLuong() + 1);
+        }
+        hd.setVoucher(null);
         sv.add(hd);
         return "redirect:/tao-hoa-don/hien-thi";
     }

@@ -26,14 +26,13 @@ public interface HoaDonSV {
 
     HoaDon detail(UUID id);
 
-    List<HoaDon> findAllHD();
-
     KhachHang KHL();
 
     Page<HoaDon> getDataPT(int page);
 
     List<HoaDon> getNgay();
-List<HoaDon>getCHT();
+
+    List<HoaDon> getCHT();
 
     KhachHang layKHchoHD(UUID id);
 

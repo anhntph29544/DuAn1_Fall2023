@@ -32,7 +32,8 @@ public class KhachHang {
     private String ma;
 
     @Column(name = "ten")
-    private String hoTen;;
+    private String hoTen;
+    ;
 
     @Column(name = "image")
     private String image;
@@ -57,7 +58,8 @@ public class KhachHang {
 
     @Column(name = "xa")
     private String xa;
-
+    @Column(name = "cccd")
+    private String cccd;
     @Column(name = "so_nha")
     private String soNha;
 

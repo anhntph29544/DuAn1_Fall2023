@@ -107,8 +107,8 @@
         <th scope="col">Giá trị</th>
         <th scope="col">Ngày Bắt Đầu</th>
         <th scope="col">Ngày Kết Thúc</th>
-        <th scope="col">trang thai</th>
-        <th scope="col">action</th>
+        <th scope="col">Trạng Thái</th>
+        <th scope="col">Hoạt Động</th>
     </tr>
     </thead>
     <tbody>
@@ -123,13 +123,13 @@
             <td>${vc.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>
             <td>
                 <a href="/voucher/view-update/${vc.id}">
-                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-primary">Sửa</button>
                 </a>
                 <a href="/voucher/detail/${vc.id}">
-                    <button class="btn btn-primary">Detail</button>
+                    <button class="btn btn-primary">Xem Chi Tiết</button>
                 </a>
                 <a href="/voucher/delete/${vc.id}">
-                    <button class="btn btn-primary">Xóa</button>
+                    <button class="btn btn-primary">Hủy</button>
                 </a>
             </td>
         </tr>
