@@ -30,6 +30,7 @@
 <body>
 <jsp:include page="../include/header.jsp"/>
 <div class="container" style="margin-top: 10px">
+    <h1>${nv.hoTen}</h1>
     <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <c:if test="${listHD.size()>0}">
@@ -192,10 +193,19 @@
                                 class="bi bi-search"></i>Khách Hàng
                         </button>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#themVC"><i
                                 class="bi bi-file-earmark-diff-fill"></i>Voucher
                         </button>
+                    </div>
+                    <div class="col-md-6">
+                        <c:if test="${hd1.voucher!=null}">
+                            <form action="/huy/voucher" method="get">
+                                <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hủy Voucher"
+                                        type="submit" class="btn btn-danger"><i class="bi bi-x-square"></i> Hủy
+                                </button>
+                            </form>
+                        </c:if>
                     </div>
                     <br>
                 </div>
@@ -318,11 +328,13 @@
                                             <td>
                                                 <form action="/hoa-don/them-voucher" method="post">
                                                     <input name="VCID" value="${v.id}" hidden>
-                                                    <button class="btn btn-warning" data-bs-toggle="tooltip"
-                                                            data-bs-placement="right"
-                                                            title="Chọn">
-                                                        <i class="bi bi-plus"></i>
-                                                    </button>
+                                                    <c:if test="${v.soLuong>0}">
+                                                        <button class="btn btn-warning" data-bs-toggle="tooltip"
+                                                                data-bs-placement="right"
+                                                                title="Chọn">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </c:if>
                                                 </form>
 
                                             </td>
@@ -485,7 +497,10 @@
         const submitButton = document.getElementById('pay');
         const tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value);
         const tongTien = parseFloat('${tongTien}');
-        if (tienKhachDua >= tongTien) {
+        if (tongTien == 0) {
+            event.preventDefault();
+            alert("Vui Lòng Thêm Sản Phẩm Vào Giỏ");
+        } else if (tienKhachDua >= tongTien) {
             submitButton.disabled = false;
             alert("Thanh Toán Thành Công");
         } else {

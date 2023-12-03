@@ -21,116 +21,116 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"></head>
-    <script>
+<script>
 
-        function readURL(input, thumbimage) {
-            if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $("#thumbimage").attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
+    function readURL(input, thumbimage) {
+        if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#thumbimage").attr('src', e.target.result);
             }
-            else { // Sử dụng cho IE
-                $("#thumbimage").attr('src', input.value);
-
-            }
-            $("#thumbimage").show();
-            $('.filename').text($("#uploadfile").val());
-            $('.Choicefile').css('background', '#14142B');
-            $('.Choicefile').css('cursor', 'default');
-            $(".removeimg").show();
-            $(".Choicefile").unbind('click');
+            reader.readAsDataURL(input.files[0]);
+        }
+        else { // Sử dụng cho IE
+            $("#thumbimage").attr('src', input.value);
 
         }
-        $(document).ready(function () {
+        $("#thumbimage").show();
+        $('.filename').text($("#uploadfile").val());
+        $('.Choicefile').css('background', '#14142B');
+        $('.Choicefile').css('cursor', 'default');
+        $(".removeimg").show();
+        $(".Choicefile").unbind('click');
+
+    }
+    $(document).ready(function () {
+        $(".Choicefile").bind('click', function () {
+            $("#uploadfile").click();
+
+        });
+        $(".removeimg").click(function () {
+            $("#thumbimage").attr('src', '').hide();
+            $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+            $(".removeimg").hide();
             $(".Choicefile").bind('click', function () {
                 $("#uploadfile").click();
-
             });
-            $(".removeimg").click(function () {
-                $("#thumbimage").attr('src', '').hide();
-                $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
-                $(".removeimg").hide();
-                $(".Choicefile").bind('click', function () {
-                    $("#uploadfile").click();
-                });
-                $('.Choicefile').css('background', '#14142B');
-                $('.Choicefile').css('cursor', 'pointer');
-                $(".filename").text("");
-            });
-        })
-    </script>
-    <style>
-        .Choicefile {
-            display: block;
-            background: #14142B;
-            border: 1px solid #fff;
-            color: #fff;
-            width: 150px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 5px 0px;
-            border-radius: 5px;
-            font-weight: 500;
-            align-items: center;
-            justify-content: center;
-        }
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'pointer');
+            $(".filename").text("");
+        });
+    })
+</script>
+<style>
+    .Choicefile {
+        display: block;
+        background: #14142B;
+        border: 1px solid #fff;
+        color: #fff;
+        width: 150px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 5px 0px;
+        border-radius: 5px;
+        font-weight: 500;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .Choicefile:hover {
-            text-decoration: none;
-            color: white;
-        }
+    .Choicefile:hover {
+        text-decoration: none;
+        color: white;
+    }
 
-        #uploadfile,
-        .removeimg {
-            display: none;
-        }
+    #uploadfile,
+    .removeimg {
+        display: none;
+    }
 
-        #thumbbox {
-            position: relative;
-            width: 100%;
-            margin-bottom: 20px;
-        }
+    #thumbbox {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+    }
 
-        .removeimg {
-            height: 25px;
-            position: absolute;
-            background-repeat: no-repeat;
-            top: 5px;
-            left: 5px;
-            background-size: 25px;
-            width: 25px;
-            /* border: 3px solid red; */
-            border-radius: 50%;
+    .removeimg {
+        height: 25px;
+        position: absolute;
+        background-repeat: no-repeat;
+        top: 5px;
+        left: 5px;
+        background-size: 25px;
+        width: 25px;
+        /* border: 3px solid red; */
+        border-radius: 50%;
 
-        }
+    }
 
-        .removeimg::before {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            content: '';
-            border: 1px solid red;
-            background: red;
-            text-align: center;
-            display: block;
-            margin-top: 11px;
-            transform: rotate(45deg);
-        }
+    .removeimg::before {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        content: '';
+        border: 1px solid red;
+        background: red;
+        text-align: center;
+        display: block;
+        margin-top: 11px;
+        transform: rotate(45deg);
+    }
 
-        .removeimg::after {
-            /* color: #FFF; */
-            /* background-color: #DC403B; */
-            content: '';
-            background: red;
-            border: 1px solid red;
-            text-align: center;
-            display: block;
-            transform: rotate(-45deg);
-            margin-top: -2px;
-        }
-    </style>
+    .removeimg::after {
+        /* color: #FFF; */
+        /* background-color: #DC403B; */
+        content: '';
+        background: red;
+        border: 1px solid red;
+        text-align: center;
+        display: block;
+        transform: rotate(-45deg);
+        margin-top: -2px;
+    }
+</style>
 </head>
 <body class="app sidebar-mini rtl">
 <main class="app-content">
@@ -189,21 +189,21 @@
                         <div class="form-group col-md-4">
                             <label class="control-label">Thành phố</label>
                             <f:select path="thanhPho" id="city" cssClass="form-select">
-<%--                                <f:options items="${cities}"  />--%>
+                                <%--                                <f:options items="${cities}"  />--%>
                                 <option value="" selected>Chọn thành phố</option>
                             </f:select>
                         </div>
                         <div class="form-group col-md-4">
                             <label  class="control-label">Huyện</label>
                             <f:select path="huyen" id="district" cssClass="form-select">
-<%--                                <f:options items="${districts}" />--%>
+                                <%--                                <f:options items="${districts}" />--%>
                                 <option value="" selected>Chọn huyện</option>
                             </f:select>
                         </div>
                         <div class="form-group col-md-4">
                             <label  class="control-label">Xã</label>
                             <f:select path="xa" id="ward" cssClass="form-select">
-<%--                                <f:options items="${wards}" />--%>
+                                <%--                                <f:options items="${wards}" />--%>
                                 <option value="" selected>Chọn xã</option>
                             </f:select>
                         </div>

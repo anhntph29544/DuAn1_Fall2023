@@ -68,7 +68,6 @@
     </style>
 </head>
 <body>
-<jsp:include page="../include/header.jsp"/>
 
 <form action="/voucher/update" method="post"  modelAttribute ="vc">
     Mã: <input type="text" name="ma" value="${vc.ma}">
