@@ -17,16 +17,16 @@ import java.util.UUID;
 public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
 
     @Query("Select hd from HoaDon hd where hd.tinhTrang=0 order by hd.ngayThem asc")
-    public List<HoaDon> CTT();
+    List<HoaDon> CTT();
 
     @Query("Select hd from HoaDon hd where hd.tinhTrang=?1 order by hd.ngayThem asc")
-    public List<HoaDon> ttHD(Integer trangThai);
+    List<HoaDon> ttHD(Integer trangThai);
 
-    @Query("SELECT hd from HoaDon hd where hd.ngayThem between ?1 and ?2 order by hd.ngayThem desc")
-    public List<HoaDon> search(Date ngayBD, Date ngayKT);
+    @Query("SELECT hd from HoaDon hd where hd.ngayThem between ?1 and ?2 order by hd.ngayThem")
+    List<HoaDon> search(Date ngayBD, Date ngayKT);
 
-    @Query("SELECT hd from HoaDon hd where hd.ngayThem between ?1 and ?2 and hd.tinhTrang=?3 order by hd.ngayThem desc")
-    public List<HoaDon> search2(Date ngayBD, Date ngayKT, Integer tinhTrang);
+    @Query("SELECT hd from HoaDon hd where hd.ngayThem between ?1 and ?2 and hd.tinhTrang=?3 order by hd.ngayThem")
+    List<HoaDon> search2(Date ngayBD, Date ngayKT, Integer tinhTrang);
 
     @Query("select hd from HoaDon hd where hd.khachHang.email = ?1 or hd.khachHang.sdt=?1")
     KhachHang search(String email);
@@ -50,5 +50,5 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
     Voucher chonVCchoHd(UUID id);
 
     @Query("select hd from HoaDon hd where hd.voucher.id = ?1")
-    public List<HoaDon> getListHDdc(UUID id);
+    List<HoaDon> getListHDdc(UUID id);
 }
