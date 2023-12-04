@@ -40,14 +40,14 @@ public class Voucher {
     private String ma;
 
     @Column(name = "so_luong")
-    @NotEmpty(message = "Không được trống")
+    @NotNull(message = "Không được trống")
     @Min(value = 1, message = "Số lượng phải lớn hơn 0")
-    private String soLuong;
+    private Integer soLuong;
 
     @Column(name = "gia_tri")
-    @NotEmpty(message = "Không được trống")
+    @NotNull(message = "Không được trống")
     @Range(min = 1, max = 100, message = "Giá trị phải nằm trong khoảng từ 1 đến 100")
-    private String giaTri;
+    private Double giaTri;
 
     @Column(name = "ngay_bat_dau")
 //    @NotEmpty(message = "Không được trống")

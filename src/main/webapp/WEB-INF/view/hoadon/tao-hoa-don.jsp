@@ -30,7 +30,6 @@
 <body>
 <jsp:include page="../include/header.jsp"/>
 <div class="container" style="margin-top: 10px">
-    <h1>${nv.hoTen}</h1>
     <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <c:if test="${listHD.size()>0}">
@@ -199,7 +198,7 @@
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <c:if test="${hd1.voucher!=null}">
+                        <c:if test="${v!=null}">
                             <form action="/huy/voucher" method="get">
                                 <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hủy Voucher"
                                         type="submit" class="btn btn-danger"><i class="bi bi-x-square"></i> Hủy

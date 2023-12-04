@@ -25,7 +25,6 @@ public class QLHoaDon {
     public ResponseEntity<Object> add(@RequestBody HoaDon h) {
 //        HoaDon h = new HoaDon();
 //        h.setTinhTrang(0);
-
         hoaDonSV.add(h);
         ResponseHoaDon<HoaDon> responseHoaDon = new ResponseHoaDon<HoaDon>("success", h);
         return new ResponseEntity<Object>(responseHoaDon, HttpStatus.OK);

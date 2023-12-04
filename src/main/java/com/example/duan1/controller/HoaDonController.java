@@ -49,6 +49,7 @@ public class HoaDonController {
     private List<HoaDonChiTiet> listHDCT1 = new ArrayList<>();
     @Autowired
     private VoucherRepository voucherRepository;
+    @Autowired
     private VoucherService voucherService;
     private List<Voucher> listV = new ArrayList<>();
     @Autowired
@@ -111,7 +112,6 @@ public class HoaDonController {
 
     @GetMapping("/tao-hoa-don/hien-thi")
     public String taoHoaDon(Model model) {
-        model.addAttribute("nv",TrangChuController.nvDN);
         Double sum = 0.0;
         Double tongTien = 0.0;
         listHD = sv.getCHT();
@@ -119,15 +119,25 @@ public class HoaDonController {
         listKH = repository.findAll();
         listSPCT = serviceSPCT.getAll();
         model.addAttribute("listSPCT", listSPCT);
-        List<HoaDonChiTiet> listTT = svHDCT.getListHD(idHDSelect);
-        for (HoaDonChiTiet hdct : listTT) {
-            sum += hdct.getSanPhamCT().getGia() * hdct.getSoLuong();
-        }
         if (idHDSelect == null) {
             if (listHD.size() > 0) {
                 idHDSelect = listHD.get(0).getId();
+                HoaDon hd = sv.detail(idHDSelect);
+                List<HoaDonChiTiet> listTT = svHDCT.getListHD(idHDSelect);
+                for (HoaDonChiTiet hdct : listTT) {
+                    sum += hdct.getSanPhamCT().getGia() * hdct.getSoLuong();
+                }
+                if (hd.getVoucher() != null) {
+                    tongTien = sum - (sum / 100 * hd.getVoucher().getGiaTri());
+                } else {
+                    tongTien = sum;
+                }
             }
         } else {
+            List<HoaDonChiTiet> listTT = svHDCT.getListHD(idHDSelect);
+            for (HoaDonChiTiet hdct : listTT) {
+                sum += hdct.getSanPhamCT().getGia() * hdct.getSoLuong();
+            }
             HoaDon hd = sv.detail(idHDSelect);
             if (hd.getVoucher() != null) {
                 tongTien = sum - (sum / 100 * hd.getVoucher().getGiaTri());
@@ -135,7 +145,6 @@ public class HoaDonController {
                 tongTien = sum;
             }
         }
-        HoaDon hd1 = sv.detail(idHDSelect);
         KhachHang kh = sv.layKHchoHD(idHDSelect);
         Voucher v = sv.layVCchoHD(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
@@ -150,7 +159,6 @@ public class HoaDonController {
         model.addAttribute("listHDCT", listHDCT);
         model.addAttribute("hd", new HoaDon());
         model.addAttribute("errorSL", errorSL);
-        model.addAttribute("hd1", hd1);
         errorSL = 0;
         return "/hoadon/tao-hoa-don";
     }
@@ -189,6 +197,11 @@ public class HoaDonController {
     public String huy() {
         HoaDon hd1 = sv.detail(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
+        if (hd1.getVoucher()!= null){
+            Voucher v= hd1.getVoucher();
+            v.setSoLuong(v.getSoLuong()+1);
+            voucherService.save(v);
+        }
         if (listHDCT != null) {
             for (HoaDonChiTiet hdct : listHDCT) {
                 SanPhamChiTiet sanPhamChiTiet = serviceSPCT.detail(hdct.getSanPhamCT().getId());
