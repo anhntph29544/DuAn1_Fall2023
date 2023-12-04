@@ -30,6 +30,7 @@
 <body>
 <jsp:include page="../include/header.jsp"/>
 <div class="container" style="margin-top: 10px">
+    <h1>${nv.hoTen}</h1>
     <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <c:if test="${listHD.size()>0}">
@@ -80,7 +81,9 @@
                 </button>
                 <c:if test="${errorSL==1}">
                     <div class="alert alert-danger d-flex" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                             class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+                             aria-label="Warning:">
                             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                         </svg>
                         <div>Số lượng sản phẩm còn lại không đủ</div>
@@ -88,7 +91,9 @@
                 </c:if>
                 <c:if test="${errorSL==2}">
                     <div class="alert alert-danger d-flex" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                             class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+                             aria-label="Warning:">
                             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                         </svg>
                         <div>Số lượng phải lớn hơn 0</div>
@@ -181,10 +186,29 @@
                 <!--Thông tin thanh toán và khách hàng-->
                 <h3>Thanh Toán</h3>
                 <!--Thông tin thanh toán và khách hàng-->
-                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themKH"><i
-                        class="bi bi-search"></i>Chọn Khách Hàng
-                </button>
-                <br>
+                <div class="row">
+                    <div class="col-md-7">
+                        <button style="margin-bottom: 3px" type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#themKH"><i
+                                class="bi bi-search"></i>Khách Hàng
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#themVC"><i
+                                class="bi bi-file-earmark-diff-fill"></i>Voucher
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <c:if test="${hd1.voucher!=null}">
+                            <form action="/huy/voucher" method="get">
+                                <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hủy Voucher"
+                                        type="submit" class="btn btn-danger"><i class="bi bi-x-square"></i> Hủy
+                                </button>
+                            </form>
+                        </c:if>
+                    </div>
+                    <br>
+                </div>
                 <!--modal-->
                 <div class="modal fade" id="themKH" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -227,7 +251,7 @@
                                             <td>${kh.hoTen}</td>
                                             <td>${kh.sdt}</td>
                                             <td>${kh.soNha}</td>
-                                            <td>${spct.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
+                                            <td>${kh.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
                                             <td>
                                                 <form action="/hoa-don/them-khach-hang" method="post">
                                                     <input name="KHID" value="${kh.idKhachHang}" hidden>
@@ -248,6 +272,9 @@
                     </div>
                 </div>
                 <td>
+                    Mã Voucher : ${v.ma}<br>
+                </td>
+                <td>
                     Tên Khách Hàng: ${kh.hoTen}<br>
                 </td>
                 <td>
@@ -257,29 +284,97 @@
                     SDT Khách Hàng: ${kh.sdt}<br>
                 </td>
                 <!--het modal-->
+                <!--modal voucher-->
+                <div class="modal fade" id="themVC" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Nhập mã voucher"
+                                               aria-describedby="button-addon4">
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon4">Tìm
+                                            kiếm
+                                        </button>
+                                    </div>
+                                </form>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã</th>
+                                        <th>Giá Trị</th>
+                                        <th>Số Lượng</th>
+                                        <th>Ngày Bắt Đầu</th>
+                                        <th>Ngày Kết Thúc</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${listV}" var="v" varStatus="stt">
+                                        <tr>
+                                            <td>${stt.index+1}</td>
+                                            <td>${v.ma}</td>
+                                            <td>Giảm ${v.giaTri}%</td>
+                                            <td>${v.soLuong}</td>
+                                            <td>${v.ngayBD}</td>
+                                            <td>${v.ngayKT}</td>
+                                            <td>${v.trangThai==0? "Hoạt động" : "Không hoạt động"}</td>
+                                            <td>
+                                                <form action="/hoa-don/them-voucher" method="post">
+                                                    <input name="VCID" value="${v.id}" hidden>
+                                                    <c:if test="${v.soLuong>0}">
+                                                        <button class="btn btn-warning" data-bs-toggle="tooltip"
+                                                                data-bs-placement="right"
+                                                                title="Chọn">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </c:if>
+                                                </form>
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--het modal-->
+
                 <label>Tạm Tính : <fmt:formatNumber type="number" value="${tamTinh}"/> VND</label><br>
                 <input type="number" id="tamTinh" value="${tamTinh}" hidden>
-                <label>Tổng Tiền: </label><br>
+                <label>Tổng Tiền : <fmt:formatNumber type="number" value="${tongTien}"/> VND</label><br>
+                <input type="number" id="tongTien" value="${tongTien}" hidden>
                 <label>
-                    Tiền Khách Đưa: <input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number" name="tienKhachDua">
+                    Tiền Khách Đưa: <input id="tienKhachDua" placeholder="Tiền Khách Cần Trả" type="number"
+                                           name="tienKhachDua">
                 </label><br>
                 <label>
                     Tiền Trả Lại: <label id="tienTraLai"></label>
                 </label><br>
                 <div class="row">
-                <form class="col-md-6" action="/hoa-don/thanh-toan" method="post">
-                    <input hidden value="${tamTinh}" name="tamTinh">
-                    <button id="pay" type="submit" class="btn btn-primary"><i
-                            class="bi bi-wallet-fill"></i> Thanh Toán
-                    </button>
-                </form>
-                <form class="col-md-6" action="/hoa-don/huy" method="post">
-                    <input hidden value="${tamTinh}" name="tamTinh">
-                    <button id="huy" type="submit" class="btn btn-danger">
-                        <i class="bi bi-x-square"></i>
-                        Hủy
-                    </button>
-                </form>
+                    <form class="col-md-7" action="/hoa-don/thanh-toan" method="post">
+                        <input hidden value="${tamTinh}" name="tamTinh">
+                        <input hidden value="${tongTien}" name="tongTien">
+                        <button id="pay" type="submit" class="btn btn-success"><i
+                                class="bi bi-wallet-fill"></i> Thanh Toán
+                        </button>
+                    </form>
+                    <form class="col-md-5" action="/hoa-don/huy" method="post">
+                        <input hidden value="${tamTinh}" name="tamTinh">
+                        <button onclick="return confirm('Bạn Chắc Chắn Muốn Hủy?')" id="huy" type="submit"
+                                class="btn btn-danger">
+                            <i class="bi bi-x-square"></i>
+                            Hủy
+                        </button>
+                    </form>
                 </div>
             </c:if>
         </div>
@@ -302,7 +397,9 @@
                     </div>
                 </div>
                 <script src="https://unpkg.com/html5-qrcode"></script>
-                <script type="text/javascript"><%@include file="script.js" %></script>
+                <script type="text/javascript">
+                    <%@include file="script.js" %>
+                </script>
             </div>
         </div>
     </div>
@@ -358,10 +455,13 @@
                             <td>
                                 <form action="/hoa-don/them-san-pham" method="post">
                                     <input name="spctID" value="${spct.id}" hidden>
-                                    <button class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="Thêm vào giỏ hàng">
-                                        <i class="bi bi-cart-plus"></i>
-                                    </button>
+                                    <c:if test="${spct.soLuong>0}">
+                                        <button class="btn btn-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="right"
+                                                title="Thêm vào giỏ hàng">
+                                            <i class="bi bi-cart-plus"></i>
+                                        </button>
+                                    </c:if>
                                 </form>
                             </td>
                         </tr>
@@ -396,21 +496,28 @@
     document.getElementById('pay').addEventListener('click', function Pay() {
         const submitButton = document.getElementById('pay');
         const tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value);
+        const tongTien = parseFloat('${tongTien}');
         const tamTinh = parseFloat('${tamTinh}');
-        if (tienKhachDua >= tamTinh) {
+        if(tamTinh==0){
+            event.preventDefault();
+            alert("Vui Lòng Chọn Sản Phẩm");
+        }else if (tienKhachDua >= tongTien) {
             submitButton.disabled = false;
             alert("Thanh Toán Thành Công");
-        } else {
+        }else {
             event.preventDefault();
             alert("Vui Lòng Điền Đúng Số Tiền");
         }
 
     });
-    const tienKhachDua= document.getElementById("tienKhachDua");
-    const tienTraLai= document.getElementById("tienTraLai");
-    const tamTinh= document.getElementById("tamTinh").value;
-    tienKhachDua.addEventListener("input", ()=>{
-        tienTraLai.innerHTML= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tienKhachDua.value- tamTinh);
+    const tienKhachDua = document.getElementById("tienKhachDua");
+    const tienTraLai = document.getElementById("tienTraLai");
+    const tongTien = document.getElementById("tongTien").value;
+    tienKhachDua.addEventListener("input", () => {
+        tienTraLai.innerHTML = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(tienKhachDua.value - tongTien);
     })
 </script>
 </body>

@@ -45,6 +45,7 @@ public class VoucherController {
     }
 
     @PostMapping("/voucher/add")
+
     public String add(@Valid @ModelAttribute("vc") Voucher vc, BindingResult bindingResult, Model model,
                       RedirectAttributes redirectAttributes
                       )  {
@@ -89,6 +90,7 @@ public class VoucherController {
     }
 
     @PostMapping("/voucher/update")
+
     public String update(@Valid @ModelAttribute("vc") Voucher vc) {
         java.util.Date ngayHienTaiUtil = new java.util.Date();
         Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
@@ -103,7 +105,7 @@ public class VoucherController {
                     .trangThai(0)
                     .build();
             service.save(vc1);
-        }else {
+        } else {
             Voucher vc1 = Voucher.builder()
                     .id(idCu)
                     .ma(vc.getMa())
@@ -120,14 +122,17 @@ public class VoucherController {
 
     @GetMapping("/voucher/delete/{id}")
     public String remove(@PathVariable("id") UUID id) {
-        service.delete(id);
+        Voucher vc = service.detail(id);
+        vc.setTrangThai(1);
+        service.save(vc);
         return "redirect:/voucher/hien-thi";
     }
+
     @GetMapping("/voucher/search")
-    public String search(@RequestParam("ngayBD")Date ngayBD,@RequestParam("ngayKT")Date ngayKT,Model model,
-                         @RequestParam(name = "page", defaultValue = "0") int page){
-        Page<Voucher> voucher = service.search(ngayBD,ngayKT,page);
-        model.addAttribute("list",voucher);
+    public String search(@RequestParam("ngayBD") Date ngayBD, @RequestParam("ngayKT") Date ngayKT, Model model,
+                         @RequestParam(name = "page", defaultValue = "0") int page) {
+        Page<Voucher> voucher = service.search(ngayBD, ngayKT, page);
+        model.addAttribute("list", voucher);
         return "/voucher/voucher";
     }
 }

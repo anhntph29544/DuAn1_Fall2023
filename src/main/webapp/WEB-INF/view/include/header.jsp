@@ -25,7 +25,7 @@
                         <li><a class="dropdown-item" href="/shop-xe/san-pham">Quản Lý Sản Phẩm</a>
                         </li>
                         <li><a class="dropdown-item" href="#">Thống Kê</a></li>
-                        <li><a class="dropdown-item" href="">Quản Lý Voucher</a></li>
+                        <li><a class="dropdown-item" href="/voucher/hien-thi">Quản Lý Voucher</a></li>
                         <li><a class="dropdown-item" href="/hoa-don/hien-thi">Quản Lý Hóa Đơn</a></li>
 
                     </ul>
