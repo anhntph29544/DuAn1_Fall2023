@@ -114,7 +114,10 @@
                     <th>Ảnh</th>
                     <th>Sản Phẩm</th>
                     <th>Số Lượng</th>
-                    <th><Thành></Thành> Tiền</th>
+                    <th>
+                        <Thành></Thành>
+                        Tiền
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
