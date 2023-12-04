@@ -1,5 +1,6 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,9 +11,10 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <style>
-        body{
+        body {
             margin: 0px 20px;
         }
+
         h1, h3 {
             text-align: center;
         }
@@ -39,6 +41,13 @@
             margin-bottom: 20px;
             border: 1px solid #000000;
         }
+        .form-text{
+            color: red;
+            margin-bottom: 10px;
+        }
+        .input-group mb-3{
+            margin-bottom: 0px;
+        }
     </style>
 
 </head>
@@ -63,38 +72,43 @@
         </form>
     </div>
     <div class="them">
-        <form action="/voucher/add" method="post" modelAttribute="vc">
+        <form:form action="/voucher/add" method="post" modelAttribute="vc">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon9">Mã</span>
-                <input type="text" name="ma" value="${vc.ma}" class="form-control" placeholder="Mã"
-                       aria-label="Username" aria-describedby="basic-addon1">
+                <form:input type="text" path="ma" class="form-control" placeholder="Mã"
+                            aria-label="Username" aria-describedby="basic-addon1" />
             </div>
+            <div class="form-text"><form:errors path="ma"/></div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Số Lượng</span>
-                <input type="text" name="soLuong" value="${vc.soLuong}" class="form-control" placeholder="Số Lượng"
-                       aria-label="Username" aria-describedby="basic-addon1">
+                <form:input type="text" path="soLuong" class="form-control" placeholder="Số Lượng"
+                       aria-label="Username" aria-describedby="basic-addon1"/><br>
             </div>
+            <div class="form-text"><form:errors path="soLuong"/></div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon2">Giá Trị</span>
-                <input type="text" name="giaTri" value="${vc.giaTri}" class="form-control" placeholder="Giá Trị"
-                       aria-label="Username" aria-describedby="basic-addon1">
+                <form:input type="text" path="giaTri" class="form-control" placeholder="Giá Trị"
+                       aria-label="Username" aria-describedby="basic-addon1"/><br>
             </div>
+            <div class="form-text"><form:errors path="giaTri"/></div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Ngày Bắt Đầu</span>
-                <input type="date" name="ngayBD" value="${vc.ngayBD}" class="form-control" placeholder="Username"
-                       aria-label="Username" aria-describedby="basic-addon1">
+                <form:input type="date" path="ngayBD" class="form-control" placeholder="Username"
+                       aria-label="Username" aria-describedby="basic-addon1"/>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon4">Ngày Kết Thúc</span>
-                <input type="date" name="ngayKT" value="${vc.ngayKT}" class="form-control" placeholder="Username"
-                       aria-label="Username" aria-describedby="basic-addon1">
+                <form:input type="date" path="ngayKT" class="form-control" placeholder="Username"
+                       aria-label="Username" aria-describedby="basic-addon1"/>
             </div>
+<%--            <div class="form-text"><form:errors path="ngayKT"/></div>--%>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="submit" class="btn btn-primary">Thêm</button>
             </div>
-        </form>
+        </form:form>
     </div>
 </div>
+
 <h3>Danh Sách Vorcher</h3>
 <table class="table" border="1">
     <thead>
@@ -146,5 +160,6 @@
         </ul>
     </nav>
 </div>
+
 </body>
 </html>

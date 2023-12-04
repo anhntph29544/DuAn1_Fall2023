@@ -5,18 +5,21 @@ import com.example.duan1.service.VoucherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.util.UUID;
-
+@EnableScheduling
 @Controller
 public class VoucherController {
     @Autowired
@@ -27,6 +30,10 @@ public class VoucherController {
     public String hienthi(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
         Page<Voucher> voucher = service.getDate(page);
         model.addAttribute("list", voucher);
+        if (!model.containsAttribute("vc")
+        ){
+            model.addAttribute("vc", new Voucher());
+        }
         return "/voucher/voucher";
     }
 
@@ -38,31 +45,38 @@ public class VoucherController {
     }
 
     @PostMapping("/voucher/add")
-    public String add(@Valid @ModelAttribute("vc") Voucher vc,
-                      @RequestParam("ngayBD")Date ngayBD,@RequestParam("ngayKT")Date ngayKT) {
+    public String add(@Valid @ModelAttribute("vc") Voucher vc, BindingResult bindingResult, Model model,
+                      RedirectAttributes redirectAttributes
+                      )  {
         java.util.Date ngayHienTaiUtil = new java.util.Date();
         Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
-        if (ngayHienTai.after(ngayBD)&& ngayHienTai.before(ngayKT)) {
-            Voucher vc1 = Voucher.builder()
-                    .ma(vc.getMa())
-                    .soLuong(vc.getSoLuong())
-                    .giaTri(vc.getGiaTri())
-                    .ngayBD(vc.getNgayBD())
-                    .ngayKT(vc.getNgayKT())
-                    .trangThai(0)
-                    .build();
-            service.save(vc1);
-        }else {
-            Voucher vc1 = Voucher.builder()
-                    .ma(vc.getMa())
-                    .soLuong(vc.getSoLuong())
-                    .giaTri(vc.getGiaTri())
-                    .ngayBD(vc.getNgayBD())
-                    .ngayKT(vc.getNgayKT())
-                    .trangThai(1)
-                    .build();
-            service.save(vc1);
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vc", bindingResult);
+            redirectAttributes.addFlashAttribute("vc", vc);
+        } else {
+            if (ngayHienTai.after(vc.getNgayBD())&& ngayHienTai.before(vc.getNgayKT())) {
+                Voucher vc1 = Voucher.builder()
+                        .ma(vc.getMa())
+                        .soLuong(vc.getSoLuong())
+                        .giaTri(vc.getGiaTri())
+                        .ngayBD(vc.getNgayBD())
+                        .ngayKT(vc.getNgayKT())
+                        .trangThai(0)
+                        .build();
+                service.save(vc1);
+            }else {
+                Voucher vc1 = Voucher.builder()
+                        .ma(vc.getMa())
+                        .soLuong(vc.getSoLuong())
+                        .giaTri(vc.getGiaTri())
+                        .ngayBD(vc.getNgayBD())
+                        .ngayKT(vc.getNgayKT())
+                        .trangThai(1)
+                        .build();
+                service.save(vc1);
+            }
         }
+
         return "redirect:/voucher/hien-thi";
     }
 
@@ -75,11 +89,10 @@ public class VoucherController {
     }
 
     @PostMapping("/voucher/update")
-    public String update(@Valid @ModelAttribute("vc") Voucher vc,
-                         @RequestParam("ngayBD")Date ngayBD,@RequestParam("ngayKT")Date ngayKT) {
+    public String update(@Valid @ModelAttribute("vc") Voucher vc) {
         java.util.Date ngayHienTaiUtil = new java.util.Date();
         Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
-        if (ngayHienTai.after(ngayBD)&& ngayHienTai.before(ngayKT)) {
+        if (ngayHienTai.after(vc.getNgayBD())&& ngayHienTai.before(vc.getNgayKT())) {
             Voucher vc1 = Voucher.builder()
                     .id(idCu)
                     .ma(vc.getMa())
