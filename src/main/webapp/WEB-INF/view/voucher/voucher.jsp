@@ -97,13 +97,11 @@
                 <form:input type="date" path="ngayBD" class="form-control"
                             aria-describedby="basic-addon1"/>
             </div>
-<%--            <div class="form-text"><form:errors path="ngayBD"/></div>--%>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon4">Ngày Kết Thúc</span>
                 <form:input type="date" path="ngayKT" class="form-control"
                        aria-describedby="basic-addon1"/>
             </div>
-<%--            <div class="form-text"><form:errors path="ngayKT"/></div>--%>
             <div class="form-text">${erros}</div>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="submit" class="btn btn-primary">Thêm</button>
