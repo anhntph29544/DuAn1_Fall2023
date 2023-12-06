@@ -55,7 +55,7 @@
 <h1>Quản Lý Voucher</h1>
 <div class="tonginput">
     <div class="timkiem">
-        <form action="/voucher/search" method="get">
+        <form action="/voucher/search" method="get" >
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addo7">Ngày Bắt Đầu</span>
                 <input type="date" name="ngayBD" class="form-control" placeholder="Username"
@@ -66,6 +66,7 @@
                 <input type="date" name="ngayKT" class="form-control" placeholder="Username"
                        aria-label="Username" aria-describedby="basic-addon1">
             </div>
+            <div class="form-text">${erros1}</div>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
             </div>
@@ -81,27 +82,29 @@
             <div class="form-text"><form:errors path="ma"/></div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Số Lượng</span>
-                <form:input type="text" path="soLuong" class="form-control" placeholder="Số Lượng"
+                <form:input type="number" path="soLuong" class="form-control" placeholder="Số Lượng"
                        aria-label="Username" aria-describedby="basic-addon1"/><br>
             </div>
             <div class="form-text"><form:errors path="soLuong"/></div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon2">Giá Trị</span>
-                <form:input type="text" path="giaTri" class="form-control" placeholder="Giá Trị"
+                <form:input type="number" path="giaTri" class="form-control" placeholder="Giá Trị"
                        aria-label="Username" aria-describedby="basic-addon1"/><br>
             </div>
             <div class="form-text"><form:errors path="giaTri"/></div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Ngày Bắt Đầu</span>
-                <form:input type="date" path="ngayBD" class="form-control" placeholder="Username"
-                       aria-label="Username" aria-describedby="basic-addon1"/>
+                <form:input type="date" path="ngayBD" class="form-control"
+                            aria-describedby="basic-addon1"/>
             </div>
+<%--            <div class="form-text"><form:errors path="ngayBD"/></div>--%>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon4">Ngày Kết Thúc</span>
-                <form:input type="date" path="ngayKT" class="form-control" placeholder="Username"
-                       aria-label="Username" aria-describedby="basic-addon1"/>
+                <form:input type="date" path="ngayKT" class="form-control"
+                       aria-describedby="basic-addon1"/>
             </div>
 <%--            <div class="form-text"><form:errors path="ngayKT"/></div>--%>
+            <div class="form-text">${erros}</div>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="submit" class="btn btn-primary">Thêm</button>
             </div>

@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.UUID;
@@ -40,23 +41,20 @@ public class Voucher {
     private String ma;
 
     @Column(name = "so_luong")
-    @NotEmpty(message = "Không được trống")
+    @NotNull(message = "Không được trống")
     @Min(value = 1, message = "Số lượng phải lớn hơn 0")
-    private String soLuong;
+    private Integer soLuong;
 
     @Column(name = "gia_tri")
-    @NotEmpty(message = "Không được trống")
+    @NotNull(message = "Không được trống")
     @Range(min = 1, max = 100, message = "Giá trị phải nằm trong khoảng từ 1 đến 100")
-    private String giaTri;
+    private Integer giaTri;
 
     @Column(name = "ngay_bat_dau")
-//    @NotEmpty(message = "Không được trống")
     private java.sql.Date ngayBD;
 
     @Column(name = "ngay_ket_thuc")
-//    @NotNull(message = "Không được trống")
-//    @Future(message = "Ngày kết thúc phải ở tương lai")
-    private java.util.Date ngayKT;
+    private java.sql.Date ngayKT;
 
     @Column(name = "trang_thai")
     private int trangThai;

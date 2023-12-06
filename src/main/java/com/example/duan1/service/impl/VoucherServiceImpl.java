@@ -28,6 +28,11 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
+    public List<Voucher> getAll() {
+        return repo.findAll();
+    }
+
+    @Override
     public Page<Voucher> search(Date ngayBD, Date ngayKT,int page) {
         for (Voucher vc : repo.findAll()) {
             if (vc.getNgayBD().after(ngayBD) && vc.getNgayBD().before(ngayKT) ||
