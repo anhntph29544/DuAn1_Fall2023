@@ -58,12 +58,12 @@
         <form action="/voucher/search" method="get" >
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addo7">Ngày Bắt Đầu</span>
-                <input type="date" name="ngayBD" class="form-control" placeholder="Username"
+                <input type="date" name="ngayBD" value="${ngayBD}" class="form-control" placeholder="Username"
                        aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon8">Ngày Kết Thúc</span>
-                <input type="date" name="ngayKT" class="form-control" placeholder="Username"
+                <input type="date" name="ngayKT" value="${ngayKT}" class="form-control" placeholder="Username"
                        aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="form-text">${erros1}</div>

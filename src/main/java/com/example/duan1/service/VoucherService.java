@@ -11,7 +11,7 @@ public interface VoucherService {
     Page<Voucher> getDate(int page);
     List<Voucher> getAll();
 
-    Page<Voucher> search(Date ngayBD, Date ngayKT,int page);
+    Page<Voucher> search(String ngayBD, String ngayKT,int page);
 
     void save(Voucher voucher);
 

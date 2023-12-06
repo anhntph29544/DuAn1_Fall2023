@@ -62,12 +62,6 @@ public class VoucherController {
                 redirectAttributes.addFlashAttribute("vc", vc);
                 System.out.println(bindingResult);
             } else {
-//                if (vc.getNgayBD() == null && vc.getNgayKT() == null) {
-//                    // Xử lý khi ngày bắt đầu hoặc ngày kết thúc là null
-//                    model.addAttribute("erros", "Ngày bắt đầu hoặc ngày kết thúc không được để trống");
-//                    model.addAttribute("list", service.getDate(page));
-//                    return "/voucher/voucher";
-//                }
                 if (vc.getNgayKT().compareTo(vc.getNgayBD()) <= 0) {
                     System.out.println(vc.getNgayKT().compareTo(vc.getNgayBD()) <= 0);
                     model.addAttribute("erros", "Ngày Kết Thúc Phải Lớn Hơn Ngày Bắt Đầu");
@@ -153,8 +147,9 @@ public class VoucherController {
     }
 
     @GetMapping("/voucher/search")
-    public String search(@RequestParam("ngayBD") Date ngayBD, @RequestParam("ngayKT") Date ngayKT, Model model,
+    public String search(@RequestParam("ngayBD") String ngayBD, @RequestParam("ngayKT") String ngayKT, Model model,
                          @RequestParam(name = "page", defaultValue = "0") int page) {
+
         Page<Voucher> voucher = service.search(ngayBD, ngayKT, page);
         model.addAttribute("list", voucher);
         model.addAttribute("vc",new Voucher());
