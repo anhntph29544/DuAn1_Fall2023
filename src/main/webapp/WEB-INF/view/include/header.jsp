@@ -24,7 +24,6 @@
                         <li><a class="dropdown-item" href="/khach-hang/hien-thi">Quản Lý Khách Hàng</a></li>
                         <li><a class="dropdown-item" href="/shop-xe/san-pham">Quản Lý Sản Phẩm</a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Thống Kê</a></li>
                         <li><a class="dropdown-item" href="/voucher/hien-thi">Quản Lý Voucher</a></li>
                         <li><a class="dropdown-item" href="/hoa-don/hien-thi">Quản Lý Hóa Đơn</a></li>
 
@@ -40,6 +39,16 @@
                         <li><a class="dropdown-item" href="/shop-xe/kich-thuoc/hien-thi">Quản Lý Kích Thước</a></li>
                         <li><a class="dropdown-item" href="/shop-xe/kieu-dang-xe/hien-thi">Quản Lý Kiểu Dáng</a></li>
                         <li><a class="dropdown-item" href="/shop-xe/thuong-hieu/hien-thi">Quản Lý Thương hiệu</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Thống Kê
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/thong-ke/hien-thi">Thống Kê Doanh Thu</a></li>
+                        <li><a class="dropdown-item" href="/thong-ke/hien-thi/san-pham">Thống Kê Sản Phẩm</a></li>
                     </ul>
                 </li>
             </ul>

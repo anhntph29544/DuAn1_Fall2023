@@ -14,6 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +30,28 @@ public class HoaDonSVImpl implements HoaDonSV {
     @Autowired
     private HoaDonRepository repository;
     private List<HoaDon> listH = new ArrayList<>();
+    //        Date ngayTT1 = null;
+//        Date ngayTT2 = null;
+//        try {
+//                SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy-MM-dd ");
+//            ngayTT1 = formatter3.parse(ngayThanhToan + " 00:00:00 ");
+//            ngayTT2 = formatter3.parse(ngayThanhToan + " 23:59:59 ");
+//
+//            return repository.tinhTongTienTheoNgay(ngayTT1,ngayTT2);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+    @Override
+    public Double thongKe(Date ngayThanhToan1,Date ngayThanhToan2) {
+
+        LocalDateTime startOfDay = ngayThanhToan1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(LocalTime.MIN);
+        LocalDateTime endOfDay = ngayThanhToan2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(LocalTime.MAX);
+        return repository.tinhTongTienTheoNgay(Date.from(startOfDay.atZone(ZoneId.systemDefault()).toInstant()), Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant()));
+    }
+
+//}
+
 
     @Override
     public List<HoaDon> getAll() {
@@ -42,7 +69,7 @@ public class HoaDonSVImpl implements HoaDonSV {
         if (ngayBD == null && ngayKT == null) {
             return repository.ttHD(trangThai);
         }
-        if (trangThai == 3 && ngayBD != null && ngayKT!= null) {
+        if (trangThai == 3 && ngayBD != null && ngayKT != null) {
             return repository.search(ngayBD, ngayKT);
         }
         return repository.search2(ngayBD, ngayKT, trangThai);
@@ -50,7 +77,7 @@ public class HoaDonSVImpl implements HoaDonSV {
 
     @Override
     public Page<HoaDon> search1(Date ngayBD, Date ngayKT, Integer trangThai, int page) {
-        listH= this.search(ngayBD, ngayKT, trangThai);
+        listH = this.search(ngayBD, ngayKT, trangThai);
         List list = this.search(ngayBD, ngayKT, trangThai);
         Pageable pageable = PageRequest.of(page, 5);
         Integer start = (int) pageable.getOffset();
@@ -69,7 +96,6 @@ public class HoaDonSVImpl implements HoaDonSV {
     public HoaDon detail(UUID id) {
         return repository.findById(id).get();
     }
-
 
 
     @Override

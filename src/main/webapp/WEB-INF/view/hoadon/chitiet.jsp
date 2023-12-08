@@ -34,6 +34,7 @@
     <form:form modelAttribute="h1" action="/hoa-don/detail" method="post">
     <div class="ttkh ">
         <h3>Thông Tin Hóa Đơn</h3>
+        <h5>Nhân Viên Xác Nhận : ${h1.nhanVien.hoTen}</h5>
         <div class="">
             <table class="table">
                 <thead>

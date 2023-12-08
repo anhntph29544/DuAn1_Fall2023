@@ -23,8 +23,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -63,6 +66,26 @@ public class HoaDonController {
     private UUID idHDSelect = null;
     private Integer errorSL = 0;
 
+    @GetMapping("/thong-ke/hien-thi")
+    public String thongKe(Model model, @RequestParam(value = "ngayTT1", defaultValue = "") String ngayTT, @RequestParam(value = "ngayTT2", defaultValue = "") String ngayTTT) {
+        Date ngayTT1 = null;
+        Date ngayTT2 = null;
+        if (ngayTT != null && ngayTTT != null) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                ngayTT1 = sdf.parse(ngayTT);
+                ngayTT2 = sdf.parse(ngayTTT);
+                Double tongTien = sv.thongKe(ngayTT1,ngayTT2);
+                model.addAttribute("tongTien", tongTien);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        model.addAttribute("ngayTT1", ngayTT1);
+        model.addAttribute("ngayTT2", ngayTT2);
+        return "thongke/hienThi";
+    }
+
     @GetMapping("/hoa-don/hien-thi")
     public String hienThi(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                           @RequestParam(value = "ngayBD", defaultValue = "") String ngayBDS,
@@ -71,25 +94,24 @@ public class HoaDonController {
         listHD1 = sv.getData(page);
         Date ngayBD = null;
         Date ngayKT = null;
-//        if(ngayBDS != null && ngayKTS != null || ngayBDS != "" && ngayKTS != ""){
-//            try {
-//                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//                ngayBD = sdf.parse(ngayBDS);
-//                ngayKT = sdf.parse(ngayKTS);
-//                System.out.println("hehe");
-//                listHD1 = sv.search1(ngayBD, ngayKT, trangThai, page);
-//                model.addAttribute("ngayBD", ngayBD);
-//                model.addAttribute("ngayKT", ngayKT);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else
-        if (trangThai != 3) {
+        if(ngayBDS != null && ngayKTS != null ){
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                ngayBD = sdf.parse(ngayBDS);
+                ngayKT = sdf.parse(ngayKTS);
+                listHD1 = sv.search1(ngayBD, ngayKT, trangThai, page);
+                model.addAttribute("ngayBD", ngayBD);
+                model.addAttribute("ngayKT", ngayKT);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else if (trangThai != 3) {
             listHD1 = sv.search1(ngayBD, ngayKT, trangThai, page);
         }
         listKH = repository.findAll();
         listSPCT = serviceSPCT.getAll();
         listV = voucherRepository.findAll();
+
         model.addAttribute("listV", listV);
         model.addAttribute("trangThai", trangThai);
         model.addAttribute("listHD", listHD1);
@@ -185,6 +207,7 @@ public class HoaDonController {
         hd.setNgayThanhToan(new java.util.Date());
         hd.setThanhTien(tamTinh);
         hd.setTongTien(tongTien);
+        hd.setNhanVien(TrangChuController.nvDN);
         if (hd.getKhachHang() == null) {
             hd.setKhachHang(sv.KHL());
         }
@@ -197,9 +220,9 @@ public class HoaDonController {
     public String huy() {
         HoaDon hd1 = sv.detail(idHDSelect);
         listHDCT = svHDCT.getListHD(idHDSelect);
-        if (hd1.getVoucher()!= null){
-            Voucher v= hd1.getVoucher();
-            v.setSoLuong(v.getSoLuong()+1);
+        if (hd1.getVoucher() != null) {
+            Voucher v = hd1.getVoucher();
+            v.setSoLuong(v.getSoLuong() + 1);
             voucherService.save(v);
         }
         if (listHDCT != null) {
