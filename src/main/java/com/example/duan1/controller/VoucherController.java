@@ -4,8 +4,11 @@ import com.example.duan1.entity.Voucher;
 import com.example.duan1.service.VoucherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,20 +21,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
-@EnableScheduling
+
 @Controller
 public class VoucherController {
     @Autowired
     private VoucherService service;
     private UUID idCu;
 
+
     @GetMapping("/voucher/hien-thi")
     public String hienthi(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
         Page<Voucher> voucher = service.getDate(page);
         model.addAttribute("list", voucher);
         if (!model.containsAttribute("vc")
-        ){
+        ) {
             model.addAttribute("vc", new Voucher());
         }
         return "/voucher/voucher";
@@ -47,38 +53,49 @@ public class VoucherController {
     @PostMapping("/voucher/add")
 
     public String add(@Valid @ModelAttribute("vc") Voucher vc, BindingResult bindingResult, Model model,
-                      RedirectAttributes redirectAttributes
-                      )  {
-        java.util.Date ngayHienTaiUtil = new java.util.Date();
-        Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
-        if (bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vc", bindingResult);
-            redirectAttributes.addFlashAttribute("vc", vc);
-        } else {
-            if (ngayHienTai.after(vc.getNgayBD())&& ngayHienTai.before(vc.getNgayKT())) {
-                Voucher vc1 = Voucher.builder()
-                        .ma(vc.getMa())
-                        .soLuong(vc.getSoLuong())
-                        .giaTri(vc.getGiaTri())
-                        .ngayBD(vc.getNgayBD())
-                        .ngayKT(vc.getNgayKT())
-                        .trangThai(0)
-                        .build();
-                service.save(vc1);
-            }else {
-                Voucher vc1 = Voucher.builder()
-                        .ma(vc.getMa())
-                        .soLuong(vc.getSoLuong())
-                        .giaTri(vc.getGiaTri())
-                        .ngayBD(vc.getNgayBD())
-                        .ngayKT(vc.getNgayKT())
-                        .trangThai(1)
-                        .build();
-                service.save(vc1);
+                      RedirectAttributes redirectAttributes, @RequestParam(name = "page", defaultValue = "0") int page
+    ) {
+        try {
+            java.util.Date ngayHienTaiUtil = new java.util.Date();
+            Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
+            if (bindingResult.hasErrors()) {
+                redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vc", bindingResult);
+                redirectAttributes.addFlashAttribute("vc", vc);
+            } else {
+                if (vc.getNgayKT().compareTo(vc.getNgayBD()) <= 0) {
+                    model.addAttribute("erros", "Ngày Kết Thúc Phải Lớn Hơn Ngày Bắt Đầu");
+                    model.addAttribute("list", service.getDate(page));
+                    return "/voucher/voucher";
+                } else if (ngayHienTai.after(vc.getNgayBD()) && ngayHienTai.before(vc.getNgayKT())) {
+                    Voucher vc1 = Voucher.builder()
+                            .ma(vc.getMa())
+                            .soLuong(vc.getSoLuong())
+                            .giaTri(vc.getGiaTri())
+                            .ngayBD(vc.getNgayBD())
+                            .ngayKT(vc.getNgayKT())
+                            .trangThai(0)
+                            .build();
+                    service.save(vc1);
+                } else {
+                    Voucher vc1 = Voucher.builder()
+                            .ma(vc.getMa())
+                            .soLuong(vc.getSoLuong())
+                            .giaTri(vc.getGiaTri())
+                            .ngayBD(vc.getNgayBD())
+                            .ngayKT(vc.getNgayKT())
+                            .trangThai(1)
+                            .build();
+                    service.save(vc1);
+                }
             }
+            return "redirect:/voucher/hien-thi";
+
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
-        return "redirect:/voucher/hien-thi";
     }
 
     @GetMapping("/voucher/view-update/{id}")
@@ -90,49 +107,93 @@ public class VoucherController {
     }
 
     @PostMapping("/voucher/update")
-
-    public String update(@Valid @ModelAttribute("vc") Voucher vc) {
+    public String update(@Valid @ModelAttribute("vc") Voucher vc, BindingResult bindingResult, Model model,
+                         @RequestParam(name = "page", defaultValue = "0") int page, RedirectAttributes redirectAttributes) {
         java.util.Date ngayHienTaiUtil = new java.util.Date();
         Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
-        if (ngayHienTai.after(vc.getNgayBD())&& ngayHienTai.before(vc.getNgayKT())) {
-            Voucher vc1 = Voucher.builder()
-                    .id(idCu)
-                    .ma(vc.getMa())
-                    .soLuong(vc.getSoLuong())
-                    .giaTri(vc.getGiaTri())
-                    .ngayBD(vc.getNgayBD())
-                    .ngayKT(vc.getNgayKT())
-                    .trangThai(0)
-                    .build();
-            service.save(vc1);
+        if (bindingResult.hasErrors()) {
+            return "/voucher/update";
         } else {
-            Voucher vc1 = Voucher.builder()
-                    .id(idCu)
-                    .ma(vc.getMa())
-                    .soLuong(vc.getSoLuong())
-                    .giaTri(vc.getGiaTri())
-                    .ngayBD(vc.getNgayBD())
-                    .ngayKT(vc.getNgayKT())
-                    .trangThai(1)
-                    .build();
-            service.save(vc1);
+            if (vc.getNgayKT().compareTo(vc.getNgayBD()) <= 0) {
+                model.addAttribute("erros", "Ngày Kết Thúc Phải Lớn Hơn Ngày Bắt Đầu");
+                model.addAttribute("list", service.getDate(page));
+                return "/voucher/update";
+            } else
+                if (ngayHienTai.after(vc.getNgayBD()) && ngayHienTai.before(vc.getNgayKT())) {
+                Voucher vc1 = Voucher.builder()
+                        .id(idCu)
+                        .ma(vc.getMa())
+                        .soLuong(vc.getSoLuong())
+                        .giaTri(vc.getGiaTri())
+                        .ngayBD(vc.getNgayBD())
+                        .ngayKT(vc.getNgayKT())
+                        .trangThai(0)
+                        .build();
+                service.save(vc1);
+            } else {
+                Voucher vc1 = Voucher.builder()
+                        .id(idCu)
+                        .ma(vc.getMa())
+                        .soLuong(vc.getSoLuong())
+                        .giaTri(vc.getGiaTri())
+                        .ngayBD(vc.getNgayBD())
+                        .ngayKT(vc.getNgayKT())
+                        .trangThai(1)
+                        .build();
+                service.save(vc1);
+            }
         }
-        return "redirect:/voucher/hien-thi";
-    }
+            return "redirect:/voucher/hien-thi";
+        }
 
-    @GetMapping("/voucher/delete/{id}")
-    public String remove(@PathVariable("id") UUID id) {
-        Voucher vc = service.detail(id);
-        vc.setTrangThai(1);
-        service.save(vc);
-        return "redirect:/voucher/hien-thi";
-    }
+        @GetMapping("/voucher/delete/{id}")
+        public String remove (@PathVariable("id") UUID id){
+            service.delete(id);
+            return "redirect:/voucher/hien-thi";
+        }
 
-    @GetMapping("/voucher/search")
-    public String search(@RequestParam("ngayBD") Date ngayBD, @RequestParam("ngayKT") Date ngayKT, Model model,
-                         @RequestParam(name = "page", defaultValue = "0") int page) {
-        Page<Voucher> voucher = service.search(ngayBD, ngayKT, page);
-        model.addAttribute("list", voucher);
-        return "/voucher/voucher";
+        @GetMapping("/voucher/search")
+        public String search (@RequestParam("ngayBD") String ngayBD, @RequestParam("ngayKT") String ngayKT, Model model,
+        @RequestParam(name = "page", defaultValue = "0") int page){
+            Page<Voucher> voucher = service.search(ngayBD, ngayKT, page);
+            model.addAttribute("list", voucher);
+            model.addAttribute("vc", new Voucher());
+            if (ngayKT.compareTo(ngayBD) <= 0) {
+                model.addAttribute("erros1", "Ngày Kết Thúc Phải Lớn Hơn Ngày Bắt Đầu");
+                model.addAttribute("list", service.getDate(page));
+                return "/voucher/voucher";
+            }
+            return "/voucher/voucher";
+        }
+
+        @Configuration
+        @EnableScheduling
+        @ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
+        class kiemTraTrangThai {
+
+        }
+
+        @Scheduled(initialDelay = 1000, fixedDelay = 60 * 12 * 1000)
+        void kiemTra () {
+            java.util.Date ngayHienTaiUtil = new java.util.Date();
+            Date ngayHienTai = new Date(ngayHienTaiUtil.getTime());
+            List<Voucher> allVouchers = service.getAll();
+
+            for (Voucher vc : allVouchers) {
+                boolean found = false;
+                for (int i = 0; i < allVouchers.size(); i++) {
+                    if (ngayHienTai.after(vc.getNgayBD()) && ngayHienTai.before(vc.getNgayKT())) {
+                        vc.setTrangThai(0);
+                        found = true;
+                        service.save(vc);
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    vc.setTrangThai(1);
+                    service.save(vc);
+                }
+            }
+        }
     }
-}

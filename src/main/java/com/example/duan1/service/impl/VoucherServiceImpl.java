@@ -28,14 +28,13 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Page<Voucher> search(Date ngayBD, Date ngayKT,int page) {
-        for (Voucher vc : repo.findAll()) {
-            if (vc.getNgayBD().after(ngayBD) && vc.getNgayBD().before(ngayKT) ||
-                    vc.getNgayKT().after(ngayBD) && vc.getNgayKT().before(ngayKT)) {
-                list.add(vc);
-                break;
-            }
-        }
+    public List<Voucher> getAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Page<Voucher> search(String ngayBD, String ngayKT,int page) {
+        list=repo.search(ngayBD,ngayKT);
         int pageSize = 5;
         int start = page * pageSize;
         int end = Math.min((page + 1) * pageSize, list.size());
