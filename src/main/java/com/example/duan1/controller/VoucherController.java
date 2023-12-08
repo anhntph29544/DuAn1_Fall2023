@@ -51,6 +51,7 @@ public class VoucherController {
     }
 
     @PostMapping("/voucher/add")
+
     public String add(@Valid @ModelAttribute("vc") Voucher vc, BindingResult bindingResult, Model model,
                       RedirectAttributes redirectAttributes, @RequestParam(name = "page", defaultValue = "0") int page
     ) {
@@ -154,7 +155,6 @@ public class VoucherController {
         @GetMapping("/voucher/search")
         public String search (@RequestParam("ngayBD") String ngayBD, @RequestParam("ngayKT") String ngayKT, Model model,
         @RequestParam(name = "page", defaultValue = "0") int page){
-
             Page<Voucher> voucher = service.search(ngayBD, ngayKT, page);
             model.addAttribute("list", voucher);
             model.addAttribute("vc", new Voucher());

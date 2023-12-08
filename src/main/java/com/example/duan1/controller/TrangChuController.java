@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/shop-xe")
 public class TrangChuController {
 
+    public static NhanVien nvDN;
     @Autowired
     private NhanVienRepository nhanVienRepository;
 
@@ -29,7 +30,9 @@ public class TrangChuController {
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password) {
         NhanVien nhanVien = nhanVienRepository.findByEmail(username);
+
         if (nhanVien != null && nhanVien.getMatKhau().equals(password)) {
+            nvDN= nhanVien;
             return "redirect:/shop-xe/trang-chu";
         }
         return "index";

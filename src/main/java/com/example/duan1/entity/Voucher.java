@@ -50,6 +50,7 @@ public class Voucher {
     @Range(min = 1, max = 100, message = "Giá trị phải nằm trong khoảng từ 1 đến 100")
     private Integer giaTri;
 
+
     @Column(name = "ngay_bat_dau")
     private java.sql.Date ngayBD;
 

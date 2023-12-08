@@ -9,6 +9,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script language="javascript" type="text/javascript"><%@include file="spct-add.js" %></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         i {
@@ -43,7 +48,7 @@
                     <label class="form-label">Tên sản phẩm</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="sp" class="form-select">
+                            <form:select path="sp" class="form-select" id="form_sp">
                                 <c:forEach items="${listSP}" var="sp">
                                     <form:option value="${sp}">${sp.ten}</form:option>
                                 </c:forEach>
@@ -80,7 +85,7 @@
                     <label class="form-label">Màu sắc</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="ms" class="form-select">
+                            <form:select path="ms" class="form-select" id="form_ms">
                                 <c:forEach items="${listMS}" var="ms">
                                     <form:option value="${ms}">${ms.ten}</form:option>
                                 </c:forEach>
@@ -99,7 +104,7 @@
                     <label class="form-label">Kiểu dáng xe</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="kdx" class="form-select">
+                            <form:select path="kdx" class="form-select" id="form_kdx">
                                 <c:forEach items="${listKDX}" var="kdx">
                                     <form:option value="${kdx}">${kdx.ten}</form:option>
                                 </c:forEach>
@@ -116,7 +121,7 @@
                     <label class="form-label">Kích thước</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="kt" class="form-select">
+                            <form:select path="kt" class="form-select" id="form_kt">
                                 <c:forEach items="${listKT}" var="kt">
                                     <form:option value="${kt}">${kt.ten}</form:option>
                                 </c:forEach>
@@ -133,7 +138,7 @@
                     <label class="form-label">Thương hiệu</label>
                     <div class="col-md-12 row">
                         <div class="col-md-11">
-                            <form:select path="th" class="form-select">
+                            <form:select path="th" class="form-select" id="form_th">
                                 <c:forEach items="${listTH}" var="th">
                                     <form:option value="${th}">${th.ten}</form:option>
                                 </c:forEach>
@@ -183,10 +188,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/sp/add" modelAttribute="sp1" method="post">
+                    <form id='quick_create_sp'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="tenSP" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">
@@ -217,10 +222,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/ms/add" modelAttribute="ms1" method="post">
+                    <form id='quick_create_ms'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="tenMS" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">
@@ -251,10 +256,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/kdx/add" modelAttribute="kdx1" method="post">
+                    <form id='quick_create_kdx'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="tenKDX" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">
@@ -285,10 +290,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/kt/add" modelAttribute="kt1" method="post">
+                    <form id='quick_create_kt'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="tenKT" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">
@@ -318,10 +323,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/shop-xe/san-pham-chi-tiet/th/add" modelAttribute="th1" method="post">
+                    <form id='quick_create_th'>
                         <div class="mb-3">
                             <label class="col-form-label">Tên</label>
-                            <input name="ten" type="text" class="form-control"/><br>
+                            <input id="tenTH" name="ten" type="text" class="form-control"/><br>
                         </div>
                         <label class="form-label">Trạng thái</label>
                         <div class="mb-3 form-check">

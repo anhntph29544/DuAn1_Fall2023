@@ -1,5 +1,6 @@
 package com.example.duan1.service;
 
+import com.example.duan1.entity.HoaDon;
 import com.example.duan1.entity.Voucher;
 import org.springframework.data.domain.Page;
 
@@ -18,4 +19,6 @@ public interface VoucherService {
     void delete(UUID id);
 
     Voucher detail(UUID id);
+    List<Voucher> getHD();
+
 }

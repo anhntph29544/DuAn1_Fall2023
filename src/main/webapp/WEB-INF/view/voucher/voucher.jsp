@@ -52,6 +52,7 @@
 
 </head>
 <body>
+<jsp:include page="../include/header.jsp"/>
 <h1>Quản Lý Voucher</h1>
 <div class="tonginput">
     <div class="timkiem">
@@ -109,7 +110,6 @@
         </form:form>
     </div>
 </div>
-
 <h3>Danh Sách Vorcher</h3>
 <table class="table" border="1">
     <thead>
@@ -120,8 +120,8 @@
         <th scope="col">Giá trị</th>
         <th scope="col">Ngày Bắt Đầu</th>
         <th scope="col">Ngày Kết Thúc</th>
-        <th scope="col">trang thai</th>
-        <th scope="col">action</th>
+        <th scope="col">Trạng Thái</th>
+        <th scope="col">Hoạt Động</th>
     </tr>
     </thead>
     <tbody>
@@ -130,19 +130,19 @@
             <th scope="row">${stt.index+1}</th>
             <td>${vc.ma}</td>
             <td>${vc.soLuong}</td>
-            <td>${vc.giaTri}</td>
+            <td>${vc.giaTri}%</td>
             <td>${vc.ngayBD}</td>
             <td>${vc.ngayKT}</td>
             <td>${vc.trangThai==0?"Hoạt Động":"Không Hoạt Động"}</td>
             <td>
                 <a href="/voucher/view-update/${vc.id}">
-                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-primary">Sửa</button>
                 </a>
                 <a href="/voucher/detail/${vc.id}">
-                    <button class="btn btn-primary">Detail</button>
+                    <button class="btn btn-primary">Xem Chi Tiết</button>
                 </a>
                 <a href="/voucher/delete/${vc.id}">
-                    <button class="btn btn-primary">Xóa</button>
+                    <button class="btn btn-primary">Hủy</button>
                 </a>
             </td>
         </tr>
