@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface HoaDonSV {
+    Double thongKe(Date ngayThanhToan1,Date ngayThanhToan2);
 
     List<HoaDon> getAll();
 

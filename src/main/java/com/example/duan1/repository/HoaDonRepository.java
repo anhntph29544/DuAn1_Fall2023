@@ -5,6 +5,7 @@ import com.example.duan1.entity.HoaDonChiTiet;
 import com.example.duan1.entity.KhachHang;
 import com.example.duan1.entity.SanPham;
 import com.example.duan1.entity.Voucher;
+import org.hibernate.validator.internal.engine.groups.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ import java.util.UUID;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon, UUID> {
+    @Query("SELECT SUM(hd.tongTien) FROM HoaDon hd where hd.ngayThanhToan between ?1 and ?2  ")
+    Double tinhTongTienTheoNgay(Date ngayThanhToan1,Date ngayThanhToan2);
 
     @Query("Select hd from HoaDon hd where hd.tinhTrang=0 order by hd.ngayThem asc")
     List<HoaDon> CTT();
